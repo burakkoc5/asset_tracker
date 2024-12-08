@@ -25,11 +25,9 @@ class SplashScreen extends StatelessWidget {
             ),
             Text(
               "Asset Tracker",
-              style: TextStyle(
-                color: AppColors.onSurfaceVariant,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                  color: AppColors.onSurfaceVariant,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),

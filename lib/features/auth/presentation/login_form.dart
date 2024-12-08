@@ -58,11 +58,10 @@ class LoginForm extends StatelessWidget {
         onPressed: () {},
         child: Text(
           'Forgot password?',
-          style: TextStyle(
-            color: AppColors.primary, // Yeşil renk
-            fontSize: 12,
-            fontWeight: FontWeight.w600,
-          ),
+          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: AppColors.primary, // Ana Renk
+                fontWeight: FontWeight.w700,
+              ),
         ),
       ),
     );
@@ -73,11 +72,8 @@ class LoginForm extends StatelessWidget {
       center: Center(
         child: Text(
           'Login',
-          style: TextStyle(
-            color: AppColors.onPrimary, // Beyaz renk
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-          ),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: AppColors.onPrimary, fontWeight: FontWeight.bold),
         ),
       ),
       onPressed: () {

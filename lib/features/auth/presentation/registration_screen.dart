@@ -62,15 +62,13 @@ class _RegistrationScreenState extends State<RegistrationScreen>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Column(
+            Column(
               children: [
-                SizedBox(
-                  height: 80,
-                ),
+                Paddings.xxxl.vertical,
                 //SvgPicture.asset('assets/images/welcome.svg'),
                 Text(
                   'Welcome',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 SizedBox(
                   height: 8,
@@ -78,7 +76,12 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                 Text(
                   'Asset Tracker',
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 12),
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+                Image.asset(
+                  'assets/images/logo.png',
+                  width: 150,
+                  height: 150,
                 ),
               ],
             ),
@@ -92,9 +95,8 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                   center: Center(
                     child: Text(
                       'Sign in',
-                      style: TextStyle(
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: AppColors.onPrimary,
-                          fontSize: 14,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -112,10 +114,9 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                   center: Center(
                     child: Text(
                       'Sign up',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.onPrimary),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.onPrimary,
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                   onPressed: () {
@@ -132,7 +133,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                 ),
                 Text(
                   'By signing up, you agree to our terms and conditions',
-                  style: const TextStyle(fontSize: 12),
+                  style: Theme.of(context).textTheme.labelSmall,
                   textAlign: TextAlign.center,
                 )
               ],

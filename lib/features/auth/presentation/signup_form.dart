@@ -71,11 +71,8 @@ class SignupForm extends StatelessWidget {
       center: Center(
         child: Text(
           'Register',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: AppColors.onPrimary,
-          ),
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: AppColors.onPrimary, fontWeight: FontWeight.bold),
         ),
       ),
       onPressed: () {
