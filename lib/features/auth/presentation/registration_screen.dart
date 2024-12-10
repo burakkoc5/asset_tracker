@@ -1,5 +1,5 @@
 import 'package:asset_tracker/core/theme/app_colors.dart';
-import 'package:asset_tracker/core/theme/paddings';
+import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/widgets/bottom_sheet.dart';
 import 'package:asset_tracker/core/widgets/container_button.dart';
 import 'package:asset_tracker/features/auth/presentation/login_form.dart';
@@ -70,7 +70,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                   'Welcome',
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Text(

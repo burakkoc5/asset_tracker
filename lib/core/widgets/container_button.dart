@@ -1,5 +1,5 @@
 import 'package:asset_tracker/core/theme/app_colors.dart';
-import 'package:asset_tracker/core/theme/radiuses';
+import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:flutter/material.dart';
 
 class AppContainerButton extends StatelessWidget {
