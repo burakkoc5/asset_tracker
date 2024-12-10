@@ -1,16 +1,27 @@
-# asset_tracker
+# Asset Tracker
 
-A new Flutter project.
+A mobile application built with Flutter to track assets. You can view details about your assets, including their value and status. The app allows you to add new assets, track their growth, and see their current value trends.
 
-## Getting Started
+**Currently under development.**
 
-This project is a starting point for a Flutter application.
+This project is being developed under the supervision of [Emre Gültekir](https://github.com/E-MRE).
 
-A few resources to get you started if this is your first Flutter project:
+## Screenshots
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### User Screens
+<table>
+  <tr>
+    <td>Splash Screen</td>
+    <td>Registration Screen</td>
+    <td>Sign In Screen</td>
+    <td>Sign Up Screen</td>
+  </tr>
+  <tr>
+    <td width="25%"><img src="readme_images/splash-screen.png" alt="Splash Screen" width="200"></td>
+    <td width="25%"><img src="readme_images/registration-screen.png" alt="Registration Screen" width="200"></td>
+    <td width="25%"><img src="readme_images/signin-window.png" alt="Sign In Screen" width="200"></td>
+    <td width="25%"><img src="readme_images/signup-window.png" alt="Sign Up Screen" width="200"></td>
+  </tr>
+</table>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
