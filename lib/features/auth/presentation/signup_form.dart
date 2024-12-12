@@ -1,8 +1,8 @@
-import 'package:asset_tracker/core/theme/app_colors.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
-import 'package:asset_tracker/core/theme/radiuses.dart';
-import 'package:asset_tracker/core/utils/form_validators.dart';
-import 'package:asset_tracker/core/widgets/container_button.dart';
+import 'package:asset_tracker/features/auth/presentation/widgets/email_textfield_widget.dart';
+import 'package:asset_tracker/features/auth/presentation/widgets/fullname_textfield_widget.dart';
+import 'package:asset_tracker/features/auth/presentation/widgets/registration_button_widget.dart';
+import 'package:asset_tracker/features/auth/presentation/widgets/password_textfield_widget.dart';
 import 'package:flutter/material.dart';
 
 class SignupForm extends StatelessWidget {
@@ -18,68 +18,12 @@ class SignupForm extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Full Name',
-        ),
-        TextFormField(
-          controller: nameController,
-          decoration: InputDecoration(
-            hintText: 'Eg John Doe',
-            border: OutlineInputBorder(
-              borderRadius: Radiuses.sm.all,
-            ),
-          ),
-          validator:
-              FormValidators.fullnameValidate, // Applying fullname validator
-        ),
+        FullnameTextfieldWidget(nameController: nameController),
         Paddings.sm.vertical,
-        const Text(
-          'Email address',
-        ),
-        TextFormField(
-          controller: emailController,
-          decoration: InputDecoration(
-            hintText: 'Eg email@email.com',
-            border: OutlineInputBorder(
-              borderRadius: Radiuses.sm.all,
-            ),
-          ),
-          validator: FormValidators.emailValidate, // Applying email validator
-        ),
+        EmailTextfieldWidget(emailController: emailController),
         Paddings.sm.vertical,
-        const Text(
-          'Password',
-        ),
-        TextFormField(
-          controller: passwordController,
-          obscureText: true,
-          decoration: InputDecoration(
-            hintText: 'Password',
-            border: OutlineInputBorder(
-              borderRadius: Radiuses.sm.all,
-            ),
-          ),
-          validator:
-              FormValidators.passwordValidate, // Applying password validator
-        ),
+        PasswordTextfieldWidget(passwordController: passwordController),
       ],
-    );
-  }
-
-  Widget registerButton(BuildContext context) {
-    return AppContainerButton(
-      center: Center(
-        child: Text(
-          'Register',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppColors.onPrimary, fontWeight: FontWeight.bold),
-        ),
-      ),
-      onPressed: () {
-        if (_formKey.currentState?.validate() ?? false) {
-          // If form is valid register user
-        }
-      },
     );
   }
 
@@ -95,7 +39,15 @@ class SignupForm extends StatelessWidget {
             children: [
               textFieldBuilder(context),
               Paddings.sm.vertical,
-              registerButton(context),
+              RegistrationButtonWidget(
+                formKey: _formKey,
+                buttonText: 'Register',
+                onPressed: () {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    // If the form is valid, register the user
+                  }
+                },
+              )
             ],
           ),
         ),
