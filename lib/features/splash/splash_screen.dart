@@ -1,6 +1,5 @@
 import 'package:asset_tracker/core/constants/app_constants.dart';
 import 'package:asset_tracker/core/routing/app_router.gr.dart';
-import 'package:asset_tracker/core/theme/app_colors.dart';
 import 'package:asset_tracker/core/utils/asset_manager.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -38,9 +37,10 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             Text(
               "Asset Tracker",
-              style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                  color: AppColors.onSurfaceVariant,
-                  fontWeight: FontWeight.bold),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineLarge
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
           ],
         ),

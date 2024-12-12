@@ -1,4 +1,3 @@
-import 'package:asset_tracker/core/theme/app_colors.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +42,7 @@ class AppContainerButton extends StatelessWidget {
           padding: padding ??
               EdgeInsets.only(left: isBig ? 16 : 8, right: isBig ? 16 : 4),
           decoration: BoxDecoration(
-            color: color ?? AppColors.onPrimaryContainer,
+            color: color ?? Theme.of(context).colorScheme.primaryContainer,
             borderRadius: Radiuses.sm.all,
           ),
           height: height ?? 48,

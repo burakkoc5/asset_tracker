@@ -1,4 +1,3 @@
-import 'package:asset_tracker/core/theme/app_colors.dart';
 import 'package:asset_tracker/core/widgets/container_button.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +22,6 @@ class RegistrationButtonWidget extends StatelessWidget {
         child: Text(
           buttonText,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppColors.onPrimary,
                 fontWeight: FontWeight.bold,
               ),
         ),

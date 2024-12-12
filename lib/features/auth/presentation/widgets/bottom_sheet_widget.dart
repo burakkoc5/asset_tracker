@@ -1,4 +1,3 @@
-import 'package:asset_tracker/core/theme/app_colors.dart';
 import 'package:asset_tracker/features/auth/presentation/login_form.dart';
 import 'package:asset_tracker/features/auth/presentation/signup_form.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
@@ -35,9 +34,6 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
           TabBar(
             controller: _tabController,
             dividerColor: Colors.transparent,
-            indicatorColor: AppColors.primary, // Ana Renk
-            labelColor: AppColors.primary, // Ana Renk
-            unselectedLabelColor: AppColors.onPrimaryContainer, // Gri
             tabs: [
               Tab(text: t.registration.signIn.signInText),
               Tab(text: t.registration.signUp.signUpText),

@@ -20,9 +20,9 @@ class SignupForm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FullnameTextfieldWidget(nameController: nameController),
-        Paddings.xs.vertical,
+        Paddings.sm.vertical,
         EmailTextfieldWidget(emailController: emailController),
-        Paddings.xs.vertical,
+        Paddings.sm.vertical,
         PasswordTextfieldWidget(passwordController: passwordController),
       ],
     );
