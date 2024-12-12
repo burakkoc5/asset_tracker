@@ -1,3 +1,4 @@
+import 'package:asset_tracker/core/theme/app_colors.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/widgets/bottom_sheet.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/bottom_sheet_widget.dart';
@@ -32,6 +33,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             Column(
               children: [
                 RegistrationButtonWidget(
+                    color: AppColors.primary,
                     buttonText: 'Sign In',
                     onPressed: () {
                       CustomBottomSheet.show(context,

@@ -41,7 +41,7 @@ class SignupForm extends StatelessWidget {
               Paddings.md.vertical,
               RegistrationButtonWidget(
                 formKey: _formKey,
-                buttonText: 'Register',
+                buttonText: 'Sign Up',
                 onPressed: () {},
               )
             ],

@@ -39,7 +39,7 @@ class LoginForm extends StatelessWidget {
               const ForgotPasswordButtonWidget(),
               Paddings.sm.vertical,
               RegistrationButtonWidget(
-                  formKey: _formKey, buttonText: 'Login', onPressed: () {})
+                  formKey: _formKey, buttonText: 'Sign In', onPressed: () {})
             ],
           ),
         ),

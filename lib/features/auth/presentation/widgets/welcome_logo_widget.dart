@@ -1,4 +1,6 @@
+import 'package:asset_tracker/core/constants/app_constants.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
+import 'package:asset_tracker/core/utils/asset_manager.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeLogoWidget extends StatelessWidget {
@@ -20,9 +22,9 @@ class WelcomeLogoWidget extends StatelessWidget {
           style: Theme.of(context).textTheme.labelMedium,
         ),
         Image.asset(
-          'assets/images/logo.png',
-          width: 150,
-          height: 150,
+          AssetsManager.png.logo,
+          width: AppConstants.appLogoSizeMedium,
+          height: AppConstants.appLogoSizeMedium,
         ),
       ],
     );

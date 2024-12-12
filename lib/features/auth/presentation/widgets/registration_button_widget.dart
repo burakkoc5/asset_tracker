@@ -8,17 +8,20 @@ class RegistrationButtonWidget extends StatelessWidget {
     required this.buttonText,
     required this.onPressed,
     this.formKey,
+    this.color,
   });
   final GlobalKey<FormState>? formKey;
   final String buttonText;
   final Function() onPressed;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return AppContainerButton(
+      color: color,
       center: Center(
         child: Text(
-          'Login',
+          buttonText,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: AppColors.onPrimary,
                 fontWeight: FontWeight.bold,
