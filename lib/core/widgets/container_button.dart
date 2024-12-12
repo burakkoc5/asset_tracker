@@ -1,4 +1,5 @@
 import 'package:asset_tracker/core/theme/app_colors.dart';
+import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,7 @@ class AppContainerButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(width: isBig ? 8 : 0),
+              isBig ? Paddings.xs.horizontal : Container(),
               Expanded(child: center),
             ],
           ),

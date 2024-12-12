@@ -70,9 +70,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                   'Welcome',
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
-                const SizedBox(
-                  height: 8,
-                ),
+                Paddings.xs.vertical,
                 Text(
                   'Asset Tracker',
                   textAlign: TextAlign.center,
@@ -85,9 +83,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                 ),
               ],
             ),
-            const SizedBox(
-              height: 80,
-            ),
+            Paddings.xxxl.vertical,
             Column(
               children: [
                 AppContainerButton(
@@ -107,9 +103,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                         ));
                   },
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                Paddings.sm.vertical,
                 AppContainerButton(
                   center: Center(
                     child: Text(
@@ -128,9 +122,7 @@ class _RegistrationScreenState extends State<RegistrationScreen>
                     );
                   },
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
+                Paddings.sm.vertical,
                 Text(
                   'By signing up, you agree to our terms and conditions',
                   style: Theme.of(context).textTheme.labelSmall,

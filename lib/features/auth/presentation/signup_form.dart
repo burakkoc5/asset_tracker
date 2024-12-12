@@ -32,7 +32,7 @@ class SignupForm extends StatelessWidget {
           validator:
               FormValidators.fullnameValidate, // Applying fullname validator
         ),
-        const SizedBox(height: 16),
+        Paddings.sm.vertical,
         const Text(
           'Email address',
         ),
@@ -46,7 +46,7 @@ class SignupForm extends StatelessWidget {
           ),
           validator: FormValidators.emailValidate, // Applying email validator
         ),
-        const SizedBox(height: 16),
+        Paddings.sm.vertical,
         const Text(
           'Password',
         ),
@@ -94,7 +94,7 @@ class SignupForm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               textFieldBuilder(context),
-              const SizedBox(height: 20),
+              Paddings.sm.vertical,
               registerButton(context),
             ],
           ),
