@@ -17,7 +17,7 @@ class RegistrationButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppContainerButton(
+    return AppContainerButton.normal(
       color: color,
       center: Center(
         child: Text(

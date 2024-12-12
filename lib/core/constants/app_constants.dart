@@ -1,6 +1,16 @@
 class AppConstants {
   AppConstants._();
 
+  /// App Registration Constants
+
+  /// Email Regex
+  /// [email]@[domain].[tld]
+  static const emailRegex = r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,}$';
+
+  /// Password Min Length
+  /// 6
+  static const int passwordMinLength = 6;
+
   /// App Logo Sizes
   /// 50px - xSmall
   static const double appLogoSizeXSmall = 50;
