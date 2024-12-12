@@ -3,12 +3,13 @@ import 'package:asset_tracker/core/widgets/container_button.dart';
 import 'package:flutter/material.dart';
 
 class RegistrationButtonWidget extends StatelessWidget {
-  const RegistrationButtonWidget(
-      {super.key,
-      required this.formKey,
-      required this.buttonText,
-      required this.onPressed});
-  final GlobalKey<FormState> formKey;
+  const RegistrationButtonWidget({
+    super.key,
+    required this.buttonText,
+    required this.onPressed,
+    this.formKey,
+  });
+  final GlobalKey<FormState>? formKey;
   final String buttonText;
   final Function() onPressed;
 
@@ -19,13 +20,17 @@ class RegistrationButtonWidget extends StatelessWidget {
         child: Text(
           'Login',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppColors.onPrimary, fontWeight: FontWeight.bold),
+                color: AppColors.onPrimary,
+                fontWeight: FontWeight.bold,
+              ),
         ),
       ),
       onPressed: () {
-        if (formKey.currentState?.validate() ?? false) {
-          // If the form is valid, login the user
-        }
+        formKey != null
+            ? formKey!.currentState!.validate()
+                ? onPressed()
+                : null
+            : onPressed();
       },
     );
   }

@@ -1,9 +1,8 @@
-import 'package:asset_tracker/core/theme/app_colors.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/widgets/bottom_sheet.dart';
-import 'package:asset_tracker/core/widgets/container_button.dart';
-import 'package:asset_tracker/features/auth/presentation/login_form.dart';
-import 'package:asset_tracker/features/auth/presentation/signup_form.dart';
+import 'package:asset_tracker/features/auth/presentation/widgets/bottom_sheet_widget.dart';
+import 'package:asset_tracker/features/auth/presentation/widgets/registration_button_widget.dart';
+import 'package:asset_tracker/features/auth/presentation/widgets/welcome_logo_widget.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
@@ -15,43 +14,9 @@ class RegistrationScreen extends StatefulWidget {
   State<RegistrationScreen> createState() => _RegistrationScreenState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen>
-    with TickerProviderStateMixin {
-  late TabController _tabController;
-
-  Widget bottomSheetWidget(int index) {
-    _tabController = TabController(
-      length: 2,
-      vsync: this,
-      initialIndex: index,
-    );
-    return Material(
-      child: Column(
-        children: [
-          TabBar(
-            controller: _tabController,
-            dividerColor: Colors.transparent,
-            indicatorColor: AppColors.primary, // Ana Renk
-            labelColor: AppColors.primary, // Ana Renk
-            unselectedLabelColor: AppColors.onPrimaryContainer, // Gri
-            tabs: const [
-              Tab(text: "Sign in"),
-              Tab(text: "Sign up"),
-            ],
-          ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                LoginForm(),
-                SignupForm(),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+class _RegistrationScreenState extends State<RegistrationScreen> {
+  int loginIndex = 0;
+  int signupIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -62,66 +27,27 @@ class _RegistrationScreenState extends State<RegistrationScreen>
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Column(
-              children: [
-                Paddings.xxxl.vertical,
-                //SvgPicture.asset('assets/images/welcome.svg'),
-                Text(
-                  'Welcome',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-                Paddings.xs.vertical,
-                Text(
-                  'Asset Tracker',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.labelMedium,
-                ),
-                Image.asset(
-                  'assets/images/logo.png',
-                  width: 150,
-                  height: 150,
-                ),
-              ],
-            ),
+            const WelcomeLogoWidget(),
             Paddings.xxxl.vertical,
             Column(
               children: [
-                AppContainerButton(
-                  color: AppColors.primary, // Ana Renk
-                  center: Center(
-                    child: Text(
-                      'Sign in',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.onPrimary,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  onPressed: () {
-                    CustomBottomSheet.show(context,
-                        child: bottomSheetWidget(
-                          0,
-                        ));
-                  },
-                ),
+                RegistrationButtonWidget(
+                    buttonText: 'Sign In',
+                    onPressed: () {
+                      CustomBottomSheet.show(context,
+                          child: BottomSheetWidget(
+                            index: loginIndex,
+                          ));
+                    }),
                 Paddings.sm.vertical,
-                AppContainerButton(
-                  center: Center(
-                    child: Text(
-                      'Sign up',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: AppColors.onPrimary,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  onPressed: () {
-                    CustomBottomSheet.show(
-                      context,
-                      child: bottomSheetWidget(
-                        1,
-                      ),
-                    );
-                  },
-                ),
+                RegistrationButtonWidget(
+                    buttonText: 'Sign Up',
+                    onPressed: () {
+                      CustomBottomSheet.show(context,
+                          child: BottomSheetWidget(
+                            index: signupIndex,
+                          ));
+                    }),
                 Paddings.sm.vertical,
                 Text(
                   'By signing up, you agree to our terms and conditions',

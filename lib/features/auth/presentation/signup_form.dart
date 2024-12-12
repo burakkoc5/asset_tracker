@@ -38,15 +38,11 @@ class SignupForm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               textFieldBuilder(context),
-              Paddings.sm.vertical,
+              Paddings.md.vertical,
               RegistrationButtonWidget(
                 formKey: _formKey,
                 buttonText: 'Register',
-                onPressed: () {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    // If the form is valid, register the user
-                  }
-                },
+                onPressed: () {},
               )
             ],
           ),
