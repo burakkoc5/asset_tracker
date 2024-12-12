@@ -1,9 +1,12 @@
 import 'package:asset_tracker/core/routing/app_router.dart';
 import 'package:asset_tracker/core/theme/theme.dart';
 import 'package:asset_tracker/core/theme/util.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  LocaleSettings.useDeviceLocale();
   runApp(const MyApp());
 }
 

@@ -1,5 +1,6 @@
 import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:asset_tracker/core/utils/form_validators.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 class PasswordTextfieldWidget extends StatelessWidget {
@@ -12,14 +13,14 @@ class PasswordTextfieldWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Password',
+        Text(
+          t.registration.password.passwordText,
         ),
         TextFormField(
           controller: passwordController,
           obscureText: true,
           decoration: InputDecoration(
-            hintText: 'Password',
+            hintText: t.registration.password.passwordHint,
             border: OutlineInputBorder(
               borderRadius: Radiuses.sm.all,
             ),

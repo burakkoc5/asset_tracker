@@ -4,6 +4,7 @@ import 'package:asset_tracker/core/widgets/bottom_sheet.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/bottom_sheet_widget.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/registration_button_widget.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/welcome_logo_widget.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               children: [
                 RegistrationButtonWidget(
                     color: AppColors.primary,
-                    buttonText: 'Sign In',
+                    buttonText: t.registration.signIn.signInText,
                     onPressed: () {
                       CustomBottomSheet.show(context,
                           child: BottomSheetWidget(
@@ -43,7 +44,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     }),
                 Paddings.sm.vertical,
                 RegistrationButtonWidget(
-                    buttonText: 'Sign Up',
+                    buttonText: t.registration.signUp.signUpText,
                     onPressed: () {
                       CustomBottomSheet.show(context,
                           child: BottomSheetWidget(
@@ -52,7 +53,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     }),
                 Paddings.sm.vertical,
                 Text(
-                  'By signing up, you agree to our terms and conditions',
+                  t.registration.termsAndConditionsText,
                   style: Theme.of(context).textTheme.labelSmall,
                   textAlign: TextAlign.center,
                 )

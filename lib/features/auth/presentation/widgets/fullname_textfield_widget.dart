@@ -1,5 +1,6 @@
 import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:asset_tracker/core/utils/form_validators.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 class FullnameTextfieldWidget extends StatelessWidget {
@@ -12,13 +13,13 @@ class FullnameTextfieldWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Full Name',
+        Text(
+          t.registration.fullname.fullnameText,
         ),
         TextFormField(
           controller: nameController,
           decoration: InputDecoration(
-            hintText: 'Eg John Doe',
+            hintText: t.registration.fullname.fullnameHint,
             border: OutlineInputBorder(
               borderRadius: Radiuses.sm.all,
             ),

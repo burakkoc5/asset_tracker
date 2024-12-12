@@ -3,6 +3,7 @@ import 'package:asset_tracker/features/auth/presentation/widgets/email_textfield
 import 'package:asset_tracker/features/auth/presentation/widgets/forgot_password_button_widget.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/registration_button_widget.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/password_textfield_widget.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatelessWidget {
@@ -39,7 +40,9 @@ class LoginForm extends StatelessWidget {
               const ForgotPasswordButtonWidget(),
               Paddings.sm.vertical,
               RegistrationButtonWidget(
-                  formKey: _formKey, buttonText: 'Sign In', onPressed: () {})
+                  formKey: _formKey,
+                  buttonText: t.registration.signIn.signInText,
+                  onPressed: () {})
             ],
           ),
         ),

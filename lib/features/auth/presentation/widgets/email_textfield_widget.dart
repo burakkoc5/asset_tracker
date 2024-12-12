@@ -1,5 +1,6 @@
 import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:asset_tracker/core/utils/form_validators.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 class EmailTextfieldWidget extends StatelessWidget {
@@ -12,13 +13,13 @@ class EmailTextfieldWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Email address',
+        Text(
+          t.registration.email.emailText,
         ),
         TextFormField(
           controller: emailController,
           decoration: InputDecoration(
-            hintText: 'Eg name@email.com',
+            hintText: t.registration.email.emailHint,
             border: OutlineInputBorder(
               borderRadius: Radiuses.sm.all,
             ),

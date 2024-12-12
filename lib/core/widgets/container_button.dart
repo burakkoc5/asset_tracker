@@ -4,16 +4,25 @@ import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:flutter/material.dart';
 
 class AppContainerButton extends StatelessWidget {
-  const AppContainerButton({
+  const AppContainerButton.normal({
     required this.center,
     this.height,
-    this.isBig = false,
     this.onPressed,
     this.color,
     this.padding,
     this.margin,
     super.key,
-  });
+  }) : isBig = false;
+
+  const AppContainerButton.big({
+    required this.center,
+    this.height,
+    this.onPressed,
+    this.color,
+    this.padding,
+    this.margin,
+    super.key,
+  }) : isBig = true;
 
   final Widget center;
   final Color? color;

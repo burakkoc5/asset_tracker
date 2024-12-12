@@ -1,6 +1,7 @@
 import 'package:asset_tracker/core/constants/app_constants.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/utils/asset_manager.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeLogoWidget extends StatelessWidget {
@@ -12,12 +13,12 @@ class WelcomeLogoWidget extends StatelessWidget {
       children: [
         Paddings.xxxl.vertical,
         Text(
-          'Welcome',
+          t.registration.welcomeText,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         Paddings.xs.vertical,
         Text(
-          'Asset Tracker',
+          t.core.appName,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.labelMedium,
         ),
