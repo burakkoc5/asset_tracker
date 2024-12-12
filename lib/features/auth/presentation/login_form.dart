@@ -1,8 +1,9 @@
-import 'package:asset_tracker/core/theme/app_colors.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
-import 'package:asset_tracker/core/theme/radiuses.dart';
-import 'package:asset_tracker/core/utils/form_validators.dart';
-import 'package:asset_tracker/core/widgets/container_button.dart';
+import 'package:asset_tracker/features/auth/presentation/widgets/email_textfield_widget.dart';
+import 'package:asset_tracker/features/auth/presentation/widgets/forgot_password_button_widget.dart';
+import 'package:asset_tracker/features/auth/presentation/widgets/registration_button_widget.dart';
+import 'package:asset_tracker/features/auth/presentation/widgets/password_textfield_widget.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatelessWidget {
@@ -18,69 +19,10 @@ class LoginForm extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Email address',
-        ),
-        TextFormField(
-          controller: emailController,
-          decoration: InputDecoration(
-            hintText: 'Eg name@email.com',
-            border: OutlineInputBorder(
-              borderRadius: Radiuses.sm.all,
-            ),
-          ),
-          validator: FormValidators.emailValidate, // Applying email validator
-        ),
-        const SizedBox(height: 16),
-        const Text(
-          'Password',
-        ),
-        TextFormField(
-          controller: passwordController,
-          obscureText: true,
-          decoration: InputDecoration(
-            hintText: 'Password',
-            border: OutlineInputBorder(
-              borderRadius: Radiuses.sm.all,
-            ),
-          ),
-          validator:
-              FormValidators.passwordValidate, // Applying password validator
-        ),
+        EmailTextfieldWidget(emailController: emailController),
+        Paddings.sm.vertical,
+        PasswordTextfieldWidget(passwordController: passwordController)
       ],
-    );
-  }
-
-  Widget forgotPasswordButton(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: TextButton(
-        onPressed: () {},
-        child: Text(
-          'Forgot password?',
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: AppColors.primary, // Ana Renk
-                fontWeight: FontWeight.w700,
-              ),
-        ),
-      ),
-    );
-  }
-
-  Widget loginButton(BuildContext context) {
-    return AppContainerButton(
-      center: Center(
-        child: Text(
-          'Login',
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppColors.onPrimary, fontWeight: FontWeight.bold),
-        ),
-      ),
-      onPressed: () {
-        if (_formKey.currentState?.validate() ?? false) {
-          // If the form is valid, login the user
-        }
-      },
     );
   }
 
@@ -95,9 +37,12 @@ class LoginForm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               textFieldBuilder(context),
-              forgotPasswordButton(context),
-              const SizedBox(height: 20),
-              loginButton(context),
+              const ForgotPasswordButtonWidget(),
+              Paddings.sm.vertical,
+              RegistrationButtonWidget(
+                  formKey: _formKey,
+                  buttonText: t.registration.signIn.signInText,
+                  onPressed: () {})
             ],
           ),
         ),

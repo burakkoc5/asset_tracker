@@ -1,0 +1,39 @@
+{
+  "core": {
+    "appName": "AssetTracker"
+  },
+  "registration": {
+    "welcomeText": "Hoş geldiniz",
+    "termsAndConditionsText": "Kaydolarak, Kullanım Şartlarımızı kabul etmiş olursunuz",
+    "fullname": {
+      "fullnameText": "Tam Ad",
+      "fullnameHint": "Adınızı ve soyadınızı girin",
+      "fullnameValidation": "Tam ad gereklidir"
+    },
+    "email": {
+      "emailText": "E-posta",
+      "emailHint": "E-posta adresinizi girin",
+      "emailValidation": "E-posta gereklidir",
+      "emailInvalid": "Lütfen geçerli bir e-posta adresi girin"
+    },
+    "password": {
+      "passwordText": "Şifre",
+      "passwordHint": "Şifrenizi girin",
+      "passwordValidation": "Şifre gereklidir",
+      "passwordShort": "Şifre en az $minPasswordSize karakter olmalıdır"
+    },
+    "confirmPassword": {
+      "confirmPasswordText": "Şifreyi Onayla",
+      "confirmPasswordHint": "Şifrenizi tekrar girin",
+      "confirmPasswordValidation": "Şifreyi tekrar girmeniz gereklidir",
+      "confirmPasswordMismatch": "Şifreler uyuşmuyor"
+    },
+    "signUp": {
+      "signUpText": "Kayıt ol"
+    },
+    "signIn": {
+      "signInText": "Giriş Yap",
+      "forgotPassword": "Şifrenizi mi unuttunuz?"
+    }
+  }
+}

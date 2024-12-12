@@ -1,0 +1,39 @@
+{
+  "core": {
+    "appName": "AssetTracker"
+  },
+  "registration": {
+    "welcomeText": "Welcome",
+    "termsAndConditionsText": "By signing up, you agree to our Terms and Conditions",
+    "fullname": {
+      "fullnameText": "Full Name",
+      "fullnameHint": "Enter your full name",
+      "fullnameValidation": "Fullname is required"
+    },
+    "email": {
+      "emailText": "Email",
+      "emailHint": "Enter your email",
+      "emailValidation": "Email is required",
+      "emailInvalid": "Please enter a valid email"
+    },
+    "password": {
+      "passwordText": "Password",
+      "passwordHint": "Enter your password",
+      "passwordValidation": "Password is required",
+      "passwordShort": "Password must be at least $minPasswordSize characters"
+    },
+    "confirmPassword": {
+      "confirmPasswordText": "Confirm Password",
+      "confirmPasswordHint": "Re-enter your password",
+      "confirmPasswordValidation": "Re-enter password is required",
+      "confirmPasswordMismatch": "Password does not match"
+    },
+    "signUp": {
+      "signUpText": "Sign Up"
+    },
+    "signIn": {
+      "signInText": "Sign In",
+      "forgotPassword": "Forgot Password?"
+    }
+  }
+}

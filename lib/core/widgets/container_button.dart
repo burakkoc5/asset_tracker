@@ -1,18 +1,27 @@
-import 'package:asset_tracker/core/theme/app_colors.dart';
+import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:flutter/material.dart';
 
 class AppContainerButton extends StatelessWidget {
-  const AppContainerButton({
+  const AppContainerButton.normal({
     required this.center,
     this.height,
-    this.isBig = false,
     this.onPressed,
     this.color,
     this.padding,
     this.margin,
     super.key,
-  });
+  }) : isBig = false;
+
+  const AppContainerButton.big({
+    required this.center,
+    this.height,
+    this.onPressed,
+    this.color,
+    this.padding,
+    this.margin,
+    super.key,
+  }) : isBig = true;
 
   final Widget center;
   final Color? color;
@@ -33,7 +42,7 @@ class AppContainerButton extends StatelessWidget {
           padding: padding ??
               EdgeInsets.only(left: isBig ? 16 : 8, right: isBig ? 16 : 4),
           decoration: BoxDecoration(
-            color: color ?? AppColors.onPrimaryContainer,
+            color: color ?? Theme.of(context).colorScheme.primaryContainer,
             borderRadius: Radiuses.sm.all,
           ),
           height: height ?? 48,
@@ -41,7 +50,7 @@ class AppContainerButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(width: isBig ? 8 : 0),
+              isBig ? Paddings.xs.horizontal : Container(),
               Expanded(child: center),
             ],
           ),

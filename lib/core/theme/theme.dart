@@ -345,6 +345,10 @@ class MaterialTheme {
         ),
         scaffoldBackgroundColor: colorScheme.surface,
         canvasColor: colorScheme.surface,
+        tabBarTheme: TabBarTheme(
+          labelColor: colorScheme.primary,
+          unselectedLabelColor: colorScheme.onSurfaceVariant,
+        ),
       );
 
   List<ExtendedColor> get extendedColors => [];

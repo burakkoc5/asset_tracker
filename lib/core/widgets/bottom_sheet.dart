@@ -1,4 +1,3 @@
-import 'package:asset_tracker/core/theme/app_colors.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +51,6 @@ class CustomBottomSheet {
                       width: 48,
                       height: 6,
                       decoration: BoxDecoration(
-                        color: AppColors.neutralSwatch[70],
                         borderRadius: Radiuses.sm.all,
                       ),
                     ),
