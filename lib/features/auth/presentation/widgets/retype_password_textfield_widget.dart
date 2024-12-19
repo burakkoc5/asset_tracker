@@ -28,13 +28,13 @@ class _ReTypePasswordTextfieldWidgetState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          t.registration.fullname.fullnameText,
+          t.registration.confirmPassword.confirmPasswordText,
         ),
         TextFormField(
           controller: widget.retypepasswordController,
           obscureText: _obscureText,
           decoration: InputDecoration(
-            hintText: t.registration.password.passwordHint,
+            hintText: t.registration.confirmPassword.confirmPasswordHint,
             border: OutlineInputBorder(
               borderRadius: Radiuses.sm.all,
             ),

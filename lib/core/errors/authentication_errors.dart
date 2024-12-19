@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:asset_tracker/i18n/strings.g.dart';
+
 enum AuthenticationErrors {
   //Firebase Authentication Error Codes
   ACCOUNT_EXIST("account-exists-with-different-credential"),
@@ -17,7 +19,7 @@ enum AuthenticationErrors {
   final String value;
 
   // Unexpected error message
-  static String unexpectedErrorMessage = 'Beklenmeyen bir hata oluştu.';
+  static String unexpectedErrorMessage = t.core.errors.unknown;
 
   // Hata mesajını döndürme fonksiyonu
   static String getErrorMessage(String errorName) {
@@ -31,25 +33,25 @@ enum AuthenticationErrors {
   static String printMessage(AuthenticationErrors errorCode) {
     switch (errorCode) {
       case AuthenticationErrors.ACCOUNT_EXIST:
-        return 'Hesap başka bir kimlik ile mevcut.';
+        return t.core.errors.accountExists;
       case AuthenticationErrors.NOT_FOUND:
-        return 'Kullanıcı bulunamadı.';
+        return t.core.errors.notFound;
       case AuthenticationErrors.WRONG_PASSWORD:
-        return 'Girilen şifre yanlış.';
+        return t.core.errors.wrongPassword;
       case AuthenticationErrors.INVALID_EMAIL:
-        return 'Geçersiz e-posta adresi.';
+        return t.core.errors.invalidEmail;
       case AuthenticationErrors.USER_DISABLED:
-        return 'Kullanıcı engellenmiş.';
+        return t.core.errors.userDisabled;
       case AuthenticationErrors.REQUEST_QUOTA:
-        return 'Çok fazla giriş denemesi yapıldı.';
+        return t.core.errors.requestQuota;
       case AuthenticationErrors.INVALID_CRED:
-        return 'Geçersiz kimlik bilgileri.';
+        return t.core.errors.invalidCredentials;
       case AuthenticationErrors.TIMEOUT:
-        return 'İstek zaman aşımına uğradı.';
+        return t.core.errors.timeout;
       case AuthenticationErrors.GENERAL_ERR:
-        return 'Bilinmeyen bir hata oluştu.';
+        return unexpectedErrorMessage;
       default:
-        return 'Bilinmeyen bir hata oluştu.';
+        return unexpectedErrorMessage;
     }
   }
 }
