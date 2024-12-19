@@ -3,17 +3,23 @@ import 'package:asset_tracker/core/utils/form_validators.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
-class PasswordTextfieldWidget extends StatefulWidget {
-  const PasswordTextfieldWidget({super.key, required this.passwordController});
+class ReTypePasswordTextfieldWidget extends StatefulWidget {
+  const ReTypePasswordTextfieldWidget({
+    super.key,
+    required this.passwordController,
+    required this.retypepasswordController,
+  });
 
   final TextEditingController passwordController;
+  final TextEditingController retypepasswordController;
 
   @override
-  State<PasswordTextfieldWidget> createState() =>
-      _PasswordTextfieldWidgetState();
+  State<ReTypePasswordTextfieldWidget> createState() =>
+      _ReTypePasswordTextfieldWidgetState();
 }
 
-class _PasswordTextfieldWidgetState extends State<PasswordTextfieldWidget> {
+class _ReTypePasswordTextfieldWidgetState
+    extends State<ReTypePasswordTextfieldWidget> {
   bool _obscureText = true;
 
   @override
@@ -22,10 +28,10 @@ class _PasswordTextfieldWidgetState extends State<PasswordTextfieldWidget> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          t.registration.password.passwordText,
+          t.registration.fullname.fullnameText,
         ),
         TextFormField(
-          controller: widget.passwordController,
+          controller: widget.retypepasswordController,
           obscureText: _obscureText,
           decoration: InputDecoration(
             hintText: t.registration.password.passwordHint,
@@ -43,8 +49,8 @@ class _PasswordTextfieldWidgetState extends State<PasswordTextfieldWidget> {
               },
             ),
           ),
-          validator:
-              FormValidators.passwordValidate, // Applying password validator
+          validator: (value) => FormValidators.confirmPasswordValidate(
+              value, widget.passwordController.text),
         ),
       ],
     );

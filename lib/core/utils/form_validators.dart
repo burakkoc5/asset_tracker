@@ -36,7 +36,7 @@ class FormValidators {
     return null;
   }
 
-  static String? confirmPasswordValidate(String? value, String? password) {
+  static String? confirmPasswordValidate(String? value, String password) {
     if (value == null || value.isEmpty) {
       return t.registration.confirmPassword.confirmPasswordValidation;
     }
