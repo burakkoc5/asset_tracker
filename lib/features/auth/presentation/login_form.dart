@@ -1,16 +1,21 @@
+import 'package:asset_tracker/core/routing/app_router.gr.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
+import 'package:asset_tracker/features/auth/infrastructure/abstract/authentication_service.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/email_textfield_widget.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/forgot_password_button_widget.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/registration_button_widget.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/password_textfield_widget.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  LoginForm({super.key});
+  LoginForm({super.key, required this.authenticationService});
+
+  final AuthenticationService authenticationService;
 
   final _formKey =
       GlobalKey<FormState>(); // Key for the form to manage validation
@@ -43,7 +48,13 @@ class LoginForm extends StatelessWidget {
                 RegistrationButtonWidget(
                     formKey: _formKey,
                     buttonText: t.registration.signIn.signInText,
-                    onPressed: () {})
+                    onPressed: () {
+                      authenticationService.signInWithEmailAndPassword(
+                          emailController.text, passwordController.text);
+                      print('Signed in');
+                      context.router.replace(ProfileRoute(
+                          authenticationService: authenticationService));
+                    })
               ],
             ),
           ),
