@@ -29,21 +29,23 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: Paddings.md.all,
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              textFieldBuilder(context),
-              const ForgotPasswordButtonWidget(),
-              Paddings.sm.vertical,
-              RegistrationButtonWidget(
-                  formKey: _formKey,
-                  buttonText: t.registration.signIn.signInText,
-                  onPressed: () {})
-            ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: Paddings.md.all,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                textFieldBuilder(context),
+                const ForgotPasswordButtonWidget(),
+                Paddings.sm.vertical,
+                RegistrationButtonWidget(
+                    formKey: _formKey,
+                    buttonText: t.registration.signIn.signInText,
+                    onPressed: () {})
+              ],
+            ),
           ),
         ),
       ),
