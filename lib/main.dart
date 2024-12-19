@@ -1,12 +1,17 @@
 import 'package:asset_tracker/core/routing/app_router.dart';
 import 'package:asset_tracker/core/theme/theme.dart';
 import 'package:asset_tracker/core/theme/util.dart';
+import 'package:asset_tracker/firebase_options.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   LocaleSettings.useDeviceLocale();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
