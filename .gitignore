@@ -31,6 +31,15 @@ migrate_working_dir/
 .pub/
 /build/
 
+# iOS/Xcode related
+ios/Pods/
+ios/Podfile.lock
+ios/Flutter/ephemeral/
+ios/build/
+ios/XCBuildData/
+ios/DerivedData/
+ios/TARGET@v11_hash=*
+
 # Symbolication related
 app.*.symbols
 
