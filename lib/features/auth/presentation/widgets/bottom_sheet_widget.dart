@@ -1,15 +1,12 @@
-import 'package:asset_tracker/features/auth/infrastructure/abstract/authentication_service.dart';
 import 'package:asset_tracker/features/auth/presentation/login_form.dart';
 import 'package:asset_tracker/features/auth/presentation/signup_form.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 class BottomSheetWidget extends StatefulWidget {
-  const BottomSheetWidget(
-      {super.key, required this.index, required this.authenticationService});
+  const BottomSheetWidget({super.key, required this.index});
 
   final int index;
-  final AuthenticationService authenticationService;
 
   @override
   State<BottomSheetWidget> createState() => _BottomSheetWidgetState();
@@ -46,12 +43,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
             child: TabBarView(
               controller: _tabController,
               children: [
-                LoginForm(
-                  authenticationService: widget.authenticationService,
-                ),
-                SignupForm(
-                  authenticationService: widget.authenticationService,
-                ),
+                LoginForm(),
+                SignupForm(),
               ],
             ),
           ),

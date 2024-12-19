@@ -1,7 +1,5 @@
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/widgets/bottom_sheet.dart';
-import 'package:asset_tracker/features/auth/infrastructure/abstract/authentication_service.dart';
-import 'package:asset_tracker/features/auth/infrastructure/concrete/firebase_auth_repository.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/bottom_sheet_widget.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/registration_button_widget.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/welcome_logo_widget.dart';
@@ -20,7 +18,6 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   int loginIndex = 0;
   int signupIndex = 1;
-  AuthenticationService authService = FirebaseAuthRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -39,20 +36,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     buttonText: t.registration.signIn.signInText,
                     onPressed: () {
                       CustomBottomSheet.show(context,
-                          child: BottomSheetWidget(
-                            index: loginIndex,
-                            authenticationService: authService,
-                          ));
+                          child: BottomSheetWidget(index: loginIndex));
                     }),
                 Paddings.sm.vertical,
                 RegistrationButtonWidget(
                     buttonText: t.registration.signUp.signUpText,
                     onPressed: () {
                       CustomBottomSheet.show(context,
-                          child: BottomSheetWidget(
-                            index: signupIndex,
-                            authenticationService: authService,
-                          ));
+                          child: BottomSheetWidget(index: signupIndex));
                     }),
                 Paddings.sm.vertical,
                 Text(
