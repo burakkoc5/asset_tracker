@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "72.0.0"
+  _flutterfire_internals:
+    dependency: transitive
+    description:
+      name: _flutterfire_internals
+      sha256: daa1d780fdecf8af925680c06c86563cdd445deea995d5c9176f1302a2b10bbe
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.48"
   _macros:
     dependency: transitive
     description: dart
@@ -230,6 +238,54 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.1"
+  firebase_auth:
+    dependency: "direct main"
+    description:
+      name: firebase_auth
+      sha256: "03483af6e67b7c4b696ca9386989a6cd5593569e1ac5af6907ea5f7fd9c16d8b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.3.4"
+  firebase_auth_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_auth_platform_interface
+      sha256: "3e1409f48c48930635705b1237ebbdee8c54c19106a0a4fb321dbb4b642820c4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.4.10"
+  firebase_auth_web:
+    dependency: transitive
+    description:
+      name: firebase_auth_web
+      sha256: d83fe95c44d73c9c29b006ac7df3aa5e1b8ce92b62edc44e8f86250951fe2cd0
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.13.5"
+  firebase_core:
+    dependency: "direct main"
+    description:
+      name: firebase_core
+      sha256: "15d761b95dfa2906dfcc31b7fc6fe293188533d1a3ffe78389ba9e69bd7fdbde"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.9.0"
+  firebase_core_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_core_platform_interface
+      sha256: d7253d255ff10f85cfd2adaba9ac17bae878fa3ba577462451163bd9f1d1f0bf
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.4.0"
+  firebase_core_web:
+    dependency: transitive
+    description:
+      name: firebase_core_web
+      sha256: fbc008cf390d909b823763064b63afefe9f02d8afdb13eb3f485b871afee956b
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.19.0"
   fixnum:
     dependency: transitive
     description:
@@ -258,6 +314,11 @@ packages:
     version: "0.0.0"
   flutter_test:
     dependency: "direct dev"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
