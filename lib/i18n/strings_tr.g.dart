@@ -45,6 +45,7 @@ class _TranslationsCoreTr implements TranslationsCoreEn {
 
 	// Translations
 	@override String get appName => 'AssetTracker';
+	@override late final _TranslationsCoreErrorsTr errors = _TranslationsCoreErrorsTr._(_root);
 }
 
 // Path: registration
@@ -62,6 +63,25 @@ class _TranslationsRegistrationTr implements TranslationsRegistrationEn {
 	@override late final _TranslationsRegistrationConfirmPasswordTr confirmPassword = _TranslationsRegistrationConfirmPasswordTr._(_root);
 	@override late final _TranslationsRegistrationSignUpTr signUp = _TranslationsRegistrationSignUpTr._(_root);
 	@override late final _TranslationsRegistrationSignInTr signIn = _TranslationsRegistrationSignInTr._(_root);
+	@override late final _TranslationsRegistrationSignOutTr signOut = _TranslationsRegistrationSignOutTr._(_root);
+}
+
+// Path: core.errors
+class _TranslationsCoreErrorsTr implements TranslationsCoreErrorsEn {
+	_TranslationsCoreErrorsTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get accountExists => 'Bu e-posta adresi zaten kullanımda';
+	@override String get invalidCredentials => 'Geçersiz e-posta veya şifre';
+	@override String get notFound => 'Kullanıcı bulunamadı';
+	@override String get invalidEmail => 'Geçersiz e-posta adresi';
+	@override String get wrongPassword => 'Geçersiz şifre';
+	@override String get userDisabled => 'Kullanıcı devre dışı bırakıldı';
+	@override String get timeout => 'İstek zaman aşımına uğradı. Lütfen tekrar deneyin';
+	@override String get unknown => 'Bilinmeyen bir hata oluştu';
+	@override String get requestQuota => 'Çok fazla giriş denemesi yapıldı. Lütfen daha sonra tekrar deneyin';
 }
 
 // Path: registration.fullname
@@ -136,12 +156,31 @@ class _TranslationsRegistrationSignInTr implements TranslationsRegistrationSignI
 	@override String get forgotPassword => 'Şifrenizi mi unuttunuz?';
 }
 
+// Path: registration.signOut
+class _TranslationsRegistrationSignOutTr implements TranslationsRegistrationSignOutEn {
+	_TranslationsRegistrationSignOutTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get signOutText => 'Çıkış Yap';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 extension on TranslationsTr {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'core.appName': return 'AssetTracker';
+			case 'core.errors.accountExists': return 'Bu e-posta adresi zaten kullanımda';
+			case 'core.errors.invalidCredentials': return 'Geçersiz e-posta veya şifre';
+			case 'core.errors.notFound': return 'Kullanıcı bulunamadı';
+			case 'core.errors.invalidEmail': return 'Geçersiz e-posta adresi';
+			case 'core.errors.wrongPassword': return 'Geçersiz şifre';
+			case 'core.errors.userDisabled': return 'Kullanıcı devre dışı bırakıldı';
+			case 'core.errors.timeout': return 'İstek zaman aşımına uğradı. Lütfen tekrar deneyin';
+			case 'core.errors.unknown': return 'Bilinmeyen bir hata oluştu';
+			case 'core.errors.requestQuota': return 'Çok fazla giriş denemesi yapıldı. Lütfen daha sonra tekrar deneyin';
 			case 'registration.welcomeText': return 'Hoş geldiniz';
 			case 'registration.termsAndConditionsText': return 'Kaydolarak, Kullanım Şartlarımızı kabul etmiş olursunuz';
 			case 'registration.fullname.fullnameText': return 'Tam Ad';
@@ -162,6 +201,7 @@ extension on TranslationsTr {
 			case 'registration.signUp.signUpText': return 'Kayıt ol';
 			case 'registration.signIn.signInText': return 'Giriş Yap';
 			case 'registration.signIn.forgotPassword': return 'Şifrenizi mi unuttunuz?';
+			case 'registration.signOut.signOutText': return 'Çıkış Yap';
 			default: return null;
 		}
 	}

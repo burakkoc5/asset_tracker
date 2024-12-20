@@ -33,26 +33,29 @@ class AppContainerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: onPressed,
+    return Container(
+      decoration: BoxDecoration(
+        color: color ?? Theme.of(context).colorScheme.primaryContainer,
         borderRadius: Radiuses.sm.all,
-        child: Container(
-          padding: padding ??
-              EdgeInsets.only(left: isBig ? 16 : 8, right: isBig ? 16 : 4),
-          decoration: BoxDecoration(
-            color: color ?? Theme.of(context).colorScheme.primaryContainer,
-            borderRadius: Radiuses.sm.all,
-          ),
-          height: height ?? 48,
-          margin: margin,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              isBig ? Paddings.xs.horizontal : Container(),
-              Expanded(child: center),
-            ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onPressed,
+          splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.7),
+          borderRadius: Radiuses.sm.all,
+          child: Container(
+            padding: padding ??
+                EdgeInsets.only(left: isBig ? 16 : 8, right: isBig ? 16 : 4),
+            height: height ?? 48,
+            margin: margin,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                isBig ? Paddings.xs.horizontal : Container(),
+                Expanded(child: center),
+              ],
+            ),
           ),
         ),
       ),

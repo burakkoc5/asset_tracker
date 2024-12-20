@@ -49,6 +49,7 @@ class TranslationsCoreEn {
 
 	// Translations
 	String get appName => 'AssetTracker';
+	late final TranslationsCoreErrorsEn errors = TranslationsCoreErrorsEn._(_root);
 }
 
 // Path: registration
@@ -66,6 +67,25 @@ class TranslationsRegistrationEn {
 	late final TranslationsRegistrationConfirmPasswordEn confirmPassword = TranslationsRegistrationConfirmPasswordEn._(_root);
 	late final TranslationsRegistrationSignUpEn signUp = TranslationsRegistrationSignUpEn._(_root);
 	late final TranslationsRegistrationSignInEn signIn = TranslationsRegistrationSignInEn._(_root);
+	late final TranslationsRegistrationSignOutEn signOut = TranslationsRegistrationSignOutEn._(_root);
+}
+
+// Path: core.errors
+class TranslationsCoreErrorsEn {
+	TranslationsCoreErrorsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get accountExists => 'This email address is already in use';
+	String get invalidCredentials => 'Invalid email or password';
+	String get notFound => 'User not found';
+	String get invalidEmail => 'Invalid email address';
+	String get wrongPassword => 'Incorrect password';
+	String get userDisabled => 'User has been disabled';
+	String get timeout => 'Request timed out. Please try again later';
+	String get unknown => 'An unknown error occurred';
+	String get requestQuota => 'Too many login attempts. Please try again later';
 }
 
 // Path: registration.fullname
@@ -140,12 +160,31 @@ class TranslationsRegistrationSignInEn {
 	String get forgotPassword => 'Forgot Password?';
 }
 
+// Path: registration.signOut
+class TranslationsRegistrationSignOutEn {
+	TranslationsRegistrationSignOutEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get signOutText => 'Sign Out';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'core.appName': return 'AssetTracker';
+			case 'core.errors.accountExists': return 'This email address is already in use';
+			case 'core.errors.invalidCredentials': return 'Invalid email or password';
+			case 'core.errors.notFound': return 'User not found';
+			case 'core.errors.invalidEmail': return 'Invalid email address';
+			case 'core.errors.wrongPassword': return 'Incorrect password';
+			case 'core.errors.userDisabled': return 'User has been disabled';
+			case 'core.errors.timeout': return 'Request timed out. Please try again later';
+			case 'core.errors.unknown': return 'An unknown error occurred';
+			case 'core.errors.requestQuota': return 'Too many login attempts. Please try again later';
 			case 'registration.welcomeText': return 'Welcome';
 			case 'registration.termsAndConditionsText': return 'By signing up, you agree to our Terms and Conditions';
 			case 'registration.fullname.fullnameText': return 'Full Name';
@@ -166,6 +205,7 @@ extension on Translations {
 			case 'registration.signUp.signUpText': return 'Sign Up';
 			case 'registration.signIn.signInText': return 'Sign In';
 			case 'registration.signIn.forgotPassword': return 'Forgot Password?';
+			case 'registration.signOut.signOutText': return 'Sign Out';
 			default: return null;
 		}
 	}

@@ -1,6 +1,17 @@
 {
   "core": {
-    "appName": "AssetTracker"
+    "appName": "AssetTracker",
+    "errors": {
+      "accountExists": "Bu e-posta adresi zaten kullanımda",
+      "invalidCredentials": "Geçersiz e-posta veya şifre",
+      "notFound": "Kullanıcı bulunamadı",
+      "invalidEmail": "Geçersiz e-posta adresi",
+      "wrongPassword": "Geçersiz şifre",
+      "userDisabled": "Kullanıcı devre dışı bırakıldı",
+      "timeout": "İstek zaman aşımına uğradı. Lütfen tekrar deneyin",
+      "unknown": "Bilinmeyen bir hata oluştu",
+      "requestQuota": "Çok fazla giriş denemesi yapıldı. Lütfen daha sonra tekrar deneyin"
+    }
   },
   "registration": {
     "welcomeText": "Hoş geldiniz",
@@ -34,6 +45,10 @@
     "signIn": {
       "signInText": "Giriş Yap",
       "forgotPassword": "Şifrenizi mi unuttunuz?"
+    },
+
+    "signOut": {
+      "signOutText": "Çıkış Yap"
     }
   }
 }

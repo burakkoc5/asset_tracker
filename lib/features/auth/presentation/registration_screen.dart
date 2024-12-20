@@ -36,18 +36,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     buttonText: t.registration.signIn.signInText,
                     onPressed: () {
                       CustomBottomSheet.show(context,
-                          child: BottomSheetWidget(
-                            index: loginIndex,
-                          ));
+                          child: BottomSheetWidget(index: loginIndex));
                     }),
                 Paddings.sm.vertical,
                 RegistrationButtonWidget(
                     buttonText: t.registration.signUp.signUpText,
                     onPressed: () {
                       CustomBottomSheet.show(context,
-                          child: BottomSheetWidget(
-                            index: signupIndex,
-                          ));
+                          child: BottomSheetWidget(index: signupIndex));
                     }),
                 Paddings.sm.vertical,
                 Text(
