@@ -1,13 +1,17 @@
-import 'package:asset_tracker/core/routing/app_router.dart';
+import 'package:asset_tracker/app/config/app_init.dart';
+import 'package:asset_tracker/app/config/app_providers.dart';
+import 'package:asset_tracker/app/routing/app_router.dart';
 import 'package:asset_tracker/core/theme/theme.dart';
 import 'package:asset_tracker/core/theme/util.dart';
-import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  LocaleSettings.useDeviceLocale();
-  runApp(const MyApp());
+void main() async {
+  AppInit.init();
+  runApp(MultiBlocProvider(
+    providers: AppProviders.getProviders(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

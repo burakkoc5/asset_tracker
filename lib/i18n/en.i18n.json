@@ -1,6 +1,17 @@
 {
   "core": {
-    "appName": "AssetTracker"
+    "appName": "AssetTracker",
+    "errors": {
+      "accountExists": "This email address is already in use",
+      "invalidCredentials": "Invalid email or password",
+      "notFound": "User not found",
+      "invalidEmail": "Invalid email address",
+      "wrongPassword": "Incorrect password",
+      "userDisabled": "User has been disabled",
+      "timeout": "Request timed out. Please try again later",
+      "unknown": "An unknown error occurred",
+      "requestQuota": "Too many login attempts. Please try again later"
+    }
   },
   "registration": {
     "welcomeText": "Welcome",
@@ -34,6 +45,9 @@
     "signIn": {
       "signInText": "Sign In",
       "forgotPassword": "Forgot Password?"
+    },
+    "signOut": {
+      "signOutText": "Sign Out"
     }
   }
 }
