@@ -1,4 +1,4 @@
-import 'package:asset_tracker/core/widgets/container_button.dart';
+import 'package:asset_tracker/app/widgets/container_button.dart';
 import 'package:flutter/material.dart';
 
 class RegistrationButtonWidget extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:asset_tracker/core/routing/app_router.gr.dart';
+import 'package:asset_tracker/app/routing/app_router.gr.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/features/auth/application/authentication_cubit.dart';
 import 'package:asset_tracker/features/auth/application/authentication_state.dart';

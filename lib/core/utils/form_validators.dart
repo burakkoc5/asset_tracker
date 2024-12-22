@@ -1,4 +1,4 @@
-import 'package:asset_tracker/core/constants/app_constants.dart';
+import 'package:asset_tracker/app/constants/app_constants.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
 
 class FormValidators {

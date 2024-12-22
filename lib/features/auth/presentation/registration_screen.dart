@@ -1,5 +1,5 @@
 import 'package:asset_tracker/core/theme/paddings.dart';
-import 'package:asset_tracker/core/widgets/bottom_sheet.dart';
+import 'package:asset_tracker/app/widgets/bottom_sheet.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/bottom_sheet_widget.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/registration_button_widget.dart';
 import 'package:asset_tracker/features/auth/presentation/widgets/welcome_logo_widget.dart';
