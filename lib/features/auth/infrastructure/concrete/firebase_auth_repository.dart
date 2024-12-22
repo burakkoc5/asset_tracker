@@ -1,7 +1,7 @@
-import 'package:asset_tracker/features/auth/infrastructure/abstract/authentication_service.dart';
+import 'package:asset_tracker/features/auth/infrastructure/abstract/authentication_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class FirebaseAuthRepository extends AuthenticationService {
+class FirebaseAuthRepository extends AuthenticationRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override

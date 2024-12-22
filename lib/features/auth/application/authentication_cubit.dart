@@ -1,20 +1,21 @@
 import 'package:asset_tracker/features/auth/application/authentication_state.dart';
 import 'package:asset_tracker/core/errors/firebase_auth_exception_extension.dart';
-import 'package:asset_tracker/features/auth/infrastructure/abstract/authentication_service.dart';
+import 'package:asset_tracker/features/auth/infrastructure/abstract/authentication_repository.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
-  AuthenticationCubit(this._authenticationService)
+  AuthenticationCubit(this._AuthenticationRepository)
       : super(const AuthenticationStateUnauthenticated());
 
-  final AuthenticationService _authenticationService;
+  final AuthenticationRepository _AuthenticationRepository;
 
   Future<void> signin(String email, String password) async {
     emit(const AuthenticationStateLoading());
     try {
-      await _authenticationService.signInWithEmailAndPassword(email, password);
+      await _AuthenticationRepository.signInWithEmailAndPassword(
+          email, password);
       emit(const AuthenticationStateAuthenticated());
     } on FirebaseAuthException catch (e) {
       emit(AuthenticationStateError(e.getErrorMessage()));
@@ -26,7 +27,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> signup(String email, String password) async {
     emit(const AuthenticationStateLoading());
     try {
-      await _authenticationService.signUpWithEmailAndPassword(email, password);
+      await _AuthenticationRepository.signUpWithEmailAndPassword(
+          email, password);
       emit(const AuthenticationStateAuthenticated());
     } on FirebaseAuthException catch (e) {
       emit(AuthenticationStateError(e.getErrorMessage()));
@@ -38,7 +40,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> signout() async {
     emit(const AuthenticationStateLoading());
     try {
-      await _authenticationService.signOut();
+      await _AuthenticationRepository.signOut();
       emit(const AuthenticationStateUnauthenticated());
     } on FirebaseAuthException catch (e) {
       emit(AuthenticationStateError(e.getErrorMessage()));

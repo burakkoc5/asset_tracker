@@ -1,26 +1,17 @@
-import 'package:asset_tracker/core/routing/app_router.dart';
+import 'package:asset_tracker/app/config/app_init.dart';
+import 'package:asset_tracker/app/config/app_providers.dart';
+import 'package:asset_tracker/app/routing/app_router.dart';
 import 'package:asset_tracker/core/theme/theme.dart';
 import 'package:asset_tracker/core/theme/util.dart';
-import 'package:asset_tracker/core/utils/setup_locator.dart';
-import 'package:asset_tracker/features/auth/application/authentication_cubit.dart';
-import 'package:asset_tracker/firebase_options.dart';
-import 'package:asset_tracker/i18n/strings.g.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  setupLocator();
-  LocaleSettings.useDeviceLocale();
-
-  runApp(MultiBlocProvider(providers: [
-    BlocProvider<AuthenticationCubit>(
-        create: (context) => getIt<AuthenticationCubit>()),
-  ], child: const MyApp()));
+  AppInit.init();
+  runApp(MultiBlocProvider(
+    providers: AppProviders.getProviders(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {

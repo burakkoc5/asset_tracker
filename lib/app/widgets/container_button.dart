@@ -46,7 +46,9 @@ class AppContainerButton extends StatelessWidget {
           borderRadius: Radiuses.sm.all,
           child: Container(
             padding: padding ??
-                EdgeInsets.only(left: isBig ? 16 : 8, right: isBig ? 16 : 4),
+                EdgeInsets.only(
+                    left: isBig ? Paddings.md.value : Paddings.sm.value,
+                    right: isBig ? Paddings.md.value : Paddings.xxs.value),
             height: height ?? 48,
             margin: margin,
             child: Row(

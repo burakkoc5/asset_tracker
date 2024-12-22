@@ -1,4 +1,4 @@
-import 'package:asset_tracker/core/routing/app_router.gr.dart';
+import 'package:asset_tracker/app/routing/app_router.gr.dart';
 import 'package:auto_route/auto_route.dart';
 
 @AutoRouterConfig()
