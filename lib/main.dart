@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
-  AppInit.init();
+  await AppInit.init();
   runApp(MultiBlocProvider(
     providers: AppProviders.getProviders(),
     child: const MyApp(),

@@ -47,7 +47,7 @@ class SignupForm extends StatelessWidget {
       body: BlocListener<AuthenticationCubit, AuthenticationState>(
         listener: (context, state) {
           if (state is AuthenticationStateAuthenticated) {
-            context.router.push(const ProfileRoute());
+            context.router.push(const HomeRoute());
           } else if (state is AuthenticationStateError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.errorMessage)),

@@ -46,6 +46,8 @@ ios/TARGET@v11_hash=*
 firebase.json
 lib/firebase_options.dart
 
+# Secrets
+.env
 
 # Symbolication related
 app.*.symbols
