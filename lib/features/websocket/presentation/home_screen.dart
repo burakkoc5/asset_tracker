@@ -1,6 +1,5 @@
 import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
 import 'package:asset_tracker/features/websocket/domain/currency.dart';
-import 'package:asset_tracker/features/websocket/domain/price_changed_data_model.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,16 +19,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Socket Tracker'),
+        title: const Text('Socket Tracker'),
       ),
       body: BlocBuilder<SocketCubit, SocketState>(
         builder: (context, state) {
           if (state is SocketLoading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is SocketError) {
             return Center(child: Text('Error: ${state.error}'));
           } else if (state is SocketConnected) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is SocketDataReceived) {
             isDisconnected = false;
             return _buildDataReceivedUI(context, state.data);
@@ -37,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
             isDisconnected = true;
             return _buildDataReceivedUI(context, state.data);
           } else {
-            return Center(child: Text('Initializing...'));
+            return const Center(child: Text('Initializing...'));
           }
         },
       ),
@@ -52,10 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Text('Received Data',
                 style: Theme.of(context).textTheme.displaySmall),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             if (isDisconnected)
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
+              const Padding(
+                padding: EdgeInsets.only(top: 20),
                 child: Text(
                   'Connection lost. Showing last available data...',
                   style: TextStyle(color: Colors.red),
@@ -70,13 +69,14 @@ class _HomeScreenState extends State<HomeScreen> {
               shrinkWrap:
                   true, // To avoid scrolling issues within a SingleChildScrollView
               physics:
-                  NeverScrollableScrollPhysics(), // Disable scrolling of ListView
+                  const NeverScrollableScrollPhysics(), // Disable scrolling of ListView
               itemCount: response.data.length,
               itemBuilder: (context, index) {
                 final entry = response.data.entries.toList()[index];
                 Currency currency = entry.value;
                 return Card(
-                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                   child: ListTile(
                     title: Text(currency.code),
                     subtitle: Column(

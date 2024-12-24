@@ -17,6 +17,7 @@ class SocketRepositoryImpl<T> implements SocketRepository<T> {
     );
   }
 
+  @override
   void sendMessage(WebSocketChannel channel, String message) {
     channel.sink.add(message);
   }
