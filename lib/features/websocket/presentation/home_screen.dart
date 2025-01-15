@@ -1,5 +1,7 @@
 import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
 import 'package:asset_tracker/features/websocket/domain/currency.dart';
+import 'package:asset_tracker/features/websocket/presentation/currency_card.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,14 +21,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Socket Tracker'),
+        title: Text(t.home.title),
       ),
       body: BlocBuilder<SocketCubit, SocketState>(
         builder: (context, state) {
           if (state is SocketLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is SocketError) {
-            return Center(child: Text('Error: ${state.error}'));
+            return Center(
+                child: Text(t.socket.status.error(message: state.error)));
           } else if (state is SocketConnected) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is SocketDataReceived) {
@@ -36,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             isDisconnected = true;
             return _buildDataReceivedUI(context, state.data);
           } else {
-            return const Center(child: Text('Initializing...'));
+            return Center(child: Text(t.home.initializing));
           }
         },
       ),
@@ -44,54 +47,75 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildDataReceivedUI(BuildContext context, response) {
+    final lastUpdate = DateTime.fromMillisecondsSinceEpoch(response.meta.time);
+    final now = DateTime.now();
+    final difference = now.difference(lastUpdate);
+
+    String getUpdateText() {
+      if (difference.inSeconds < 60) {
+        return t.currency.time.seconds(count: difference.inSeconds);
+      } else if (difference.inMinutes < 60) {
+        return t.currency.time.minutes(count: difference.inMinutes);
+      } else if (difference.inHours < 24) {
+        return t.currency.time.hours(count: difference.inHours);
+      } else {
+        return t.currency.time.days(count: difference.inDays);
+      }
+    }
+
     return Center(
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Received Data',
-                style: Theme.of(context).textTheme.displaySmall),
-            const SizedBox(height: 20),
             if (isDisconnected)
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: Text(
-                  'Connection lost. Showing last available data...',
-                  style: TextStyle(color: Colors.red),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                child: Card(
+                  color: Colors.red,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.error_outline, color: Colors.white),
+                        const SizedBox(width: 8),
+                        Text(
+                          t.core.errors.socketDisconnected,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-
-            // Time from int
-            Text(
-                'Time: ${DateTime.fromMillisecondsSinceEpoch(response.meta.time)}'),
-            // Using ListView.builder to display the currency data
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.update,
+                    size: 16,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    t.currency.details.lastUpdateTime(time: getUpdateText()),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
+              ),
+            ),
             ListView.builder(
-              shrinkWrap:
-                  true, // To avoid scrolling issues within a SingleChildScrollView
-              physics:
-                  const NeverScrollableScrollPhysics(), // Disable scrolling of ListView
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: response.data.length,
               itemBuilder: (context, index) {
                 final entry = response.data.entries.toList()[index];
                 Currency currency = entry.value;
-                return Card(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-                  child: ListTile(
-                    title: Text(currency.code),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Alis: ${currency.alis}'),
-                        Text('Satis: ${currency.satis}'),
-                        Text('Tarih: ${currency.tarih}'),
-                        Text('Dusuk: ${currency.dusuk}'),
-                        Text('Yuksek: ${currency.yuksek}'),
-                        Text('Kapanis: ${currency.kapanis}'),
-                      ],
-                    ),
-                  ),
-                );
+                return CurrencyCard(currency: currency);
               },
             ),
           ],

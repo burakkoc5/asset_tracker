@@ -18,12 +18,21 @@ class SocketRepositoryImpl<T> implements SocketRepository<T> {
   }
 
   @override
-  void sendMessage(WebSocketChannel channel, String message) {
+  void sendMessage(String message) {
     channel.sink.add(message);
   }
 
   @override
   Future<void> disconnect() async {
     await channel.sink.close();
+  }
+
+  @override
+  bool isConnected() {
+    try {
+      return channel.closeCode == null;
+    } catch (e) {
+      return false;
+    }
   }
 }

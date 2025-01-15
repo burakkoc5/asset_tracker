@@ -1,15 +1,22 @@
 import 'dart:convert';
 
+import 'package:asset_tracker/features/websocket/application/socket_message_type.dart';
 import 'package:asset_tracker/features/websocket/domain/currency.dart';
 import 'package:asset_tracker/features/websocket/domain/meta.dart';
 import 'package:asset_tracker/features/websocket/domain/price_changed_data_model.dart';
 import 'package:asset_tracker/features/websocket/infrastructure/socket_repository.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:bloc/bloc.dart';
 import 'dart:async';
 
 part 'socket_state.dart';
 
 class SocketCubit extends Cubit<SocketState> {
+  static const _retryDelaySeconds = 5;
+  static const _maxRetryAttempts = 3;
+
+  int _retryCount = 0;
+  Timer? _reconnectTimer;
   final SocketRepository socketRepository;
   PriceChangedDataModel currentData =
       PriceChangedDataModel(data: {}, meta: Meta(time: 0));
@@ -18,58 +25,111 @@ class SocketCubit extends Cubit<SocketState> {
     _connect();
   }
 
+  @override
+  Future<void> close() {
+    _reconnectTimer?.cancel();
+    socketRepository.disconnect();
+    return super.close();
+  }
+
   void _connect() {
     emit(SocketLoading());
     try {
       socketRepository.connect();
+      _retryCount = 0;
       emit(SocketConnected());
       _listenToSocket();
     } catch (e) {
-      emit(SocketError(e.toString()));
-      _retryConnection();
+      if (_retryCount < _maxRetryAttempts) {
+        emit(SocketError(
+          t.core.errors.socketConnection(
+            error: e.toString(),
+            current: (_retryCount + 1).toString(),
+            max: _maxRetryAttempts.toString(),
+          ),
+        ));
+        _retryConnection();
+      } else {
+        emit(SocketError(t.core.errors.maxRetryReached));
+      }
     }
   }
 
   void _listenToSocket() {
     socketRepository.channel.stream.listen(
       (data) {
-        if (data.toString().startsWith('0')) {
-          print('Data 0 ile aslıyor 40 gönnder');
-          sendMessage('40');
+        print(t.socket.logs.receivedData(data: data.toString()));
+        if (data.toString().startsWith(SocketMessageType.handshake.value)) {
+          print(t.socket.logs.handshakeReceived);
+          sendMessage(SocketMessageType.subscribe.value);
           emit(SocketLoading());
-        } else if (data.toString().startsWith('42')) {
-          if (currentData.data.isEmpty) {
-            print('Data set for the first time');
-            PriceChangedDataModel firstData = parseReceivedData(
-                data.toString().substring(19, data.toString().length - 1));
-
-            currentData = firstData;
-            emit(SocketDataReceived(currentData));
-          } else {
-            print('Data updated');
-            updatedData(parseReceivedData(
-                data.toString().substring(19, data.toString().length - 1)));
-            print(currentData.data);
-            emit(SocketDataReceived(currentData));
-          }
+        } else if (data.toString().startsWith(SocketMessageType.data.value)) {
+          _handleDataMessage(data.toString());
         }
       },
       onError: (error) {
-        emit(SocketError(error.toString()));
+        print(t.socket.logs.connectionLost);
+        emit(SocketError(
+          t.socket.status.error(
+            message: error.toString(),
+          ),
+        ));
         _retryConnection();
       },
       onDone: () {
-        emit(SocketDisconnected(currentData));
-        _retryConnection();
+        print(t.socket.logs.connectionClosed);
+        _reconnectAndResubscribe();
       },
     );
   }
 
+  void _handleDataMessage(String rawMessage) {
+    String rawData = rawMessage;
+    int jsonStart = rawData.indexOf('{');
+    int jsonEnd = rawData.lastIndexOf('}');
+
+    if (jsonStart != -1 && jsonEnd != -1) {
+      String jsonData = rawData.substring(jsonStart, jsonEnd + 1);
+      if (currentData.data.isEmpty) {
+        print(t.socket.logs.initialDataReceived);
+        PriceChangedDataModel firstData = parseReceivedData(jsonData);
+        currentData = firstData;
+      } else {
+        print(t.socket.logs.dataUpdated);
+        updatedData(parseReceivedData(jsonData));
+      }
+      emit(SocketDataReceived(currentData));
+    }
+  }
+
+  void _reconnectAndResubscribe() {
+    _reconnectTimer?.cancel();
+    _reconnectTimer = Timer(const Duration(seconds: 1), () {
+      if (!socketRepository.isConnected()) {
+        print(t.socket.logs.connectionLost);
+        _connect();
+      } else {
+        print(t.socket.logs.tryingResubscribe);
+        sendMessage(SocketMessageType.subscribe.value);
+      }
+    });
+  }
+
   Future<void> sendMessage(String message) async {
     try {
-      socketRepository.channel.sink.add(message);
+      if (socketRepository.isConnected()) {
+        socketRepository.channel.sink.add(message);
+      } else {
+        print(t.socket.logs.cannotSendMessage);
+        _reconnectAndResubscribe();
+      }
     } catch (e) {
-      emit(SocketError(e.toString()));
+      emit(SocketError(
+        t.socket.status.error(
+          message: e.toString(),
+        ),
+      ));
+      _reconnectAndResubscribe();
     }
   }
 
@@ -79,46 +139,49 @@ class SocketCubit extends Cubit<SocketState> {
   }
 
   void _retryConnection() {
-    Future.delayed(const Duration(seconds: 5), () {
-      _connect();
-    });
+    _retryCount++;
+    if (_retryCount <= _maxRetryAttempts) {
+      Future.delayed(const Duration(seconds: _retryDelaySeconds), () {
+        _connect();
+      });
+    }
   }
 
   PriceChangedDataModel parseReceivedData(String data) {
-    dynamic jsonList = jsonDecode(data); // Decoding the list
+    try {
+      dynamic jsonList = jsonDecode(data);
+      final response = PriceChangedDataModel.fromJson(jsonList);
 
-    final response = PriceChangedDataModel.fromJson(jsonList);
-
-    return PriceChangedDataModel(
-      data: response.data,
-      meta: response.meta, // Meta bilgileri olduğu gibi gönder
-    );
+      return PriceChangedDataModel(
+        data: response.data,
+        meta: response.meta,
+      );
+    } catch (e) {
+      print(t.socket.logs.jsonParseError(error: e.toString()));
+      return currentData;
+    }
   }
 
   // Mevcut verilerle yeni gelen veriyi karşılaştırarak sadece değişen verileri alır
   void updatedData(PriceChangedDataModel newData) {
-    Map<String, Currency> updatedData = {};
+    Map<String, Currency> changedData = {};
 
-    newData.data.forEach((key, value) {
-      // Eğer eski veride değişiklik varsa, o veriyi güncelle
-      if (currentData.data.containsKey(key)) {
-        if (_isCurrencyChanged(currentData.data[key]!, value)) {
-          currentData.data[key] = value; // Currency değişti, güncelle
-        }
-      } else {
-        // Yeni gelen currency, mevcut veride yoksa, yeni ekleyelim
-        updatedData[key] = value;
+    newData.data.forEach((key, newCurrency) {
+      if (!currentData.data.containsKey(key) ||
+          _isCurrencyChanged(currentData.data[key]!, newCurrency)) {
+        changedData[key] = newCurrency;
       }
     });
 
-    // Güncellenmiş currency verisini döndür
-    currentData.meta.time = newData.meta.time;
-    currentData.data.addAll(updatedData);
+    if (changedData.isNotEmpty) {
+      currentData =
+          currentData.updateData(changedData).copyWith(meta: newData.meta);
+    }
   }
 
   // Currency objesinin değişip değişmediğini kontrol eder
   bool _isCurrencyChanged(Currency oldCurrency, Currency newCurrency) {
-    print('Old Currency: $oldCurrency');
+    print(t.socket.logs.oldCurrencyLog(currency: oldCurrency.toString()));
 
     return oldCurrency.alis != newCurrency.alis ||
         oldCurrency.satis != newCurrency.satis ||

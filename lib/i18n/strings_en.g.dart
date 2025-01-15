@@ -38,7 +38,10 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final TranslationsCoreEn core = TranslationsCoreEn._(_root);
+	late final TranslationsSocketEn socket = TranslationsSocketEn._(_root);
+	late final TranslationsCurrencyEn currency = TranslationsCurrencyEn._(_root);
 	late final TranslationsRegistrationEn registration = TranslationsRegistrationEn._(_root);
+	late final TranslationsHomeEn home = TranslationsHomeEn._(_root);
 }
 
 // Path: core
@@ -50,6 +53,28 @@ class TranslationsCoreEn {
 	// Translations
 	String get appName => 'AssetTracker';
 	late final TranslationsCoreErrorsEn errors = TranslationsCoreErrorsEn._(_root);
+}
+
+// Path: socket
+class TranslationsSocketEn {
+	TranslationsSocketEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsSocketStatusEn status = TranslationsSocketStatusEn._(_root);
+	late final TranslationsSocketLogsEn logs = TranslationsSocketLogsEn._(_root);
+}
+
+// Path: currency
+class TranslationsCurrencyEn {
+	TranslationsCurrencyEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final TranslationsCurrencyDetailsEn details = TranslationsCurrencyDetailsEn._(_root);
+	late final TranslationsCurrencyTimeEn time = TranslationsCurrencyTimeEn._(_root);
 }
 
 // Path: registration
@@ -70,6 +95,19 @@ class TranslationsRegistrationEn {
 	late final TranslationsRegistrationSignOutEn signOut = TranslationsRegistrationSignOutEn._(_root);
 }
 
+// Path: home
+class TranslationsHomeEn {
+	TranslationsHomeEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Asset Tracker';
+	String get initializing => 'Initializing...';
+	String get disconnected => 'Disconnected';
+	String get connected => 'Connected';
+}
+
 // Path: core.errors
 class TranslationsCoreErrorsEn {
 	TranslationsCoreErrorsEn._(this._root);
@@ -86,6 +124,70 @@ class TranslationsCoreErrorsEn {
 	String get timeout => 'Request timed out. Please try again later';
 	String get unknown => 'An unknown error occurred';
 	String get requestQuota => 'Too many login attempts. Please try again later';
+	String socketConnection({required Object error, required Object current, required Object max}) => 'Connection error: ${error}\nRetrying ${current}/${max}';
+	String get maxRetryReached => 'Maximum connection attempts reached. Please try again later';
+	String get socketDisconnected => 'Connection lost. Showing last available data...';
+}
+
+// Path: socket.status
+class TranslationsSocketStatusEn {
+	TranslationsSocketStatusEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get connecting => 'Connecting...';
+	String get connected => 'Connected';
+	String get disconnected => 'Disconnected';
+	String error({required Object message}) => 'Error: ${message}';
+}
+
+// Path: socket.logs
+class TranslationsSocketLogsEn {
+	TranslationsSocketLogsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get handshakeReceived => 'Handshake received, sending subscribe message';
+	String get initialDataReceived => 'Initial data received';
+	String get dataUpdated => 'Data updated';
+	String get connectionClosed => 'Socket connection closed';
+	String get tryingResubscribe => 'Trying to resubscribe...';
+	String get connectionLost => 'Connection lost, attempting to reconnect...';
+	String get cannotSendMessage => 'Cannot send message: socket is not connected';
+	String jsonParseError({required Object error}) => 'Error parsing JSON data: ${error}';
+	String oldCurrencyLog({required Object currency}) => 'Old Currency: ${currency}';
+	String receivedData({required Object data}) => 'Received data: ${data}';
+}
+
+// Path: currency.details
+class TranslationsCurrencyDetailsEn {
+	TranslationsCurrencyDetailsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get buy => 'Buy';
+	String get sell => 'Sell';
+	String get lowest => 'Lowest';
+	String get highest => 'Highest';
+	String get closing => 'Closing';
+	String get lastUpdate => 'Last Update';
+	String lastUpdateTime({required Object time}) => '${time} ago';
+}
+
+// Path: currency.time
+class TranslationsCurrencyTimeEn {
+	TranslationsCurrencyTimeEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String seconds({required Object count}) => '${count} seconds';
+	String minutes({required Object count}) => '${count} minutes';
+	String hours({required Object count}) => '${count} hours';
+	String days({required Object count}) => '${count} days';
 }
 
 // Path: registration.fullname
@@ -185,6 +287,34 @@ extension on Translations {
 			case 'core.errors.timeout': return 'Request timed out. Please try again later';
 			case 'core.errors.unknown': return 'An unknown error occurred';
 			case 'core.errors.requestQuota': return 'Too many login attempts. Please try again later';
+			case 'core.errors.socketConnection': return ({required Object error, required Object current, required Object max}) => 'Connection error: ${error}\nRetrying ${current}/${max}';
+			case 'core.errors.maxRetryReached': return 'Maximum connection attempts reached. Please try again later';
+			case 'core.errors.socketDisconnected': return 'Connection lost. Showing last available data...';
+			case 'socket.status.connecting': return 'Connecting...';
+			case 'socket.status.connected': return 'Connected';
+			case 'socket.status.disconnected': return 'Disconnected';
+			case 'socket.status.error': return ({required Object message}) => 'Error: ${message}';
+			case 'socket.logs.handshakeReceived': return 'Handshake received, sending subscribe message';
+			case 'socket.logs.initialDataReceived': return 'Initial data received';
+			case 'socket.logs.dataUpdated': return 'Data updated';
+			case 'socket.logs.connectionClosed': return 'Socket connection closed';
+			case 'socket.logs.tryingResubscribe': return 'Trying to resubscribe...';
+			case 'socket.logs.connectionLost': return 'Connection lost, attempting to reconnect...';
+			case 'socket.logs.cannotSendMessage': return 'Cannot send message: socket is not connected';
+			case 'socket.logs.jsonParseError': return ({required Object error}) => 'Error parsing JSON data: ${error}';
+			case 'socket.logs.oldCurrencyLog': return ({required Object currency}) => 'Old Currency: ${currency}';
+			case 'socket.logs.receivedData': return ({required Object data}) => 'Received data: ${data}';
+			case 'currency.details.buy': return 'Buy';
+			case 'currency.details.sell': return 'Sell';
+			case 'currency.details.lowest': return 'Lowest';
+			case 'currency.details.highest': return 'Highest';
+			case 'currency.details.closing': return 'Closing';
+			case 'currency.details.lastUpdate': return 'Last Update';
+			case 'currency.details.lastUpdateTime': return ({required Object time}) => '${time} ago';
+			case 'currency.time.seconds': return ({required Object count}) => '${count} seconds';
+			case 'currency.time.minutes': return ({required Object count}) => '${count} minutes';
+			case 'currency.time.hours': return ({required Object count}) => '${count} hours';
+			case 'currency.time.days': return ({required Object count}) => '${count} days';
 			case 'registration.welcomeText': return 'Welcome';
 			case 'registration.termsAndConditionsText': return 'By signing up, you agree to our Terms and Conditions';
 			case 'registration.fullname.fullnameText': return 'Full Name';
@@ -206,6 +336,10 @@ extension on Translations {
 			case 'registration.signIn.signInText': return 'Sign In';
 			case 'registration.signIn.forgotPassword': return 'Forgot Password?';
 			case 'registration.signOut.signOutText': return 'Sign Out';
+			case 'home.title': return 'Asset Tracker';
+			case 'home.initializing': return 'Initializing...';
+			case 'home.disconnected': return 'Disconnected';
+			case 'home.connected': return 'Connected';
 			default: return null;
 		}
 	}

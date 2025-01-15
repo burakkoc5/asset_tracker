@@ -22,17 +22,8 @@ class PriceChangedDataModel {
 
   // Yeni gelen verileri mevcut verilerle güncellemek için
   PriceChangedDataModel updateData(Map<String, Currency> newData) {
-    Map<String, Currency> updatedData = Map.from(data);
-
-    // Yalnızca değişen verileri güncelle
-    newData.forEach((key, value) {
-      if (updatedData.containsKey(key)) {
-        updatedData[key] = value; // Currency değişti, güncelle
-      }
-    });
-
-    return PriceChangedDataModel(
-      data: updatedData,
+    return copyWith(
+      data: {...data, ...newData},
       meta: meta,
     );
   }
@@ -42,5 +33,15 @@ class PriceChangedDataModel {
       'data': data.map((key, value) => MapEntry(key, value.toJson())),
       'meta': meta.toJson(),
     };
+  }
+
+  PriceChangedDataModel copyWith({
+    Map<String, Currency>? data,
+    Meta? meta,
+  }) {
+    return PriceChangedDataModel(
+      data: data ?? Map.from(this.data),
+      meta: meta ?? this.meta,
+    );
   }
 }

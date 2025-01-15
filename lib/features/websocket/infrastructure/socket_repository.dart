@@ -5,5 +5,6 @@ abstract class SocketRepository<T> {
 
   WebSocketChannel connect();
   Future<void> disconnect();
-  void sendMessage(WebSocketChannel channel, String message);
+  void sendMessage(String message);
+  bool isConnected();
 }
