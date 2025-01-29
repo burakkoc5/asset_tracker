@@ -13,7 +13,7 @@ class SearchBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: Paddings.sm.all,
+      padding: Paddings.xs.all,
       child: TextField(
         onChanged: onChanged,
         decoration: InputDecoration(
@@ -34,7 +34,7 @@ class SearchBarWidget extends StatelessWidget {
           filled: true,
           fillColor: Colors.white,
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              Paddings.xs.symmetric(horizontal: true, vertical: false),
         ),
       ),
     );

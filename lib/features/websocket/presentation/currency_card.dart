@@ -1,3 +1,4 @@
+import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/features/websocket/domain/currency.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class CurrencyCardState extends State<CurrencyCard>
     final satisColor = isSatisUp ? Colors.green.shade700 : Colors.red.shade700;
 
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: Paddings.xxs.all,
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
@@ -36,7 +37,7 @@ class CurrencyCardState extends State<CurrencyCard>
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: Paddings.md.all,
               child: Row(
                 children: [
                   Expanded(
@@ -52,7 +53,7 @@ class CurrencyCardState extends State<CurrencyCard>
                               style: Theme.of(context).textTheme.titleMedium,
                               overflow: TextOverflow.ellipsis,
                             ),
-                            const SizedBox(width: 8),
+                            Paddings.xs.horizontal,
                             Text(
                               '(${widget.currency.code})',
                               style: Theme.of(context)
@@ -70,7 +71,7 @@ class CurrencyCardState extends State<CurrencyCard>
                                   color: Colors.green, size: 16),
                           ],
                         ),
-                        const SizedBox(height: 8),
+                        Paddings.xs.horizontal,
                         Row(
                           children: [
                             Icon(
@@ -120,7 +121,7 @@ class CurrencyCardState extends State<CurrencyCard>
                           ),
                         ],
                       ),
-                      const SizedBox(height: 4),
+                      Paddings.xxs.vertical,
                       Row(
                         children: [
                           Text("${t.currency.details.sell}: "),
@@ -161,10 +162,10 @@ class CurrencyCardState extends State<CurrencyCard>
               child: _expanded
                   ? Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.all(16),
+                      padding: Paddings.md.all,
                       decoration: BoxDecoration(
-                        color:
-                            theme.colorScheme.surfaceVariant.withOpacity(0.3),
+                        color: theme.colorScheme.surfaceContainerHighest
+                            .withValues(alpha: 0.3),
                         borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(12),
                           bottomRight: Radius.circular(12),
@@ -179,20 +180,20 @@ class CurrencyCardState extends State<CurrencyCard>
                             icon: Icons.arrow_downward,
                             color: Colors.red.shade700,
                           ),
-                          const SizedBox(height: 8),
+                          Paddings.xs.horizontal,
                           _DetailRow(
                             label: t.currency.details.highest,
                             value: "₺${widget.currency.yuksek}",
                             icon: Icons.arrow_upward,
                             color: Colors.green.shade700,
                           ),
-                          const SizedBox(height: 8),
+                          Paddings.xs.horizontal,
                           _DetailRow(
                             label: t.currency.details.closing,
                             value: "₺${widget.currency.kapanis}",
                             icon: Icons.schedule,
                           ),
-                          const SizedBox(height: 8),
+                          Paddings.xs.horizontal,
                           _DetailRow(
                             label: t.currency.details.lastUpdate,
                             value: widget.currency.tarih,

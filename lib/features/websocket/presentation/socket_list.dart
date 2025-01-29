@@ -1,3 +1,4 @@
+import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
 import 'package:asset_tracker/features/websocket/presentation/currency_card.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
@@ -64,11 +65,11 @@ class _SocketListState extends State<SocketList> {
         children: [
           if (isDisconnected)
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              padding: Paddings.md.all,
               child: Card(
                 color: Colors.red,
                 child: Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: Paddings.sm.all,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -84,7 +85,7 @@ class _SocketListState extends State<SocketList> {
               ),
             ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: Paddings.sm.only(left: true),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
