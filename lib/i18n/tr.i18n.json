@@ -10,7 +10,47 @@
       "userDisabled": "Kullanıcı devre dışı bırakıldı",
       "timeout": "İstek zaman aşımına uğradı. Lütfen tekrar deneyin",
       "unknown": "Bilinmeyen bir hata oluştu",
-      "requestQuota": "Çok fazla giriş denemesi yapıldı. Lütfen daha sonra tekrar deneyin"
+      "requestQuota": "Çok fazla giriş denemesi yapıldı. Lütfen daha sonra tekrar deneyin",
+      "socketConnection": "Bağlantı hatası: $error\nYeniden deneme $current/$max",
+      "maxRetryReached": "Maksimum bağlantı deneme sayısına ulaşıldı. Lütfen daha sonra tekrar deneyin",
+      "socketDisconnected": "Bağlantı kesildi. Son alınan veriler gösteriliyor..."
+    }
+  },
+  "socket": {
+    "status": {
+      "connecting": "Bağlanıyor...",
+      "connected": "Bağlandı",
+      "disconnected": "Bağlantı Kesildi",
+      "error": "Hata: $message"
+    },
+    "logs": {
+      "handshakeReceived": "El sıkışma alındı, abone mesajı gönderiliyor",
+      "initialDataReceived": "İlk veri alındı",
+      "dataUpdated": "Veri güncellendi",
+      "connectionClosed": "Soket bağlantısı kapandı",
+      "tryingResubscribe": "Yeniden abone olmaya çalışılıyor...",
+      "connectionLost": "Bağlantı koptu, yeniden bağlanmaya çalışılıyor...",
+      "cannotSendMessage": "Mesaj gönderilemedi: soket bağlı değil",
+      "jsonParseError": "JSON verisi ayrıştırma hatası: $error",
+      "oldCurrencyLog": "Eski Para Birimi: $currency",
+      "receivedData": "Alınan veri: $data"
+    }
+  },
+  "currency": {
+    "details": {
+      "buy": "Alış",
+      "sell": "Satış",
+      "lowest": "En Düşük",
+      "highest": "En Yüksek",
+      "closing": "Kapanış",
+      "lastUpdate": "Son Güncelleme",
+      "lastUpdateTime": "$time önce"
+    },
+    "time": {
+      "seconds": "$count saniye önce",
+      "minutes": "$count dakika önce",
+      "hours": "$count saat önce",
+      "days": "$count gün önce"
     }
   },
   "registration": {
@@ -50,5 +90,11 @@
     "signOut": {
       "signOutText": "Çıkış Yap"
     }
+  },
+  "home": {
+    "title": "Asset Tracker",
+    "initializing": "Başlatılıyor...",
+    "disconnected": "Bağlantı Koptu",
+    "connected": "Bağlantı Kuruldu"
   }
 }

@@ -6,15 +6,15 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
-  AuthenticationCubit(this._AuthenticationRepository)
+  AuthenticationCubit(this._authenticationRepository)
       : super(const AuthenticationStateUnauthenticated());
 
-  final AuthenticationRepository _AuthenticationRepository;
+  final AuthenticationRepository _authenticationRepository;
 
   Future<void> signin(String email, String password) async {
     emit(const AuthenticationStateLoading());
     try {
-      await _AuthenticationRepository.signInWithEmailAndPassword(
+      await _authenticationRepository.signInWithEmailAndPassword(
           email, password);
       emit(const AuthenticationStateAuthenticated());
     } on FirebaseAuthException catch (e) {
@@ -27,7 +27,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> signup(String email, String password) async {
     emit(const AuthenticationStateLoading());
     try {
-      await _AuthenticationRepository.signUpWithEmailAndPassword(
+      await _authenticationRepository.signUpWithEmailAndPassword(
           email, password);
       emit(const AuthenticationStateAuthenticated());
     } on FirebaseAuthException catch (e) {
@@ -40,7 +40,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   Future<void> signout() async {
     emit(const AuthenticationStateLoading());
     try {
-      await _AuthenticationRepository.signOut();
+      await _authenticationRepository.signOut();
       emit(const AuthenticationStateUnauthenticated());
     } on FirebaseAuthException catch (e) {
       emit(AuthenticationStateError(e.getErrorMessage()));

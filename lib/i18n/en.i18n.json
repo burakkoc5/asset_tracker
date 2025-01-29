@@ -10,7 +10,47 @@
       "userDisabled": "User has been disabled",
       "timeout": "Request timed out. Please try again later",
       "unknown": "An unknown error occurred",
-      "requestQuota": "Too many login attempts. Please try again later"
+      "requestQuota": "Too many login attempts. Please try again later",
+      "socketConnection": "Connection error: $error\nRetrying $current/$max",
+      "maxRetryReached": "Maximum connection attempts reached. Please try again later",
+      "socketDisconnected": "Connection lost. Showing last available data..."
+    }
+  },
+  "socket": {
+    "status": {
+      "connecting": "Connecting...",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "error": "Error: $message"
+    },
+    "logs": {
+      "handshakeReceived": "Handshake received, sending subscribe message",
+      "initialDataReceived": "Initial data received",
+      "dataUpdated": "Data updated",
+      "connectionClosed": "Socket connection closed",
+      "tryingResubscribe": "Trying to resubscribe...",
+      "connectionLost": "Connection lost, attempting to reconnect...",
+      "cannotSendMessage": "Cannot send message: socket is not connected",
+      "jsonParseError": "Error parsing JSON data: $error",
+      "oldCurrencyLog": "Old Currency: $currency",
+      "receivedData": "Received data: $data"
+    }
+  },
+  "currency": {
+    "details": {
+      "buy": "Buy",
+      "sell": "Sell",
+      "lowest": "Lowest",
+      "highest": "Highest",
+      "closing": "Closing",
+      "lastUpdate": "Last Update",
+      "lastUpdateTime": "$time ago"
+    },
+    "time": {
+      "seconds": "$count seconds",
+      "minutes": "$count minutes",
+      "hours": "$count hours",
+      "days": "$count days"
     }
   },
   "registration": {
@@ -49,5 +89,11 @@
     "signOut": {
       "signOutText": "Sign Out"
     }
+  },
+  "home": {
+    "title": "Asset Tracker",
+    "initializing": "Initializing...",
+    "disconnected": "Disconnected",
+    "connected": "Connected"
   }
 }

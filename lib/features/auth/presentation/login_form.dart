@@ -38,7 +38,7 @@ class LoginForm extends StatelessWidget {
         listener: (context, state) {
           if (state is AuthenticationStateAuthenticated) {
             context.router.popUntilRoot();
-            context.router.replace(const ProfileRoute());
+            context.router.replace(const HomeRoute());
           } else if (state is AuthenticationStateError) {
             // Handle the error state and display a snackbar or alert dialog
             ScaffoldMessenger.of(context).showSnackBar(

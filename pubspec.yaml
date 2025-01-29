@@ -45,6 +45,8 @@ dependencies:
   get_it: ^8.0.3
   flutter_bloc: ^8.1.6
   bloc: ^8.1.4
+  web_socket_channel: ^3.0.1
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +73,7 @@ flutter:
 
   assets:
     - assets/images/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
