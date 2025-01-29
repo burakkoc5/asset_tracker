@@ -44,7 +44,10 @@
       "highest": "En Yüksek",
       "closing": "Kapanış",
       "lastUpdate": "Son Güncelleme",
-      "lastUpdateTime": "$time önce"
+      "lastUpdateTime": "Son güncelleme: $time"
+    },
+    "search": {
+      "hint": "Para birimi ara..."
     },
     "time": {
       "seconds": "$count saniye önce",
@@ -96,5 +99,8 @@
     "initializing": "Başlatılıyor...",
     "disconnected": "Bağlantı Koptu",
     "connected": "Bağlantı Kuruldu"
+  },
+  "profile": {
+    "title": "Profil"
   }
 }

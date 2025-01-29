@@ -7,10 +7,10 @@ class CurrencyCard extends StatefulWidget {
   final Currency currency;
 
   @override
-  _CurrencyCardState createState() => _CurrencyCardState();
+  CurrencyCardState createState() => CurrencyCardState();
 }
 
-class _CurrencyCardState extends State<CurrencyCard>
+class CurrencyCardState extends State<CurrencyCard>
     with TickerProviderStateMixin {
   bool _expanded = false;
 
@@ -43,12 +43,32 @@ class _CurrencyCardState extends State<CurrencyCard>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          Currency.currencyNames[widget.currency.code] ??
-                              widget.currency.code,
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Text(
+                              Currency.currencyNames[widget.currency.code] ??
+                                  widget.currency.code,
+                              style: Theme.of(context).textTheme.titleMedium,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              '(${widget.currency.code})',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    color: Colors.grey[600],
+                                  ),
+                            ),
+                            if (widget.currency.dir.isDown)
+                              const Icon(Icons.arrow_downward,
+                                  color: Colors.red, size: 16),
+                            if (widget.currency.dir.isUp)
+                              const Icon(Icons.arrow_upward,
+                                  color: Colors.green, size: 16),
+                          ],
                         ),
                         const SizedBox(height: 8),
                         Row(

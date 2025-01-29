@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// AppProviders is a class that provides a list of providers that can be used in the app.
 class AppProviders {
   static List<BlocProvider> getProviders() {
-    print('Registering SocketCubit');
     return [
       BlocProvider<AuthenticationCubit>(
         create: (context) => getIt<AuthenticationCubit>(),
