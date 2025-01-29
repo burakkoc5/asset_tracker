@@ -12,8 +12,10 @@ import 'dart:async';
 part 'socket_state.dart';
 
 class SocketCubit extends Cubit<SocketState> {
-  static const _retryDelaySeconds = 5;
-  static const _maxRetryAttempts = 3;
+  //final
+
+  final int _retryDelaySeconds = 5;
+  final int _maxRetryAttempts = 3;
 
   int _retryCount = 0;
   Timer? _reconnectTimer;
@@ -134,7 +136,7 @@ class SocketCubit extends Cubit<SocketState> {
   void _retryConnection() {
     _retryCount++;
     if (_retryCount <= _maxRetryAttempts) {
-      Future.delayed(const Duration(seconds: _retryDelaySeconds), () {
+      Future.delayed(Duration(seconds: _retryDelaySeconds), () {
         _connect();
       });
     }
@@ -173,11 +175,11 @@ class SocketCubit extends Cubit<SocketState> {
 
   // Currency objesinin değişip değişmediğini kontrol eder
   bool _isCurrencyChanged(Currency oldCurrency, Currency newCurrency) {
-    return oldCurrency.alis != newCurrency.alis ||
-        oldCurrency.satis != newCurrency.satis ||
-        oldCurrency.dusuk != newCurrency.dusuk ||
-        oldCurrency.yuksek != newCurrency.yuksek ||
-        oldCurrency.kapanis != newCurrency.kapanis;
+    return oldCurrency.buy != newCurrency.buy ||
+        oldCurrency.sell != newCurrency.sell ||
+        oldCurrency.low != newCurrency.low ||
+        oldCurrency.high != newCurrency.high ||
+        oldCurrency.close != newCurrency.close;
   }
 
   void filterData(String query) {
