@@ -11,22 +11,16 @@ final getIt = GetIt.instance;
 
 void setupLocator() {
   // Register services
-  print('Registering AuthenticationRepository...');
   getIt.registerSingleton<AuthenticationRepository>(
       FirebaseAuthRepositoryImpl());
 
-  print('Registering AuthenticationCubit...');
   getIt.registerFactory<AuthenticationCubit>(
       () => AuthenticationCubit(getIt<AuthenticationRepository>()));
 
-  print('Registering SocketRepository...');
   getIt.registerSingleton<SocketRepository<PriceChangedDataModel>>(
       SocketRepositoryImpl<PriceChangedDataModel>(
           socketName: 'HAREM_SOCKET_URL'));
 
-  print('Registering SocketCubit...');
   getIt.registerFactory<SocketCubit>(() => SocketCubit(
       socketRepository: getIt<SocketRepository<PriceChangedDataModel>>()));
-
-  print('GetIt setup completed.');
 }

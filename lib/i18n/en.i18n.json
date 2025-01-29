@@ -44,13 +44,16 @@
       "highest": "Highest",
       "closing": "Closing",
       "lastUpdate": "Last Update",
-      "lastUpdateTime": "$time ago"
+      "lastUpdateTime": "Last update: $time"
+    },
+    "search": {
+      "hint": "Search currency..."
     },
     "time": {
-      "seconds": "$count seconds",
-      "minutes": "$count minutes",
-      "hours": "$count hours",
-      "days": "$count days"
+      "seconds": "$count seconds ago",
+      "minutes": "$count minutes ago",
+      "hours": "$count hours ago",
+      "days": "$count days ago"
     }
   },
   "registration": {
@@ -95,5 +98,8 @@
     "initializing": "Initializing...",
     "disconnected": "Disconnected",
     "connected": "Connected"
+  },
+  "profile": {
+    "title": "Profile"
   }
 }

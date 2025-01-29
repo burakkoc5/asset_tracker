@@ -42,7 +42,8 @@ class AppContainerButton extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: onPressed,
-          splashColor: Theme.of(context).colorScheme.primary.withOpacity(0.7),
+          splashColor:
+              Theme.of(context).colorScheme.primary.withValues(alpha: 0.7),
           borderRadius: Radiuses.sm.all,
           child: Container(
             padding: padding ??

@@ -1,23 +1,32 @@
 class Direction {
-  final String alisDir;
-  final String satisDir;
+  final String buyDirection;
+  final String sellDirection;
 
-  Direction({
-    required this.alisDir,
-    required this.satisDir,
+  const Direction({
+    required this.buyDirection,
+    required this.sellDirection,
   });
 
   factory Direction.fromJson(Map<String, dynamic> json) {
     return Direction(
-      alisDir: json['alis_dir'],
-      satisDir: json['satis_dir'],
+      buyDirection: json['alis_dir'] as String? ?? '',
+      sellDirection: json['satis_dir'] as String? ?? '',
     );
   }
 
+  bool get isDown => buyDirection == 'down' && sellDirection == 'down';
+  bool get isUp => buyDirection == 'up' && sellDirection == 'up';
+  bool get isStable => !isUp && !isDown;
+
   Map<String, dynamic> toJson() {
     return {
-      'alis_dir': alisDir,
-      'satis_dir': satisDir,
+      'alis_dir': buyDirection,
+      'satis_dir': sellDirection,
     };
+  }
+
+  @override
+  String toString() {
+    return 'Direction(buyDirection: $buyDirection, sellDirection: $sellDirection)';
   }
 }
