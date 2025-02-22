@@ -12,16 +12,20 @@ import 'dart:async';
 part 'socket_state.dart';
 
 class SocketCubit extends Cubit<SocketState> {
-  static const _retryDelaySeconds = 5;
-  static const _maxRetryAttempts = 3;
+  //final
+
+  final int _retryDelaySeconds = 5;
+  final int _maxRetryAttempts = 3;
 
   int _retryCount = 0;
   Timer? _reconnectTimer;
   final SocketRepository socketRepository;
   PriceChangedDataModel currentData =
       PriceChangedDataModel(data: {}, meta: Meta(time: 0));
+  String _searchQuery = '';
 
   SocketCubit({required this.socketRepository}) : super(SocketInitial()) {
+    _searchQuery = '';
     _connect();
   }
 
@@ -58,9 +62,7 @@ class SocketCubit extends Cubit<SocketState> {
   void _listenToSocket() {
     socketRepository.channel.stream.listen(
       (data) {
-        print(t.socket.logs.receivedData(data: data.toString()));
         if (data.toString().startsWith(SocketMessageType.handshake.value)) {
-          print(t.socket.logs.handshakeReceived);
           sendMessage(SocketMessageType.subscribe.value);
           emit(SocketLoading());
         } else if (data.toString().startsWith(SocketMessageType.data.value)) {
@@ -68,7 +70,6 @@ class SocketCubit extends Cubit<SocketState> {
         }
       },
       onError: (error) {
-        print(t.socket.logs.connectionLost);
         emit(SocketError(
           t.socket.status.error(
             message: error.toString(),
@@ -77,7 +78,6 @@ class SocketCubit extends Cubit<SocketState> {
         _retryConnection();
       },
       onDone: () {
-        print(t.socket.logs.connectionClosed);
         _reconnectAndResubscribe();
       },
     );
@@ -91,14 +91,12 @@ class SocketCubit extends Cubit<SocketState> {
     if (jsonStart != -1 && jsonEnd != -1) {
       String jsonData = rawData.substring(jsonStart, jsonEnd + 1);
       if (currentData.data.isEmpty) {
-        print(t.socket.logs.initialDataReceived);
         PriceChangedDataModel firstData = parseReceivedData(jsonData);
         currentData = firstData;
       } else {
-        print(t.socket.logs.dataUpdated);
         updatedData(parseReceivedData(jsonData));
       }
-      emit(SocketDataReceived(currentData));
+      _emitFilteredData();
     }
   }
 
@@ -106,10 +104,8 @@ class SocketCubit extends Cubit<SocketState> {
     _reconnectTimer?.cancel();
     _reconnectTimer = Timer(const Duration(seconds: 1), () {
       if (!socketRepository.isConnected()) {
-        print(t.socket.logs.connectionLost);
         _connect();
       } else {
-        print(t.socket.logs.tryingResubscribe);
         sendMessage(SocketMessageType.subscribe.value);
       }
     });
@@ -120,7 +116,6 @@ class SocketCubit extends Cubit<SocketState> {
       if (socketRepository.isConnected()) {
         socketRepository.channel.sink.add(message);
       } else {
-        print(t.socket.logs.cannotSendMessage);
         _reconnectAndResubscribe();
       }
     } catch (e) {
@@ -141,7 +136,7 @@ class SocketCubit extends Cubit<SocketState> {
   void _retryConnection() {
     _retryCount++;
     if (_retryCount <= _maxRetryAttempts) {
-      Future.delayed(const Duration(seconds: _retryDelaySeconds), () {
+      Future.delayed(Duration(seconds: _retryDelaySeconds), () {
         _connect();
       });
     }
@@ -157,7 +152,6 @@ class SocketCubit extends Cubit<SocketState> {
         meta: response.meta,
       );
     } catch (e) {
-      print(t.socket.logs.jsonParseError(error: e.toString()));
       return currentData;
     }
   }
@@ -181,12 +175,38 @@ class SocketCubit extends Cubit<SocketState> {
 
   // Currency objesinin değişip değişmediğini kontrol eder
   bool _isCurrencyChanged(Currency oldCurrency, Currency newCurrency) {
-    print(t.socket.logs.oldCurrencyLog(currency: oldCurrency.toString()));
+    return oldCurrency.buy != newCurrency.buy ||
+        oldCurrency.sell != newCurrency.sell ||
+        oldCurrency.low != newCurrency.low ||
+        oldCurrency.high != newCurrency.high ||
+        oldCurrency.close != newCurrency.close;
+  }
 
-    return oldCurrency.alis != newCurrency.alis ||
-        oldCurrency.satis != newCurrency.satis ||
-        oldCurrency.dusuk != newCurrency.dusuk ||
-        oldCurrency.yuksek != newCurrency.yuksek ||
-        oldCurrency.kapanis != newCurrency.kapanis;
+  void filterData(String query) {
+    _searchQuery = query.toLowerCase().trim();
+    _emitFilteredData();
+  }
+
+  void resetSearch() {
+    _searchQuery = '';
+    _emitFilteredData();
+  }
+
+  void _emitFilteredData() {
+    if (_searchQuery.isEmpty) {
+      emit(SocketDataReceived(currentData));
+    } else {
+      final filteredData = Map<String, Currency>.from(currentData.data)
+        ..removeWhere((key, value) {
+          final name = Currency.currencyNames[key]?.toLowerCase() ?? '';
+          return !key.toLowerCase().contains(_searchQuery) &&
+              !name.contains(_searchQuery);
+        });
+
+      emit(SocketDataReceived(PriceChangedDataModel(
+        data: filteredData,
+        meta: currentData.meta,
+      )));
+    }
   }
 }

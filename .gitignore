@@ -32,6 +32,10 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+*.freezed.dart
+*.g.dart
+*.mocks.dart
+coverage/
 
 # iOS/Xcode related
 ios/Pods/
@@ -41,15 +45,39 @@ ios/build/
 ios/XCBuildData/
 ios/DerivedData/
 ios/TARGET@v11_hash=*
+*.mode1v3
+*.mode2v3
+*.moved-aside
+*.pbxuser
+*.perspectivev3
+*.xccheckout
+*.xcscmblueprint
+*.xcworkspace
+xcuserdata/
+
+# Android related
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/key.properties
+*.jks
 
 # Firebase Related
 /android/app/google-services.json
 /ios/Runner/GoogleService-Info.plist
 firebase.json
 lib/firebase_options.dart
+.firebase/
 
 # Secrets
 .env
+.env.*
+*.env
+key.properties
 
 # Symbolication related
 app.*.symbols
@@ -61,3 +89,36 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Web related
+lib/generated_plugin_registrant.dart
+web/firebase-messaging-sw.js
+
+# macOS related
+**/macos/Flutter/GeneratedPluginRegistrant.*
+**/macos/Flutter/ephemeral
+**/Flutter/ephemeral/
+**/Pods/
+**/macos/Pods/
+**/macos/*.mode1v3
+**/macos/*.mode2v3
+**/macos/*.moved-aside
+**/macos/*.pbxuser
+**/macos/*.perspectivev3
+**/macos/**/*sync/
+**/macos/.sconsign.dblite
+**/macos/.tags*
+**/macos/.vagrant/
+**/macos/DerivedData/
+**/macos/Icon?
+**/macos/.last_build_id
+
+# Windows related
+**/windows/flutter/generated_plugin_registrant.cc
+**/windows/flutter/generated_plugin_registrant.h
+**/windows/flutter/generated_plugins.cmake
+
+# Linux related
+**/linux/flutter/generated_plugin_registrant.cc
+**/linux/flutter/generated_plugin_registrant.h
+**/linux/flutter/generated_plugins.cmake

@@ -38,6 +38,7 @@ class TranslationsTr implements Translations {
 	@override late final _TranslationsCurrencyTr currency = _TranslationsCurrencyTr._(_root);
 	@override late final _TranslationsRegistrationTr registration = _TranslationsRegistrationTr._(_root);
 	@override late final _TranslationsHomeTr home = _TranslationsHomeTr._(_root);
+	@override late final _TranslationsProfileTr profile = _TranslationsProfileTr._(_root);
 }
 
 // Path: core
@@ -70,6 +71,7 @@ class _TranslationsCurrencyTr implements TranslationsCurrencyEn {
 
 	// Translations
 	@override late final _TranslationsCurrencyDetailsTr details = _TranslationsCurrencyDetailsTr._(_root);
+	@override late final _TranslationsCurrencySearchTr search = _TranslationsCurrencySearchTr._(_root);
 	@override late final _TranslationsCurrencyTimeTr time = _TranslationsCurrencyTimeTr._(_root);
 }
 
@@ -102,6 +104,16 @@ class _TranslationsHomeTr implements TranslationsHomeEn {
 	@override String get initializing => 'Başlatılıyor...';
 	@override String get disconnected => 'Bağlantı Koptu';
 	@override String get connected => 'Bağlantı Kuruldu';
+}
+
+// Path: profile
+class _TranslationsProfileTr implements TranslationsProfileEn {
+	_TranslationsProfileTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Profil';
 }
 
 // Path: core.errors
@@ -170,7 +182,17 @@ class _TranslationsCurrencyDetailsTr implements TranslationsCurrencyDetailsEn {
 	@override String get highest => 'En Yüksek';
 	@override String get closing => 'Kapanış';
 	@override String get lastUpdate => 'Son Güncelleme';
-	@override String lastUpdateTime({required Object time}) => '${time} önce';
+	@override String lastUpdateTime({required Object time}) => 'Son güncelleme: ${time}';
+}
+
+// Path: currency.search
+class _TranslationsCurrencySearchTr implements TranslationsCurrencySearchEn {
+	_TranslationsCurrencySearchTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get hint => 'Para birimi ara...';
 }
 
 // Path: currency.time
@@ -306,7 +328,8 @@ extension on TranslationsTr {
 			case 'currency.details.highest': return 'En Yüksek';
 			case 'currency.details.closing': return 'Kapanış';
 			case 'currency.details.lastUpdate': return 'Son Güncelleme';
-			case 'currency.details.lastUpdateTime': return ({required Object time}) => '${time} önce';
+			case 'currency.details.lastUpdateTime': return ({required Object time}) => 'Son güncelleme: ${time}';
+			case 'currency.search.hint': return 'Para birimi ara...';
 			case 'currency.time.seconds': return ({required Object count}) => '${count} saniye önce';
 			case 'currency.time.minutes': return ({required Object count}) => '${count} dakika önce';
 			case 'currency.time.hours': return ({required Object count}) => '${count} saat önce';
@@ -336,6 +359,7 @@ extension on TranslationsTr {
 			case 'home.initializing': return 'Başlatılıyor...';
 			case 'home.disconnected': return 'Bağlantı Koptu';
 			case 'home.connected': return 'Bağlantı Kuruldu';
+			case 'profile.title': return 'Profil';
 			default: return null;
 		}
 	}

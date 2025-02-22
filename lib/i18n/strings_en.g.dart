@@ -42,6 +42,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsCurrencyEn currency = TranslationsCurrencyEn._(_root);
 	late final TranslationsRegistrationEn registration = TranslationsRegistrationEn._(_root);
 	late final TranslationsHomeEn home = TranslationsHomeEn._(_root);
+	late final TranslationsProfileEn profile = TranslationsProfileEn._(_root);
 }
 
 // Path: core
@@ -74,6 +75,7 @@ class TranslationsCurrencyEn {
 
 	// Translations
 	late final TranslationsCurrencyDetailsEn details = TranslationsCurrencyDetailsEn._(_root);
+	late final TranslationsCurrencySearchEn search = TranslationsCurrencySearchEn._(_root);
 	late final TranslationsCurrencyTimeEn time = TranslationsCurrencyTimeEn._(_root);
 }
 
@@ -106,6 +108,16 @@ class TranslationsHomeEn {
 	String get initializing => 'Initializing...';
 	String get disconnected => 'Disconnected';
 	String get connected => 'Connected';
+}
+
+// Path: profile
+class TranslationsProfileEn {
+	TranslationsProfileEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Profile';
 }
 
 // Path: core.errors
@@ -174,7 +186,17 @@ class TranslationsCurrencyDetailsEn {
 	String get highest => 'Highest';
 	String get closing => 'Closing';
 	String get lastUpdate => 'Last Update';
-	String lastUpdateTime({required Object time}) => '${time} ago';
+	String lastUpdateTime({required Object time}) => 'Last update: ${time}';
+}
+
+// Path: currency.search
+class TranslationsCurrencySearchEn {
+	TranslationsCurrencySearchEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get hint => 'Search currency...';
 }
 
 // Path: currency.time
@@ -184,10 +206,10 @@ class TranslationsCurrencyTimeEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String seconds({required Object count}) => '${count} seconds';
-	String minutes({required Object count}) => '${count} minutes';
-	String hours({required Object count}) => '${count} hours';
-	String days({required Object count}) => '${count} days';
+	String seconds({required Object count}) => '${count} seconds ago';
+	String minutes({required Object count}) => '${count} minutes ago';
+	String hours({required Object count}) => '${count} hours ago';
+	String days({required Object count}) => '${count} days ago';
 }
 
 // Path: registration.fullname
@@ -310,11 +332,12 @@ extension on Translations {
 			case 'currency.details.highest': return 'Highest';
 			case 'currency.details.closing': return 'Closing';
 			case 'currency.details.lastUpdate': return 'Last Update';
-			case 'currency.details.lastUpdateTime': return ({required Object time}) => '${time} ago';
-			case 'currency.time.seconds': return ({required Object count}) => '${count} seconds';
-			case 'currency.time.minutes': return ({required Object count}) => '${count} minutes';
-			case 'currency.time.hours': return ({required Object count}) => '${count} hours';
-			case 'currency.time.days': return ({required Object count}) => '${count} days';
+			case 'currency.details.lastUpdateTime': return ({required Object time}) => 'Last update: ${time}';
+			case 'currency.search.hint': return 'Search currency...';
+			case 'currency.time.seconds': return ({required Object count}) => '${count} seconds ago';
+			case 'currency.time.minutes': return ({required Object count}) => '${count} minutes ago';
+			case 'currency.time.hours': return ({required Object count}) => '${count} hours ago';
+			case 'currency.time.days': return ({required Object count}) => '${count} days ago';
 			case 'registration.welcomeText': return 'Welcome';
 			case 'registration.termsAndConditionsText': return 'By signing up, you agree to our Terms and Conditions';
 			case 'registration.fullname.fullnameText': return 'Full Name';
@@ -340,6 +363,7 @@ extension on Translations {
 			case 'home.initializing': return 'Initializing...';
 			case 'home.disconnected': return 'Disconnected';
 			case 'home.connected': return 'Connected';
+			case 'profile.title': return 'Profile';
 			default: return null;
 		}
 	}
