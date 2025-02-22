@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
     //TextTheme textTheme = Theme.of(context).textTheme;
 
     // Use with Google Fonts package to use downloadable fonts
-    TextTheme textTheme = createTextTheme(context, "Inter", "Inter");
+    TextTheme textTheme =
+        createTextTheme(context, "Space Grotesk", "Space Grotesk");
 
     MaterialTheme theme = MaterialTheme(textTheme);
     final appRouter = AppRouter();
