@@ -55,10 +55,6 @@ class _CurrencyCardState extends State<CurrencyCard> {
                 color: Colors.grey[600],
               ),
         ),
-        if (widget.currency.dir.isDown)
-          const Icon(Icons.arrow_downward, color: Colors.red, size: 16),
-        if (widget.currency.dir.isUp)
-          const Icon(Icons.arrow_upward, color: Colors.green, size: 16),
       ],
     );
   }
@@ -68,7 +64,7 @@ class _CurrencyCardState extends State<CurrencyCard> {
     return Row(
       children: [
         Icon(
-          isSatisUp ? Icons.arrow_upward : Icons.arrow_downward,
+          isSatisUp ? Icons.trending_up : Icons.trending_down,
           color: satisColor,
           size: 16,
         ),
@@ -106,7 +102,7 @@ class _CurrencyCardState extends State<CurrencyCard> {
         Row(
           children: [
             Icon(
-              isUp ? Icons.arrow_upward : Icons.arrow_downward,
+              isUp ? Icons.trending_up : Icons.trending_down,
               color: color,
               size: 12,
             ),
