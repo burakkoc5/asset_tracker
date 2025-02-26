@@ -1,5 +1,6 @@
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/features/home/presentation/widgets/search_bar_widget.dart';
+import 'package:asset_tracker/features/user_asset/presentation/widget/add_user_asset.dart';
 import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
 import 'package:asset_tracker/features/websocket/presentation/socket_list.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
@@ -38,6 +39,7 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: buildAddUserAssetButton(context),
     );
   }
 }

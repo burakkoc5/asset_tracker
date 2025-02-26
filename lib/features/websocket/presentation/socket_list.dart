@@ -20,20 +20,28 @@ class _SocketListState extends State<SocketList> {
     return Scaffold(
       body: BlocBuilder<SocketCubit, SocketState>(
         builder: (context, state) {
+          //debugPrint('Current state: $state');
+
           if (state is SocketLoading) {
+            debugPrint('Socket is loading...');
             return const Center(child: CircularProgressIndicator());
           } else if (state is SocketError) {
+            debugPrint('Socket encountered an error: ${state.error}');
             return Center(
                 child: Text(t.socket.status.error(message: state.error)));
           } else if (state is SocketConnected) {
+            debugPrint('Socket connected.');
             return const Center(child: CircularProgressIndicator());
           } else if (state is SocketDataReceived) {
+            //debugPrint('Socket data received.');
             isDisconnected = false;
             return _buildDataReceivedUI(context, state.data);
           } else if (state is SocketDisconnected) {
+            debugPrint('Socket disconnected.');
             isDisconnected = true;
             return _buildDataReceivedUI(context, state.data);
           } else {
+            debugPrint('Initializing...');
             return Center(child: Text(t.home.initializing));
           }
         },
@@ -42,6 +50,8 @@ class _SocketListState extends State<SocketList> {
   }
 
   Widget _buildDataReceivedUI(BuildContext context, response) {
+    debugPrint('Building UI with received data: ${response.data.length} items');
+
     final lastUpdate = DateTime.fromMillisecondsSinceEpoch(response.meta.time);
     final now = DateTime.now();
     final difference = now.difference(lastUpdate);
@@ -111,6 +121,7 @@ class _SocketListState extends State<SocketList> {
             itemBuilder: (context, index) {
               final entry = response.data.entries.toList()[index];
               final currency = entry.value;
+              //debugPrint('Rendering CurrencyCard for: ${currency.toString()}');
               return CurrencyCard(
                 currency: currency,
               );

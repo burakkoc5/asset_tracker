@@ -7,16 +7,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationCubit(this._authenticationRepository)
-      : super(const AuthenticationStateUnauthenticated());
+      : super(const AuthenticationStateUnauthenticated()) {
+    _checkUserStatus();
+  }
 
   final AuthenticationRepository _authenticationRepository;
 
+  // This will check if the user is already authenticated on app start.
+  Future<void> _checkUserStatus() async {
+    final isSignedIn = await _authenticationRepository.isSignedIn();
+    if (isSignedIn) {
+      final user = _authenticationRepository.getCurrentUser();
+      print('User is already signed in: ${user!.uid}');
+      emit(AuthenticationStateAuthenticated(user));
+    }
+  }
+
   Future<void> signin(String email, String password) async {
-    emit(const AuthenticationStateLoading());
+    emit(AuthenticationStateLoading());
     try {
-      await _authenticationRepository.signInWithEmailAndPassword(
+      User user = await _authenticationRepository.signInWithEmailAndPassword(
           email, password);
-      emit(const AuthenticationStateAuthenticated());
+      emit(AuthenticationStateAuthenticated(user));
+      print('User signed in: ${user.email} and authenticated: ${user.uid}');
     } on FirebaseAuthException catch (e) {
       emit(AuthenticationStateError(e.getErrorMessage()));
     } catch (e) {
@@ -25,11 +38,11 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }
 
   Future<void> signup(String email, String password) async {
-    emit(const AuthenticationStateLoading());
+    emit(AuthenticationStateLoading());
     try {
-      await _authenticationRepository.signUpWithEmailAndPassword(
+      User user = await _authenticationRepository.signUpWithEmailAndPassword(
           email, password);
-      emit(const AuthenticationStateAuthenticated());
+      emit(AuthenticationStateAuthenticated(user));
     } on FirebaseAuthException catch (e) {
       emit(AuthenticationStateError(e.getErrorMessage()));
     } catch (e) {
@@ -38,7 +51,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }
 
   Future<void> signout() async {
-    emit(const AuthenticationStateLoading());
+    emit(AuthenticationStateLoading());
     try {
       await _authenticationRepository.signOut();
       emit(const AuthenticationStateUnauthenticated());
