@@ -1,5 +1,8 @@
+import 'package:asset_tracker/app/routing/app_router.gr.dart';
 import 'package:asset_tracker/core/theme/app_theme.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
+import 'package:asset_tracker/core/utils/setup_locator.dart';
+import 'package:asset_tracker/features/auth/application/authentication_cubit.dart';
 import 'package:asset_tracker/features/user_asset/presentation/widget/asset_card.dart';
 import 'package:asset_tracker/features/user_asset/presentation/widget/user_assets_chart.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
@@ -55,6 +58,15 @@ class _UserAssetsScreenState extends State<UserAssetsScreen>
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+                    actions: [
+                      IconButton(
+                        icon: Icon(Icons.logout),
+                        onPressed: () {
+                          getIt<AuthenticationCubit>().signout();
+                          context.router.replace(const RegistrationRoute());
+                        },
+                      ),
+                    ],
                     centerTitle: true,
                     backgroundColor: Theme.of(context)
                         .extension<CustomAppColors>()
