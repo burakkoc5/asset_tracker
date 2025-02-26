@@ -39,6 +39,7 @@ class TranslationsTr implements Translations {
 	@override late final _TranslationsRegistrationTr registration = _TranslationsRegistrationTr._(_root);
 	@override late final _TranslationsHomeTr home = _TranslationsHomeTr._(_root);
 	@override late final _TranslationsProfileTr profile = _TranslationsProfileTr._(_root);
+	@override late final _TranslationsUserAssetTr userAsset = _TranslationsUserAssetTr._(_root);
 }
 
 // Path: core
@@ -73,6 +74,7 @@ class _TranslationsCurrencyTr implements TranslationsCurrencyEn {
 	@override late final _TranslationsCurrencyDetailsTr details = _TranslationsCurrencyDetailsTr._(_root);
 	@override late final _TranslationsCurrencySearchTr search = _TranslationsCurrencySearchTr._(_root);
 	@override late final _TranslationsCurrencyTimeTr time = _TranslationsCurrencyTimeTr._(_root);
+	@override late final _TranslationsCurrencyNamesTr names = _TranslationsCurrencyNamesTr._(_root);
 }
 
 // Path: registration
@@ -100,7 +102,7 @@ class _TranslationsHomeTr implements TranslationsHomeEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Asset Tracker';
+	@override String get title => 'Varlıklar';
 	@override String get initializing => 'Başlatılıyor...';
 	@override String get disconnected => 'Bağlantı Koptu';
 	@override String get connected => 'Bağlantı Kuruldu';
@@ -116,6 +118,18 @@ class _TranslationsProfileTr implements TranslationsProfileEn {
 	@override String get title => 'Profil';
 }
 
+// Path: userAsset
+class _TranslationsUserAssetTr implements TranslationsUserAssetEn {
+	_TranslationsUserAssetTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override late final _TranslationsUserAssetPortfolioTr portfolio = _TranslationsUserAssetPortfolioTr._(_root);
+	@override late final _TranslationsUserAssetAssetDetailsTr assetDetails = _TranslationsUserAssetAssetDetailsTr._(_root);
+	@override late final _TranslationsUserAssetAddAssetTr addAsset = _TranslationsUserAssetAddAssetTr._(_root);
+}
+
 // Path: core.errors
 class _TranslationsCoreErrorsTr implements TranslationsCoreErrorsEn {
 	_TranslationsCoreErrorsTr._(this._root);
@@ -123,6 +137,8 @@ class _TranslationsCoreErrorsTr implements TranslationsCoreErrorsEn {
 	final TranslationsTr _root; // ignore: unused_field
 
 	// Translations
+	@override String get error => 'Hata';
+	@override String get tryAgain => 'Tekrar dene';
 	@override String get accountExists => 'Bu e-posta adresi zaten kullanımda';
 	@override String get invalidCredentials => 'Geçersiz e-posta veya şifre';
 	@override String get notFound => 'Kullanıcı bulunamadı';
@@ -208,6 +224,67 @@ class _TranslationsCurrencyTimeTr implements TranslationsCurrencyTimeEn {
 	@override String days({required Object count}) => '${count} gün önce';
 }
 
+// Path: currency.names
+class _TranslationsCurrencyNamesTr implements TranslationsCurrencyNamesEn {
+	_TranslationsCurrencyNamesTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get KULCEALTIN => 'Külçe Altın';
+	@override String get ALTIN => 'Altın';
+	@override String get CEYREK_ESKI => 'Çeyrek Altın (Eski)';
+	@override String get CEYREK_YENI => 'Çeyrek Altın (Yeni)';
+	@override String get YARIM_ESKI => 'Yarım Altın (Eski)';
+	@override String get YARIM_YENI => 'Yarım Altın (Yeni)';
+	@override String get TEK_ESKI => 'Tek Altın (Eski)';
+	@override String get TEK_YENI => 'Tek Altın (Yeni)';
+	@override String get ATA_ESKI => 'Ata Altın (Eski)';
+	@override String get ATA_YENI => 'Ata Altın (Yeni)';
+	@override String get AUDTRY => 'Avustralya Doları/TRY';
+	@override String get AYAR22 => '22 Ayar Altın';
+	@override String get AYAR24 => '24 Ayar Altın';
+	@override String get AYAR26 => '26 Ayar Altın';
+	@override String get AYAR28 => '28 Ayar Altın';
+	@override String get AYAR30 => '30 Ayar Altın';
+	@override String get USDTRY => 'Dolar/TRY';
+	@override String get EURTRY => 'Euro/TRY';
+	@override String get GBPTRY => 'Sterlin/TRY';
+	@override String get CHFTRY => 'Frang/TRY';
+	@override String get SARTRY => 'Riyal/TRY';
+	@override String get JPYTRY => 'Yen/TRY';
+	@override String get SEKTRY => 'İsveç Kronu/TRY';
+	@override String get DKKTRY => 'Danimarka Kronu/TRY';
+	@override String get NOKTRY => 'Norveç Kronu/TRY';
+	@override String get CADTRY => 'Kanada Doları/TRY';
+	@override String get USDCAD => 'Dolar/Kanada Doları';
+	@override String get XAUXAG => 'Altın/Gümüş';
+	@override String get USDPURE => 'Dolar';
+	@override String get USDKG => 'Dolar/Kg';
+	@override String get EURKG => 'Euro/Kg';
+	@override String get GBPKG => 'Sterlin/Kg';
+	@override String get GBPUSD => 'Sterlin/Dolar';
+	@override String get GREMESE_ESKI => 'Gremese Altın (Eski)';
+	@override String get GREMESE_YENI => 'Gremese Altın (Yeni)';
+	@override String get ATA5_ESKI => 'Ata 5 (Eski) Altın';
+	@override String get ATA5_YENI => 'Ata 5 (Yeni) Altın';
+	@override String get GUMUSTRY => 'Gümüş/TRY';
+	@override String get XPTUSD => 'Palladyum/Dolar';
+	@override String get EURUSD => 'Euro/Dolar';
+	@override String get USDJPY => 'Dolar/Yen';
+	@override String get XAGUSD => 'Gümüş/Dolar';
+	@override String get GUMUSUSD => 'Gümüş/Dolar';
+	@override String get XPDUSD => 'Platin/Dolar';
+	@override String get XAUUSD => 'Altın/Dolar';
+	@override String get USDSAR => 'Dolar/Riyal';
+	@override String get AUDUSD => 'Avustralya Doları/Dolar';
+	@override String get USDCHF => 'Dolar/Frang';
+	@override String get USDCNY => 'Dolar/Çin Yuanı';
+	@override String get USDMXN => 'Dolar/Meksika Pesosu';
+	@override String get USDPHP => 'Dolar/Filipin Pesosu';
+	@override String get USDMYR => 'Dolar/Malezya Ringgiti';
+}
+
 // Path: registration.fullname
 class _TranslationsRegistrationFullnameTr implements TranslationsRegistrationFullnameEn {
 	_TranslationsRegistrationFullnameTr._(this._root);
@@ -290,12 +367,88 @@ class _TranslationsRegistrationSignOutTr implements TranslationsRegistrationSign
 	@override String get signOutText => 'Çıkış Yap';
 }
 
+// Path: userAsset.portfolio
+class _TranslationsUserAssetPortfolioTr implements TranslationsUserAssetPortfolioEn {
+	_TranslationsUserAssetPortfolioTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Varlıklarım';
+	@override String get emptyMessage => 'Henüz varlık bulunmuyor';
+	@override String get addAssetHint => 'Yeni varlık eklemek için + butonuna tıklayın';
+	@override late final _TranslationsUserAssetPortfolioTotalValueTr totalValue = _TranslationsUserAssetPortfolioTotalValueTr._(_root);
+	@override String get profitLoss => 'Kâr/Zarar';
+}
+
+// Path: userAsset.assetDetails
+class _TranslationsUserAssetAssetDetailsTr implements TranslationsUserAssetAssetDetailsEn {
+	_TranslationsUserAssetAssetDetailsTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get amount => 'Miktar';
+	@override String get purchasePrice => 'Alış';
+	@override String get currentPrice => 'Güncel';
+	@override String get purchaseDate => 'Alış Tarihi';
+}
+
+// Path: userAsset.addAsset
+class _TranslationsUserAssetAddAssetTr implements TranslationsUserAssetAddAssetEn {
+	_TranslationsUserAssetAddAssetTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Varlık Ekle';
+	@override late final _TranslationsUserAssetAddAssetFieldsTr fields = _TranslationsUserAssetAddAssetFieldsTr._(_root);
+	@override late final _TranslationsUserAssetAddAssetDatePickerTr datePicker = _TranslationsUserAssetAddAssetDatePickerTr._(_root);
+	@override String get errorMessage => 'Lütfen tüm alanları doldurun';
+}
+
+// Path: userAsset.portfolio.totalValue
+class _TranslationsUserAssetPortfolioTotalValueTr implements TranslationsUserAssetPortfolioTotalValueEn {
+	_TranslationsUserAssetPortfolioTotalValueTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Portföy Değeri';
+	@override String get currency => '₺';
+}
+
+// Path: userAsset.addAsset.fields
+class _TranslationsUserAssetAddAssetFieldsTr implements TranslationsUserAssetAddAssetFieldsEn {
+	_TranslationsUserAssetAddAssetFieldsTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get type => 'Tür';
+	@override String get amount => 'Miktar';
+	@override String get price => 'Fiyat';
+	@override String get date => 'Tarih';
+}
+
+// Path: userAsset.addAsset.datePicker
+class _TranslationsUserAssetAddAssetDatePickerTr implements TranslationsUserAssetAddAssetDatePickerEn {
+	_TranslationsUserAssetAddAssetDatePickerTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get label => 'Tarih Seç';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 extension on TranslationsTr {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'core.appName': return 'AssetTracker';
+			case 'core.errors.error': return 'Hata';
+			case 'core.errors.tryAgain': return 'Tekrar dene';
 			case 'core.errors.accountExists': return 'Bu e-posta adresi zaten kullanımda';
 			case 'core.errors.invalidCredentials': return 'Geçersiz e-posta veya şifre';
 			case 'core.errors.notFound': return 'Kullanıcı bulunamadı';
@@ -334,6 +487,58 @@ extension on TranslationsTr {
 			case 'currency.time.minutes': return ({required Object count}) => '${count} dakika önce';
 			case 'currency.time.hours': return ({required Object count}) => '${count} saat önce';
 			case 'currency.time.days': return ({required Object count}) => '${count} gün önce';
+			case 'currency.names.KULCEALTIN': return 'Külçe Altın';
+			case 'currency.names.ALTIN': return 'Altın';
+			case 'currency.names.CEYREK_ESKI': return 'Çeyrek Altın (Eski)';
+			case 'currency.names.CEYREK_YENI': return 'Çeyrek Altın (Yeni)';
+			case 'currency.names.YARIM_ESKI': return 'Yarım Altın (Eski)';
+			case 'currency.names.YARIM_YENI': return 'Yarım Altın (Yeni)';
+			case 'currency.names.TEK_ESKI': return 'Tek Altın (Eski)';
+			case 'currency.names.TEK_YENI': return 'Tek Altın (Yeni)';
+			case 'currency.names.ATA_ESKI': return 'Ata Altın (Eski)';
+			case 'currency.names.ATA_YENI': return 'Ata Altın (Yeni)';
+			case 'currency.names.AUDTRY': return 'Avustralya Doları/TRY';
+			case 'currency.names.AYAR22': return '22 Ayar Altın';
+			case 'currency.names.AYAR24': return '24 Ayar Altın';
+			case 'currency.names.AYAR26': return '26 Ayar Altın';
+			case 'currency.names.AYAR28': return '28 Ayar Altın';
+			case 'currency.names.AYAR30': return '30 Ayar Altın';
+			case 'currency.names.USDTRY': return 'Dolar/TRY';
+			case 'currency.names.EURTRY': return 'Euro/TRY';
+			case 'currency.names.GBPTRY': return 'Sterlin/TRY';
+			case 'currency.names.CHFTRY': return 'Frang/TRY';
+			case 'currency.names.SARTRY': return 'Riyal/TRY';
+			case 'currency.names.JPYTRY': return 'Yen/TRY';
+			case 'currency.names.SEKTRY': return 'İsveç Kronu/TRY';
+			case 'currency.names.DKKTRY': return 'Danimarka Kronu/TRY';
+			case 'currency.names.NOKTRY': return 'Norveç Kronu/TRY';
+			case 'currency.names.CADTRY': return 'Kanada Doları/TRY';
+			case 'currency.names.USDCAD': return 'Dolar/Kanada Doları';
+			case 'currency.names.XAUXAG': return 'Altın/Gümüş';
+			case 'currency.names.USDPURE': return 'Dolar';
+			case 'currency.names.USDKG': return 'Dolar/Kg';
+			case 'currency.names.EURKG': return 'Euro/Kg';
+			case 'currency.names.GBPKG': return 'Sterlin/Kg';
+			case 'currency.names.GBPUSD': return 'Sterlin/Dolar';
+			case 'currency.names.GREMESE_ESKI': return 'Gremese Altın (Eski)';
+			case 'currency.names.GREMESE_YENI': return 'Gremese Altın (Yeni)';
+			case 'currency.names.ATA5_ESKI': return 'Ata 5 (Eski) Altın';
+			case 'currency.names.ATA5_YENI': return 'Ata 5 (Yeni) Altın';
+			case 'currency.names.GUMUSTRY': return 'Gümüş/TRY';
+			case 'currency.names.XPTUSD': return 'Palladyum/Dolar';
+			case 'currency.names.EURUSD': return 'Euro/Dolar';
+			case 'currency.names.USDJPY': return 'Dolar/Yen';
+			case 'currency.names.XAGUSD': return 'Gümüş/Dolar';
+			case 'currency.names.GUMUSUSD': return 'Gümüş/Dolar';
+			case 'currency.names.XPDUSD': return 'Platin/Dolar';
+			case 'currency.names.XAUUSD': return 'Altın/Dolar';
+			case 'currency.names.USDSAR': return 'Dolar/Riyal';
+			case 'currency.names.AUDUSD': return 'Avustralya Doları/Dolar';
+			case 'currency.names.USDCHF': return 'Dolar/Frang';
+			case 'currency.names.USDCNY': return 'Dolar/Çin Yuanı';
+			case 'currency.names.USDMXN': return 'Dolar/Meksika Pesosu';
+			case 'currency.names.USDPHP': return 'Dolar/Filipin Pesosu';
+			case 'currency.names.USDMYR': return 'Dolar/Malezya Ringgiti';
 			case 'registration.welcomeText': return 'Hoş geldiniz';
 			case 'registration.termsAndConditionsText': return 'Kaydolarak, Kullanım Şartlarımızı kabul etmiş olursunuz';
 			case 'registration.fullname.fullnameText': return 'Tam Ad';
@@ -355,11 +560,28 @@ extension on TranslationsTr {
 			case 'registration.signIn.signInText': return 'Giriş Yap';
 			case 'registration.signIn.forgotPassword': return 'Şifrenizi mi unuttunuz?';
 			case 'registration.signOut.signOutText': return 'Çıkış Yap';
-			case 'home.title': return 'Asset Tracker';
+			case 'home.title': return 'Varlıklar';
 			case 'home.initializing': return 'Başlatılıyor...';
 			case 'home.disconnected': return 'Bağlantı Koptu';
 			case 'home.connected': return 'Bağlantı Kuruldu';
 			case 'profile.title': return 'Profil';
+			case 'userAsset.portfolio.title': return 'Varlıklarım';
+			case 'userAsset.portfolio.emptyMessage': return 'Henüz varlık bulunmuyor';
+			case 'userAsset.portfolio.addAssetHint': return 'Yeni varlık eklemek için + butonuna tıklayın';
+			case 'userAsset.portfolio.totalValue.label': return 'Portföy Değeri';
+			case 'userAsset.portfolio.totalValue.currency': return '₺';
+			case 'userAsset.portfolio.profitLoss': return 'Kâr/Zarar';
+			case 'userAsset.assetDetails.amount': return 'Miktar';
+			case 'userAsset.assetDetails.purchasePrice': return 'Alış';
+			case 'userAsset.assetDetails.currentPrice': return 'Güncel';
+			case 'userAsset.assetDetails.purchaseDate': return 'Alış Tarihi';
+			case 'userAsset.addAsset.title': return 'Varlık Ekle';
+			case 'userAsset.addAsset.fields.type': return 'Tür';
+			case 'userAsset.addAsset.fields.amount': return 'Miktar';
+			case 'userAsset.addAsset.fields.price': return 'Fiyat';
+			case 'userAsset.addAsset.fields.date': return 'Tarih';
+			case 'userAsset.addAsset.datePicker.label': return 'Tarih Seç';
+			case 'userAsset.addAsset.errorMessage': return 'Lütfen tüm alanları doldurun';
 			default: return null;
 		}
 	}

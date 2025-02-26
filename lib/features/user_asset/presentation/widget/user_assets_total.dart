@@ -1,4 +1,7 @@
+import 'package:asset_tracker/core/theme/app_theme.dart';
+import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/features/user_asset/domain/user_asset.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
@@ -14,7 +17,6 @@ class UserAssetsSummary extends StatelessWidget {
         ? (context.watch<SocketCubit>().state as SocketDataReceived).data.data
         : {};
 
-    double totalInvestment = 0.0;
     double totalCurrentValue = 0.0;
     double totalProfitLoss = 0.0;
 
@@ -32,30 +34,31 @@ class UserAssetsSummary extends StatelessWidget {
       final initialInvestment = asset.purchasePrice * asset.amount;
       final profitLoss = assetValue - initialInvestment;
 
-      totalInvestment += initialInvestment;
       totalCurrentValue += assetValue;
       totalProfitLoss += profitLoss;
     }
 
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Portföy Değeri",
-              style: TextStyle(color: Colors.grey, fontSize: 12)),
-          Text("₺${totalCurrentValue.toStringAsFixed(2)}",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 4),
-          Text("Kâr/Zarar", style: TextStyle(color: Colors.grey, fontSize: 12)),
-          Text(
-            "₺${totalProfitLoss.toStringAsFixed(2)}",
-            style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: totalProfitLoss >= 0 ? Colors.green : Colors.red),
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(t.userAsset.portfolio.totalValue.label,
+            style: TextStyle(color: Colors.grey, fontSize: 12)),
+        Text(
+            "${t.userAsset.portfolio.totalValue.currency}${totalCurrentValue.toStringAsFixed(2)}",
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        Paddings.xxs.vertical,
+        Text(t.userAsset.portfolio.profitLoss,
+            style: TextStyle(color: Colors.grey, fontSize: 12)),
+        Text(
+          "${t.userAsset.portfolio.totalValue.currency}${totalProfitLoss.toStringAsFixed(2)}",
+          style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: totalProfitLoss >= 0
+                  ? Theme.of(context).extension<CustomAppColors>()?.success
+                  : Theme.of(context).extension<CustomAppColors>()?.error),
+        ),
+      ],
     );
   }
 }

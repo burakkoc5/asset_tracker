@@ -1,4 +1,7 @@
+import 'package:asset_tracker/app/constants/app_constants.dart';
+import 'package:asset_tracker/core/theme/app_theme.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
+import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:asset_tracker/features/websocket/domain/currency.dart';
 import 'package:asset_tracker/features/websocket/presentation/widgets/detail_row.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
@@ -30,7 +33,7 @@ class _CurrencyCardState extends State<CurrencyCard> {
           ),
         ),
         _buildBuySellInfo(context, isAlisUp, isSatisUp, alisColor, satisColor),
-        const SizedBox(width: 8),
+        Paddings.xs.horizontal,
         Icon(
           _expanded ? Icons.expand_less : Icons.expand_more,
           color: Theme.of(context).colorScheme.primary,
@@ -56,9 +59,13 @@ class _CurrencyCardState extends State<CurrencyCard> {
               ),
         ),
         if (widget.currency.dir.isDown)
-          const Icon(Icons.arrow_downward, color: Colors.red, size: 16),
+          Icon(Icons.arrow_downward,
+              color: Theme.of(context).extension<CustomAppColors>()?.error,
+              size: AppConstants.iconSizeSmall),
         if (widget.currency.dir.isUp)
-          const Icon(Icons.arrow_upward, color: Colors.green, size: 16),
+          Icon(Icons.arrow_upward,
+              color: Theme.of(context).extension<CustomAppColors>()?.success,
+              size: AppConstants.iconSizeSmall),
       ],
     );
   }
@@ -72,7 +79,7 @@ class _CurrencyCardState extends State<CurrencyCard> {
           color: satisColor,
           size: 16,
         ),
-        const SizedBox(width: 4),
+        Paddings.xxs.horizontal,
         Text(
           "₺${widget.currency.sell}",
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
@@ -110,7 +117,7 @@ class _CurrencyCardState extends State<CurrencyCard> {
               color: color,
               size: 12,
             ),
-            const SizedBox(width: 2),
+            Paddings.xxs.horizontal,
             Text(
               "₺$value",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -130,12 +137,12 @@ class _CurrencyCardState extends State<CurrencyCard> {
       width: double.infinity,
       padding: Paddings.md.all,
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(12),
-          bottomRight: Radius.circular(12),
-        ),
-      ),
+          color:
+              theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+          borderRadius: Radiuses.sm.only(
+            bottomLeft: true,
+            bottomRight: true,
+          )),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -143,14 +150,14 @@ class _CurrencyCardState extends State<CurrencyCard> {
             label: t.currency.details.lowest,
             value: "₺${widget.currency.low}",
             icon: Icons.arrow_downward,
-            color: Colors.red.shade700,
+            color: Theme.of(context).extension<CustomAppColors>()?.error,
           ),
           Paddings.xs.vertical,
           DetailRow(
             label: t.currency.details.highest,
             value: "₺${widget.currency.high}",
             icon: Icons.arrow_upward,
-            color: Colors.green.shade700,
+            color: Theme.of(context).extension<CustomAppColors>()?.success,
           ),
           Paddings.xs.vertical,
           DetailRow(
@@ -173,35 +180,53 @@ class _CurrencyCardState extends State<CurrencyCard> {
   Widget build(BuildContext context) {
     final isAlisUp = widget.currency.dir.buyDirection == 'up';
     final isSatisUp = widget.currency.dir.sellDirection == 'up';
-    final alisColor = isAlisUp ? Colors.green.shade700 : Colors.red.shade700;
-    final satisColor = isSatisUp ? Colors.green.shade700 : Colors.red.shade700;
+    final alisColor = isAlisUp
+        ? Theme.of(context).extension<CustomAppColors>()?.success
+        : Theme.of(context).extension<CustomAppColors>()?.error;
+    final satisColor = isSatisUp
+        ? Theme.of(context).extension<CustomAppColors>()?.success
+        : Theme.of(context).extension<CustomAppColors>()?.error;
 
     return Card(
       margin: Paddings.xxs.all,
       elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: () {
-          setState(() {
-            _expanded = !_expanded;
-          });
-        },
-        child: Column(
-          children: [
-            Padding(
-              padding: Paddings.md.all,
-              child: _buildMainInfo(
-                  context, isAlisUp, isSatisUp, alisColor, satisColor),
-            ),
-            AnimatedSize(
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.easeInOut,
-              child: _expanded
-                  ? _buildExpandedInfo(context)
-                  : const SizedBox.shrink(),
+      shape: RoundedRectangleBorder(borderRadius: Radiuses.sm.all),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).extension<CustomAppColors>()?.white,
+          borderRadius: Radiuses.sm.all,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 3,
+              offset: const Offset(0, 2),
             ),
           ],
+        ),
+        child: InkWell(
+          borderRadius: Radiuses.sm.all,
+          onTap: () {
+            setState(() {
+              _expanded = !_expanded;
+            });
+          },
+          child: Column(
+            children: [
+              Padding(
+                padding: Paddings.md.all,
+                child: _buildMainInfo(
+                    context, isAlisUp, isSatisUp, alisColor!, satisColor!),
+              ),
+              AnimatedSize(
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeInOut,
+                child: _expanded
+                    ? _buildExpandedInfo(context)
+                    : const SizedBox.shrink(),
+              ),
+            ],
+          ),
         ),
       ),
     );

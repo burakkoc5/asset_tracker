@@ -1,5 +1,9 @@
+import 'package:asset_tracker/core/theme/app_theme.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
+import 'package:asset_tracker/features/user_asset/presentation/widget/asset_card.dart';
 import 'package:asset_tracker/features/user_asset/presentation/widget/user_assets_chart.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:asset_tracker/features/user_asset/application/user_asset_cubit.dart';
@@ -7,6 +11,7 @@ import 'package:asset_tracker/features/user_asset/application/user_asset_state.d
 
 import 'user_assets_mixin.dart';
 
+@RoutePage()
 class UserAssetsScreen extends StatefulWidget {
   const UserAssetsScreen({super.key});
 
@@ -44,14 +49,16 @@ class _UserAssetsScreenState extends State<UserAssetsScreen>
                 return [
                   SliverAppBar(
                     title: Text(
-                      'Varlıklarım',
+                      t.userAsset.portfolio.title,
                       style: theme.textTheme.headlineSmall?.copyWith(
                         color: theme.colorScheme.onSurface,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     centerTitle: true,
-                    backgroundColor: Colors.transparent,
+                    backgroundColor: Theme.of(context)
+                        .extension<CustomAppColors>()
+                        ?.transparent,
                     elevation: 0,
                     floating: true,
                     pinned: false,
@@ -68,10 +75,15 @@ class _UserAssetsScreenState extends State<UserAssetsScreen>
                 ];
               },
               body: ListView.builder(
-                padding: const EdgeInsets.all(16),
+                padding: Paddings.sm.all,
                 itemCount: assets.length,
                 itemBuilder: (context, index) {
-                  return AssetCard(asset: assets[index]);
+                  return Column(
+                    children: [
+                      AssetCard(asset: assets[index]),
+                      Paddings.xs.vertical,
+                    ],
+                  );
                 },
               ),
             ),

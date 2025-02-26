@@ -1,3 +1,4 @@
+import 'package:asset_tracker/core/theme/app_theme.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class CustomBottomSheet {
       isScrollControlled: true,
       isDismissible: isDismissible,
       backgroundColor: isTransparent
-          ? Colors.transparent
+          ? Theme.of(context).extension<CustomAppColors>()?.transparent
           : backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: Radiuses.lg.only(topLeft: true, topRight: true),
@@ -37,7 +38,7 @@ class CustomBottomSheet {
             height: expand ? double.infinity : height,
             decoration: BoxDecoration(
               color: isTransparent
-                  ? Colors.transparent
+                  ? Theme.of(context).extension<CustomAppColors>()?.transparent
                   : backgroundColor ??
                       Theme.of(context).scaffoldBackgroundColor,
               borderRadius: Radiuses.lg.only(topLeft: true, topRight: true),

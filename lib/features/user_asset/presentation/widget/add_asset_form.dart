@@ -1,9 +1,12 @@
 import 'package:asset_tracker/app/widgets/container_button.dart';
+import 'package:asset_tracker/core/theme/app_theme.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
+import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:asset_tracker/core/utils/form_validators.dart';
 import 'package:asset_tracker/features/user_asset/application/user_asset_cubit.dart';
 import 'package:asset_tracker/features/user_asset/domain/user_asset.dart';
 import 'package:asset_tracker/features/websocket/domain/currency_names.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -26,88 +29,94 @@ class _AddAssetFormState extends State<AddAssetForm> {
   Widget build(BuildContext context) {
     return Padding(
       padding: Paddings.sm.all,
-      child: Form(
-        key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildTypeDropdown(),
-            const SizedBox(height: 16),
-            _buildAmountField(),
-            const SizedBox(height: 16),
-            _buildPriceField(),
-            const SizedBox(height: 16),
-            _buildDatePicker(context),
-            const SizedBox(height: 24),
-            AppContainerButton.normal(
-              center: const Text('Add Asset',
-                  style: TextStyle(color: Colors.white)),
-              onPressed: () => _submitForm(context),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: Radiuses.sm.all,
+        ),
+        elevation: 5,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildTypeDropdown(),
+                _buildAmountField(),
+                _buildPriceField(),
+                _buildDatePicker(context),
+                Paddings.sm.vertical,
+                AppContainerButton.normal(
+                  center: Text(t.userAsset.addAsset.title,
+                      style: TextStyle(
+                          color: Theme.of(context)
+                              .extension<CustomAppColors>()
+                              ?.white,
+                          fontWeight: FontWeight.bold)),
+                  onPressed: () => _submitForm(context),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildTypeDropdown() {
-    return DropdownButtonFormField<String>(
-      value: _selectedType,
-      decoration: InputDecoration(
-        labelText: 'Type',
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
-        prefixIcon: const Icon(Icons.category),
+    return _buildFieldWrapper(
+      child: DropdownButtonFormField<String>(
+        value: _selectedType,
+        decoration:
+            _inputDecoration(t.userAsset.addAsset.fields.type, Icons.category),
+        items: CurrencyNames.names.values
+            .map((type) => DropdownMenuItem(value: type, child: Text(type)))
+            .toList(),
+        onChanged: (value) => setState(() => _selectedType = value),
+        validator: FormValidators.typeValidate,
       ),
-      items: CurrencyNames.names.values
-          .map((type) => DropdownMenuItem(value: type, child: Text(type)))
-          .toList(),
-      onChanged: (value) => setState(() => _selectedType = value),
-      validator: FormValidators.typeValidate,
     );
   }
 
   Widget _buildAmountField() {
-    return TextFormField(
-      controller: _amountController,
-      decoration: InputDecoration(
-        labelText: 'Amount',
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
-        prefixIcon: const Icon(Icons.format_list_numbered),
+    return _buildFieldWrapper(
+      child: TextFormField(
+        controller: _amountController,
+        decoration: _inputDecoration(
+            t.userAsset.addAsset.fields.amount, Icons.format_list_numbered),
+        keyboardType: TextInputType.number,
+        validator: FormValidators.amountValidate,
       ),
-      keyboardType: TextInputType.number,
-      validator: FormValidators.amountValidate,
     );
   }
 
   Widget _buildPriceField() {
-    return TextFormField(
-      controller: _priceController,
-      decoration: InputDecoration(
-        labelText: 'Price',
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
-        prefixIcon: const Icon(Icons.monetization_on),
+    return _buildFieldWrapper(
+      child: TextFormField(
+        controller: _priceController,
+        decoration: _inputDecoration(
+            t.userAsset.addAsset.fields.price, Icons.monetization_on),
+        keyboardType: TextInputType.number,
+        validator: FormValidators.priceValidate,
       ),
-      keyboardType: TextInputType.number,
-      validator: FormValidators.priceValidate,
     );
   }
 
   Widget _buildDatePicker(BuildContext context) {
-    return InkWell(
-      onTap: () async => _selectDate(context),
-      child: InputDecorator(
-        decoration: InputDecoration(
-          labelText: 'Date',
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(24)),
-          prefixIcon: const Icon(Icons.calendar_today),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          child: Text(
-            _selectedDate != null
-                ? DateFormat('dd/MM/yyyy').format(_selectedDate!)
-                : 'Select date',
-            style: const TextStyle(fontSize: 16),
+    return _buildFieldWrapper(
+      child: InkWell(
+        onTap: () async => _selectDate(context),
+        child: InputDecorator(
+          decoration: _inputDecoration(
+              t.userAsset.addAsset.fields.date, Icons.calendar_today),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            child: Text(
+              _selectedDate != null
+                  ? DateFormat('dd/MM/yyyy').format(_selectedDate!)
+                  : t.userAsset.addAsset.datePicker.label,
+              style: const TextStyle(fontSize: 16),
+            ),
           ),
         ),
       ),
@@ -129,9 +138,7 @@ class _AddAssetFormState extends State<AddAssetForm> {
   void _submitForm(BuildContext context) {
     if (formKey.currentState!.validate()) {
       final asset = UserAsset(
-        type: CurrencyNames.names.values
-            .where((element) => element == _selectedType)
-            .first,
+        type: _selectedType!,
         amount: int.parse(_amountController.text),
         purchasePrice: double.parse(_priceController.text),
         purchaseDate: _selectedDate!,
@@ -141,8 +148,25 @@ class _AddAssetFormState extends State<AddAssetForm> {
       Navigator.of(context).pop();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill all fields')),
+        SnackBar(content: Text(t.userAsset.addAsset.errorMessage)),
       );
     }
+  }
+
+  Widget _buildFieldWrapper({required Widget child}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: child,
+    );
+  }
+
+  InputDecoration _inputDecoration(String label, IconData icon) {
+    return InputDecoration(
+      labelText: label,
+      border: OutlineInputBorder(
+        borderRadius: Radiuses.sm.all,
+      ),
+      prefixIcon: Icon(icon),
+    );
   }
 }

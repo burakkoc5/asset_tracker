@@ -2,6 +2,8 @@
   "core": {
     "appName": "AssetTracker",
     "errors": {
+      "error": "Hata",
+      "tryAgain": "Tekrar dene",
       "accountExists": "Bu e-posta adresi zaten kullanımda",
       "invalidCredentials": "Geçersiz e-posta veya şifre",
       "notFound": "Kullanıcı bulunamadı",
@@ -54,6 +56,60 @@
       "minutes": "$count dakika önce",
       "hours": "$count saat önce",
       "days": "$count gün önce"
+    },
+    "names": {
+      "KULCEALTIN": "Külçe Altın",
+      "ALTIN": "Altın",
+      "CEYREK_ESKI": "Çeyrek Altın (Eski)",
+      "CEYREK_YENI": "Çeyrek Altın (Yeni)",
+      "YARIM_ESKI": "Yarım Altın (Eski)",
+      "YARIM_YENI": "Yarım Altın (Yeni)",
+      "TEK_ESKI": "Tek Altın (Eski)",
+      "TEK_YENI": "Tek Altın (Yeni)",
+      "ATA_ESKI": "Ata Altın (Eski)",
+      "ATA_YENI": "Ata Altın (Yeni)",
+      "AUDTRY": "Avustralya Doları/TRY",
+      "AYAR22": "22 Ayar Altın",
+      "AYAR24": "24 Ayar Altın",
+      "AYAR26": "26 Ayar Altın",
+      "AYAR28": "28 Ayar Altın",
+      "AYAR30": "30 Ayar Altın",
+      "USDTRY": "Dolar/TRY",
+      "EURTRY": "Euro/TRY",
+      "GBPTRY": "Sterlin/TRY",
+      "CHFTRY": "Frang/TRY",
+      "SARTRY": "Riyal/TRY",
+      "JPYTRY": "Yen/TRY",
+      "SEKTRY": "İsveç Kronu/TRY",
+      "DKKTRY": "Danimarka Kronu/TRY",
+      "NOKTRY": "Norveç Kronu/TRY",
+      "CADTRY": "Kanada Doları/TRY",
+      "USDCAD": "Dolar/Kanada Doları",
+      "XAUXAG": "Altın/Gümüş",
+      "USDPURE": "Dolar",
+      "USDKG": "Dolar/Kg",
+      "EURKG": "Euro/Kg",
+      "GBPKG": "Sterlin/Kg",
+      "GBPUSD": "Sterlin/Dolar",
+      "GREMESE_ESKI": "Gremese Altın (Eski)",
+      "GREMESE_YENI": "Gremese Altın (Yeni)",
+      "ATA5_ESKI": "Ata 5 (Eski) Altın",
+      "ATA5_YENI": "Ata 5 (Yeni) Altın",
+      "GUMUSTRY": "Gümüş/TRY",
+      "XPTUSD": "Palladyum/Dolar",
+      "EURUSD": "Euro/Dolar",
+      "USDJPY": "Dolar/Yen",
+      "XAGUSD": "Gümüş/Dolar",
+      "GUMUSUSD": "Gümüş/Dolar",
+      "XPDUSD": "Platin/Dolar",
+      "XAUUSD": "Altın/Dolar",
+      "USDSAR": "Dolar/Riyal",
+      "AUDUSD": "Avustralya Doları/Dolar",
+      "USDCHF": "Dolar/Frang",
+      "USDCNY": "Dolar/Çin Yuanı",
+      "USDMXN": "Dolar/Meksika Pesosu",
+      "USDPHP": "Dolar/Filipin Pesosu",
+      "USDMYR": "Dolar/Malezya Ringgiti"
     }
   },
   "registration": {
@@ -95,12 +151,44 @@
     }
   },
   "home": {
-    "title": "Asset Tracker",
+    "title": "Varlıklar",
     "initializing": "Başlatılıyor...",
     "disconnected": "Bağlantı Koptu",
     "connected": "Bağlantı Kuruldu"
   },
   "profile": {
     "title": "Profil"
+  },
+
+  "userAsset": {
+    "portfolio": {
+      "title": "Varlıklarım",
+      "emptyMessage": "Henüz varlık bulunmuyor",
+      "addAssetHint": "Yeni varlık eklemek için + butonuna tıklayın",
+      "totalValue": {
+        "label": "Portföy Değeri",
+        "currency": "₺"
+      },
+      "profitLoss": "Kâr/Zarar"
+    },
+    "assetDetails": {
+      "amount": "Miktar",
+      "purchasePrice": "Alış",
+      "currentPrice": "Güncel",
+      "purchaseDate": "Alış Tarihi"
+    },
+    "addAsset": {
+      "title": "Varlık Ekle",
+      "fields": {
+        "type": "Tür",
+        "amount": "Miktar",
+        "price": "Fiyat",
+        "date": "Tarih"
+      },
+      "datePicker": {
+        "label": "Tarih Seç"
+      },
+      "errorMessage": "Lütfen tüm alanları doldurun"
+    }
   }
 }

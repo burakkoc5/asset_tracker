@@ -3,6 +3,7 @@ import 'package:asset_tracker/app/routing/app_router.gr.dart';
 import 'package:asset_tracker/core/utils/asset_manager.dart';
 import 'package:asset_tracker/features/auth/application/authentication_cubit.dart';
 import 'package:asset_tracker/features/auth/application/authentication_state.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: AppConstants.appLogoSizeMedium,
             ),
             Text(
-              "Asset Tracker",
+              t.core.appName,
               style: Theme.of(context)
                   .textTheme
                   .headlineLarge

@@ -1,3 +1,4 @@
+import 'package:asset_tracker/core/theme/app_theme.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
 import 'package:asset_tracker/features/websocket/presentation/currency_card.dart';
@@ -77,17 +78,23 @@ class _SocketListState extends State<SocketList> {
             Padding(
               padding: Paddings.md.all,
               child: Card(
-                color: Colors.red,
+                color: Theme.of(context).extension<CustomAppColors>()?.error,
                 child: Padding(
                   padding: Paddings.sm.all,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.error_outline, color: Colors.white),
-                      const SizedBox(width: 8),
+                      Icon(Icons.error_outline,
+                          color: Theme.of(context)
+                              .extension<CustomAppColors>()
+                              ?.white),
+                      Paddings.xs.horizontal,
                       Text(
                         t.core.errors.socketDisconnected,
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .extension<CustomAppColors>()
+                                ?.white),
                       ),
                     ],
                   ),
@@ -104,7 +111,7 @@ class _SocketListState extends State<SocketList> {
                   size: 14,
                   color: Colors.grey[600],
                 ),
-                const SizedBox(width: 4),
+                Paddings.xxs.horizontal,
                 Text(
                   t.currency.details.lastUpdateTime(time: getUpdateText()),
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(

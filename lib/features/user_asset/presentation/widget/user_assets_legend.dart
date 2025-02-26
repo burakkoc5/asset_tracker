@@ -1,6 +1,10 @@
+import 'package:asset_tracker/core/theme/paddings.dart';
+import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:flutter/material.dart';
 import 'package:asset_tracker/features/user_asset/domain/user_asset.dart';
 
+// Not using right now but can be useful in the future
+// So code didnt edited
 class UserAssetsLegend extends StatelessWidget {
   final List<UserAsset> assets;
   final List<Color> colorPalette;
@@ -29,7 +33,7 @@ class UserAssetsLegend extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
         color: Colors.grey[100],
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: Radiuses.sm.all,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
@@ -50,7 +54,7 @@ class UserAssetsLegend extends StatelessWidget {
               shape: BoxShape.circle,
             ),
           ),
-          const SizedBox(width: 8),
+          Paddings.xs.horizontal,
           Text(label, style: const TextStyle(fontSize: 12)),
         ],
       ),

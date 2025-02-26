@@ -1,3 +1,4 @@
+import 'package:asset_tracker/core/theme/app_theme.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class AppContainerButton extends StatelessWidget {
         borderRadius: Radiuses.sm.all,
       ),
       child: Material(
-        color: Colors.transparent,
+        color: Theme.of(context).extension<CustomAppColors>()?.transparent,
         child: InkWell(
           onTap: onPressed,
           splashColor:

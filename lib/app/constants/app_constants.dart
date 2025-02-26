@@ -39,4 +39,10 @@ class AppConstants {
 
   /// 3s - Extra Long
   static const Duration appDurationExtraLong = Duration(seconds: 3);
+
+  /// App Icon Size Constants
+  static const double iconSizeSmall = 16;
+  static const double iconSizeMedium = 24;
+  static const double iconSizeLarge = 32;
+  static const double iconSizeXLarge = 48;
 }

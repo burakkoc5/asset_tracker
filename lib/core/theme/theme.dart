@@ -1,3 +1,4 @@
+import "package:asset_tracker/core/theme/app_theme.dart";
 import "package:flutter/material.dart";
 
 class MaterialTheme {
@@ -349,6 +350,27 @@ class MaterialTheme {
           labelColor: colorScheme.primary,
           unselectedLabelColor: colorScheme.onSurfaceVariant,
         ),
+        extensions: const <ThemeExtension<dynamic>>[
+          CustomAppColors(
+            success: Colors.green,
+            error: Colors.red,
+            warning: Colors.amber,
+            transparent: Colors.transparent,
+            white: Colors.white,
+            chartColors: [
+              Colors.indigo,
+              Colors.teal,
+              Colors.deepOrange,
+              Colors.purple,
+              Colors.blueGrey,
+              Colors.green,
+              Colors.amber,
+              Colors.cyan,
+              Colors.brown,
+              Colors.lime,
+            ],
+          ),
+        ],
       );
 
   List<ExtendedColor> get extendedColors => [];

@@ -1,3 +1,4 @@
+import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:flutter/material.dart';
 
 class DetailRow extends StatelessWidget {
@@ -24,7 +25,7 @@ class DetailRow extends StatelessWidget {
           size: 16,
           color: color ?? theme.colorScheme.primary,
         ),
-        const SizedBox(width: 8),
+        Paddings.sm.horizontal,
         Text(
           label,
           style: theme.textTheme.bodyMedium,

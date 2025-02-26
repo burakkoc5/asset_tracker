@@ -1,9 +1,11 @@
+import 'package:asset_tracker/app/constants/app_constants.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
+import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:asset_tracker/features/user_asset/application/user_asset_cubit.dart';
 import 'package:asset_tracker/features/user_asset/application/user_asset_state.dart';
 import 'package:asset_tracker/features/user_asset/domain/user_asset.dart';
-import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
-import 'package:asset_tracker/features/websocket/domain/currency_names.dart';
+import 'package:asset_tracker/features/user_asset/presentation/widget/asset_card.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,7 +32,7 @@ mixin UserAssetsMixin<T extends StatefulWidget> on State<T> {
       }
       return _buildLoadedState(context, assets, scrollController);
     }
-    return const Center(child: Text('Beklenmeyen durum.'));
+    return Center(child: Text(t.core.errors.unknown));
   }
 
   Widget _buildLoadingState(BuildContext context) {
@@ -44,11 +46,11 @@ mixin UserAssetsMixin<T extends StatefulWidget> on State<T> {
 
     return Center(
       child: Container(
-        margin: const EdgeInsets.all(24),
-        padding: const EdgeInsets.all(24),
+        margin: Paddings.md.all,
+        padding: Paddings.md.all,
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: Radiuses.sm.all,
           boxShadow: [
             BoxShadow(
               color: theme.colorScheme.shadow.withOpacity(0.1),
@@ -60,30 +62,32 @@ mixin UserAssetsMixin<T extends StatefulWidget> on State<T> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.error_outline, size: 48, color: theme.colorScheme.error),
-            const SizedBox(height: 16),
+            Icon(Icons.error_outline,
+                size: AppConstants.iconSizeXLarge,
+                color: theme.colorScheme.error),
+            Paddings.sm.vertical,
             Text(
-              'Hata',
+              t.core.errors.error,
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8),
+            Paddings.xs.vertical,
             Text(
               errorMessage,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium,
             ),
-            const SizedBox(height: 24),
+            Paddings.md.vertical,
             ElevatedButton(
               onPressed: () => context.read<UserAssetCubit>().loadUserAssets(),
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(200, 48),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24),
+                  borderRadius: Radiuses.lg.all,
                 ),
               ),
-              child: const Text('Yeniden Dene'),
+              child: Text(t.core.errors.tryAgain),
             ),
           ],
         ),
@@ -96,25 +100,25 @@ mixin UserAssetsMixin<T extends StatefulWidget> on State<T> {
 
     return Center(
       child: Container(
-        padding: const EdgeInsets.all(24),
+        padding: Paddings.md.all,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               Icons.account_balance_wallet_outlined,
-              size: 64,
+              size: AppConstants.iconSizeXLarge,
               color: theme.colorScheme.primary.withOpacity(0.5),
             ),
-            const SizedBox(height: 16),
+            Paddings.sm.vertical,
             Text(
-              'Henüz varlık bulunmuyor',
+              t.userAsset.portfolio.emptyMessage,
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8),
+            Paddings.xs.vertical,
             Text(
-              'Yeni varlık eklemek için + butonuna tıklayın',
+              t.userAsset.portfolio.addAssetHint,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium,
             ),
@@ -132,7 +136,7 @@ mixin UserAssetsMixin<T extends StatefulWidget> on State<T> {
       },
       child: ListView.builder(
         controller: scrollController,
-        padding: const EdgeInsets.all(16),
+        padding: Paddings.sm.all,
         itemCount: assets.length,
         itemBuilder: (context, index) {
           return AssetCard(asset: assets[index]);
@@ -140,144 +144,4 @@ mixin UserAssetsMixin<T extends StatefulWidget> on State<T> {
       ),
     );
   }
-}
-
-class AssetCard extends StatefulWidget {
-  final UserAsset asset;
-  const AssetCard({super.key, required this.asset});
-
-  @override
-  _AssetCardState createState() => _AssetCardState();
-}
-
-class _AssetCardState extends State<AssetCard> {
-  bool _isExpanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final livePrices = context.watch<SocketCubit>().state is SocketDataReceived
-        ? (context.watch<SocketCubit>().state as SocketDataReceived).data.data
-        : {};
-
-    final assetKey = CurrencyNames.names.entries
-        .firstWhere((entry) => entry.value == widget.asset.type,
-            orElse: () => const MapEntry('', ''))
-        .key;
-
-    final currentPrice = livePrices.containsKey(assetKey)
-        ? double.tryParse(livePrices[assetKey]!.sell) ?? 0.0
-        : widget.asset.purchasePrice;
-
-    final totalValue = currentPrice * widget.asset.amount;
-    final profitLoss =
-        (currentPrice - widget.asset.purchasePrice) * widget.asset.amount;
-    final profitLossPercent =
-        (profitLoss / (widget.asset.purchasePrice * widget.asset.amount)) * 100;
-    final profitLossText = profitLoss >= 0
-        ? "+${profitLossPercent.toStringAsFixed(2)}%"
-        : "-${profitLossPercent.abs().toStringAsFixed(2)}%";
-    final profitLossColor = profitLoss >= 0 ? Colors.green : Colors.red;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _isExpanded = !_isExpanded;
-        });
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 3,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    _buildAssetIcon(),
-                    Paddings.xs.horizontal,
-                    Text(
-                      widget.asset.type!,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      "₺${totalValue.toStringAsFixed(2)}",
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      profitLossText,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: profitLossColor,
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            if (_isExpanded) ...[
-              const SizedBox(height: 8),
-              _buildInfoRow("Miktar", widget.asset.amount.toString()),
-              _buildInfoRow(
-                  "Alış", "₺${widget.asset.purchasePrice.toStringAsFixed(2)}"),
-              _buildInfoRow("Güncel", "₺${currentPrice.toStringAsFixed(2)}"),
-              _buildInfoRow(
-                  "Alış Tarihi", widget.asset.purchaseDate.toString()),
-            ]
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildInfoRow(String title, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(title, style: const TextStyle(fontSize: 12, color: Colors.grey)),
-          Text(value,
-              style:
-                  const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-        ],
-      ),
-    );
-  }
-}
-
-Widget _buildAssetIcon() {
-  return Container(
-    width: 40,
-    height: 40,
-    decoration: BoxDecoration(
-      shape: BoxShape.circle,
-      color: Colors.blueAccent.withOpacity(0.2),
-    ),
-    child: const Icon(Icons.attach_money, color: Colors.blueAccent),
-  );
 }

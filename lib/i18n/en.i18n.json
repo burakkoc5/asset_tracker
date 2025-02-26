@@ -2,6 +2,8 @@
   "core": {
     "appName": "AssetTracker",
     "errors": {
+      "error": "Hata",
+      "tryAgain": "Tekrar dene",
       "accountExists": "This email address is already in use",
       "invalidCredentials": "Invalid email or password",
       "notFound": "User not found",
@@ -54,6 +56,60 @@
       "minutes": "$count minutes ago",
       "hours": "$count hours ago",
       "days": "$count days ago"
+    },
+    "names": {
+      "KULCEALTIN": "Bullion Gold",
+      "ALTIN": "Gold",
+      "CEYREK_ESKI": "Quarter Gold (Old)",
+      "CEYREK_YENI": "Quarter Gold (New)",
+      "YARIM_ESKI": "Half Gold (Old)",
+      "YARIM_YENI": "Half Gold (New)",
+      "TEK_ESKI": "Full Gold (Old)",
+      "TEK_YENI": "Full Gold (New)",
+      "ATA_ESKI": "Ata Gold (Old)",
+      "ATA_YENI": "Ata Gold (New)",
+      "AUDTRY": "Australian Dollar/TRY",
+      "AYAR22": "22 Carat Gold",
+      "AYAR24": "24 Carat Gold",
+      "AYAR26": "26 Carat Gold",
+      "AYAR28": "28 Carat Gold",
+      "AYAR30": "30 Carat Gold",
+      "USDTRY": "Dollar/TRY",
+      "EURTRY": "Euro/TRY",
+      "GBPTRY": "Sterling/TRY",
+      "CHFTRY": "Franc/TRY",
+      "SARTRY": "Riyal/TRY",
+      "JPYTRY": "Yen/TRY",
+      "SEKTRY": "Swedish Krona/TRY",
+      "DKKTRY": "Danish Krona/TRY",
+      "NOKTRY": "Norwegian Krona/TRY",
+      "CADTRY": "Canadian Dollar/TRY",
+      "USDCAD": "Dollar/Canadian Dollar",
+      "XAUXAG": "Gold/Silver",
+      "USDPURE": "Dollar",
+      "USDKG": "Dollar/Kg",
+      "EURKG": "Euro/Kg",
+      "GBPKG": "Sterling/Kg",
+      "GBPUSD": "Sterling/Dollar",
+      "GREMESE_ESKI": "Gremese Gold (Old)",
+      "GREMESE_YENI": "Gremese Gold (New)",
+      "ATA5_ESKI": "Ata 5 (Old) Gold",
+      "ATA5_YENI": "Ata 5 (New) Gold",
+      "GUMUSTRY": "Silver/TRY",
+      "XPTUSD": "Palladium/Dollar",
+      "EURUSD": "Euro/Dollar",
+      "USDJPY": "Dollar/Yen",
+      "XAGUSD": "Silver/Dollar",
+      "GUMUSUSD": "Silver/Dollar",
+      "XPDUSD": "Platinum/Dollar",
+      "XAUUSD": "Gold/Dollar",
+      "USDSAR": "Dollar/Riyal",
+      "AUDUSD": "Australian Dollar/Dollar",
+      "USDCHF": "Dollar/Franc",
+      "USDCNY": "Dollar/Chinese Yuan",
+      "USDMXN": "Dollar/Mexican Peso",
+      "USDPHP": "Dollar/Philippine Peso",
+      "USDMYR": "Dollar/Malaysian Ringgit"
     }
   },
   "registration": {
@@ -101,5 +157,37 @@
   },
   "profile": {
     "title": "Profile"
+  },
+
+  "userAsset": {
+    "portfolio": {
+      "title": "My Assets",
+      "emptyMessage": "No assets yet",
+      "addAssetHint": "Click the + button to add a new asset",
+      "totalValue": {
+        "label": "Portfolio Value",
+        "currency": "₺"
+      },
+      "profitLoss": "Profit/Loss"
+    },
+    "assetDetails": {
+      "amount": "Amount",
+      "purchasePrice": "Purchase Price",
+      "currentPrice": "Current Price",
+      "purchaseDate": "Purchase Date"
+    },
+    "addAsset": {
+      "title": "Add Asset",
+      "fields": {
+        "type": "Type",
+        "amount": "Amount",
+        "price": "Price",
+        "date": "Date"
+      },
+      "datePicker": {
+        "label": "Select Date"
+      },
+      "errorMessage": "Please fill all fields"
+    }
   }
 }

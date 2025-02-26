@@ -1,3 +1,5 @@
+import 'package:asset_tracker/core/theme/app_theme.dart';
+import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:asset_tracker/features/user_asset/presentation/widget/user_assets_total.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -5,13 +7,13 @@ import 'package:asset_tracker/features/user_asset/domain/user_asset.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
 import 'package:asset_tracker/features/websocket/domain/currency_names.dart';
-import 'user_assets_legend.dart';
 
 class UserAssetsPieChart extends StatefulWidget {
   final List<UserAsset> assets;
   const UserAssetsPieChart({super.key, required this.assets});
 
   @override
+  // ignore: library_private_types_in_public_api
   _UserAssetsPieChartState createState() => _UserAssetsPieChartState();
 }
 
@@ -24,18 +26,8 @@ class _UserAssetsPieChartState extends State<UserAssetsPieChart> {
         ? (context.watch<SocketCubit>().state as SocketDataReceived).data.data
         : {};
 
-    List<Color> colorPalette = [
-      Colors.indigo,
-      Colors.teal,
-      Colors.deepOrange,
-      Colors.purple,
-      Colors.blueGrey,
-      Colors.green,
-      Colors.amber,
-      Colors.cyan,
-      Colors.brown,
-      Colors.lime,
-    ];
+    List<Color> colorPalette =
+        Theme.of(context).extension<CustomAppColors>()?.chartColors ?? [];
 
     List<PieChartSectionData> pieSections = [];
 
@@ -62,7 +54,7 @@ class _UserAssetsPieChartState extends State<UserAssetsPieChart> {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.black87.withOpacity(0.7),
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: Radiuses.sm.all,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black26,
@@ -73,8 +65,9 @@ class _UserAssetsPieChartState extends State<UserAssetsPieChart> {
                 ),
                 child: Text(
                   "${asset.type}\n₺${assetValue.toStringAsFixed(2)}",
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color:
+                        Theme.of(context).extension<CustomAppColors>()?.white,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                   ),
