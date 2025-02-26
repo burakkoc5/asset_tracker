@@ -1,3 +1,4 @@
+import 'package:asset_tracker/core/theme/app_theme.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
 import 'package:asset_tracker/features/websocket/presentation/currency_card.dart';
@@ -20,20 +21,28 @@ class _SocketListState extends State<SocketList> {
     return Scaffold(
       body: BlocBuilder<SocketCubit, SocketState>(
         builder: (context, state) {
+          //debugPrint('Current state: $state');
+
           if (state is SocketLoading) {
+            debugPrint('Socket is loading...');
             return const Center(child: CircularProgressIndicator());
           } else if (state is SocketError) {
+            debugPrint('Socket encountered an error: ${state.error}');
             return Center(
                 child: Text(t.socket.status.error(message: state.error)));
           } else if (state is SocketConnected) {
+            debugPrint('Socket connected.');
             return const Center(child: CircularProgressIndicator());
           } else if (state is SocketDataReceived) {
+            //debugPrint('Socket data received.');
             isDisconnected = false;
             return _buildDataReceivedUI(context, state.data);
           } else if (state is SocketDisconnected) {
+            debugPrint('Socket disconnected.');
             isDisconnected = true;
             return _buildDataReceivedUI(context, state.data);
           } else {
+            debugPrint('Initializing...');
             return Center(child: Text(t.home.initializing));
           }
         },
@@ -42,6 +51,8 @@ class _SocketListState extends State<SocketList> {
   }
 
   Widget _buildDataReceivedUI(BuildContext context, response) {
+    debugPrint('Building UI with received data: ${response.data.length} items');
+
     final lastUpdate = DateTime.fromMillisecondsSinceEpoch(response.meta.time);
     final now = DateTime.now();
     final difference = now.difference(lastUpdate);
@@ -67,17 +78,23 @@ class _SocketListState extends State<SocketList> {
             Padding(
               padding: Paddings.md.all,
               child: Card(
-                color: Colors.red,
+                color: Theme.of(context).extension<CustomAppColors>()?.error,
                 child: Padding(
                   padding: Paddings.sm.all,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.error_outline, color: Colors.white),
-                      const SizedBox(width: 8),
+                      Icon(Icons.error_outline,
+                          color: Theme.of(context)
+                              .extension<CustomAppColors>()
+                              ?.white),
+                      Paddings.xs.horizontal,
                       Text(
                         t.core.errors.socketDisconnected,
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(
+                            color: Theme.of(context)
+                                .extension<CustomAppColors>()
+                                ?.white),
                       ),
                     ],
                   ),
@@ -94,7 +111,7 @@ class _SocketListState extends State<SocketList> {
                   size: 14,
                   color: Colors.grey[600],
                 ),
-                const SizedBox(width: 4),
+                Paddings.xxs.horizontal,
                 Text(
                   t.currency.details.lastUpdateTime(time: getUpdateText()),
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -111,6 +128,7 @@ class _SocketListState extends State<SocketList> {
             itemBuilder: (context, index) {
               final entry = response.data.entries.toList()[index];
               final currency = entry.value;
+              //debugPrint('Rendering CurrencyCard for: ${currency.toString()}');
               return CurrencyCard(
                 currency: currency,
               );

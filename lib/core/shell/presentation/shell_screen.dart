@@ -1,18 +1,21 @@
 import 'package:asset_tracker/app/routing/app_router.gr.dart';
+import 'package:asset_tracker/core/utils/setup_locator.dart';
+import 'package:asset_tracker/features/auth/infrastructure/abstract/authentication_repository.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 @RoutePage()
 class ShellScreen extends StatelessWidget {
-  const ShellScreen({super.key});
+  final userId = getIt<AuthenticationRepository>().getCurrentUser()!.uid;
+  ShellScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
       routes: const [
         HomeRoute(),
-        ProfileRoute(),
+        UserAssetsRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(
@@ -24,9 +27,8 @@ class ShellScreen extends StatelessWidget {
               label: t.home.title,
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.person_2_outlined),
-              label: t.profile.title,
-            ),
+                icon: Icon(Icons.account_balance),
+                label: t.userAsset.portfolio.title),
           ],
         );
       },

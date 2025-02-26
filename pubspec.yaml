@@ -47,6 +47,8 @@ dependencies:
   bloc: ^8.1.4
   web_socket_channel: ^3.0.1
   flutter_dotenv: ^5.2.1
+  cloud_firestore: ^5.6.4
+  fl_chart: ^0.70.2
 
 dev_dependencies:
   flutter_test:

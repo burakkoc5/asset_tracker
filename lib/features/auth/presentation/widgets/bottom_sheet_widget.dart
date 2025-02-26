@@ -1,3 +1,4 @@
+import 'package:asset_tracker/core/theme/app_theme.dart';
 import 'package:asset_tracker/features/auth/presentation/login_form.dart';
 import 'package:asset_tracker/features/auth/presentation/signup_form.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
@@ -33,7 +34,8 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
         children: [
           TabBar(
             controller: _tabController,
-            dividerColor: Colors.transparent,
+            dividerColor:
+                Theme.of(context).extension<CustomAppColors>()?.transparent,
             tabs: [
               Tab(text: t.registration.signIn.signInText),
               Tab(text: t.registration.signUp.signUpText),
