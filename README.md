@@ -24,9 +24,9 @@ This project is being developed under the supervision of [Emre Gültekir](https:
     <td width="25%"><img src="readme_images/signup-window.png" alt="Sign Up Screen" width="200"></td>
   </tr>
   <tr>
-    <td width="25%"><img src="readme_images/assets.png" alt="Splash Screen" width="200"></td>
-    <td width="25%"><img src="readme_images/addnewasset.png" alt="Registration Screen" width="200"></td>
-    <td width="25%"><img src="readme_images/myassets.png" alt="Sign In Screen" width="200"></td>
+    <td width="25%"><img src="readme_images/assets.png" alt="Assets Screen" width="200"></td>
+    <td width="25%"><img src="readme_images/addnewasset.png" alt="Buying New Asset Screen" width="200"></td>
+    <td width="25%"><img src="readme_images/myassets.png" alt="My Assets Screen" width="200"></td>
   </tr>
 
 </table>
