@@ -147,24 +147,10 @@ class _CurrencyCardState extends State<CurrencyCard> {
                 : customColors?.error.withOpacity(0.1),
             borderRadius: Radiuses.xxs.all,
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(
-                isSatisUp ? Icons.arrow_upward : Icons.arrow_downward,
-                color: priceColor,
-                size: 12,
-              ),
-              const SizedBox(width: 2),
-              Text(
-                isSatisUp ? "+%" : "-%",
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.bold,
-                  color: priceColor,
-                ),
-              ),
-            ],
+          child: Icon(
+            isSatisUp ? Icons.arrow_upward : Icons.arrow_downward,
+            color: priceColor,
+            size: 12,
           ),
         ),
       ],
@@ -182,7 +168,9 @@ class _CurrencyCardState extends State<CurrencyCard> {
               ? widget.currency.code
               : "${t.currency.details.buy}: ₺${widget.currency.buy}",
           style: theme.textTheme.bodyMedium?.copyWith(
-            color: _expanded ? theme.colorScheme.onSurfaceVariant : alisColor,
+            color: _expanded
+                ? theme.colorScheme.onSurfaceVariant
+                : theme.colorScheme.onSurface,
             fontWeight: _expanded ? FontWeight.normal : FontWeight.w500,
             fontSize: 13,
           ),
@@ -191,7 +179,7 @@ class _CurrencyCardState extends State<CurrencyCard> {
         if (!_expanded) ...[
           // Ayırıcı nokta
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 6),
+            margin: Paddings.xxs.all,
             width: 3,
             height: 3,
             decoration: BoxDecoration(
@@ -204,7 +192,7 @@ class _CurrencyCardState extends State<CurrencyCard> {
             child: Text(
               "${t.currency.details.sell}: ₺${widget.currency.sell}",
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: satisColor,
+                color: theme.colorScheme.onSurface,
                 fontWeight: FontWeight.w500,
                 fontSize: 13,
               ),
