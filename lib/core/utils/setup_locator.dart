@@ -10,11 +10,12 @@ import 'package:asset_tracker/features/websocket/infrastructure/socket_repositor
 import 'package:asset_tracker/features/websocket/infrastructure/socket_repository_impl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
+import 'package:asset_tracker/features/settings/application/settings_cubit.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
 
-void setupLocator() {
-  // Register services
+Future<void> setupLocator() async {
   getIt.registerSingleton<AuthenticationRepository>(
       FirebaseAuthRepositoryImpl());
 
@@ -35,4 +36,13 @@ void setupLocator() {
 
   getIt.registerFactory<UserAssetCubit>(() => UserAssetCubit(
       getIt<UserAssetRepository>(), getIt<AuthenticationCubit>()));
+
+  // Add error handling for SharedPreferences
+  SharedPreferences? sharedPreferences;
+
+  sharedPreferences = await SharedPreferences.getInstance();
+  getIt.registerSingleton<SharedPreferences>(sharedPreferences);
+
+  // Register SettingsCubit only if SharedPreferences is available
+  getIt.registerSingleton<SettingsCubit>(SettingsCubit(sharedPreferences));
 }

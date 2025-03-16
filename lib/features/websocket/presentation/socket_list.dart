@@ -69,73 +69,77 @@ class _SocketListState extends State<SocketList> {
       }
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (isDisconnected)
-            Padding(
-              padding: Paddings.md.all,
-              child: Card(
-                color: Theme.of(context).extension<CustomAppColors>()?.error,
-                child: Padding(
-                  padding: Paddings.sm.all,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.error_outline,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        if (isDisconnected)
+          Padding(
+            padding: Paddings.md.all,
+            child: Card(
+              color: Theme.of(context).extension<CustomAppColors>()?.error,
+              child: Padding(
+                padding: Paddings.sm.all,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.error_outline,
+                        color: Theme.of(context)
+                            .extension<CustomAppColors>()
+                            ?.white),
+                    Paddings.xs.horizontal,
+                    Text(
+                      t.core.errors.socketDisconnected,
+                      style: TextStyle(
                           color: Theme.of(context)
                               .extension<CustomAppColors>()
                               ?.white),
-                      Paddings.xs.horizontal,
-                      Text(
-                        t.core.errors.socketDisconnected,
-                        style: TextStyle(
-                            color: Theme.of(context)
-                                .extension<CustomAppColors>()
-                                ?.white),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          Padding(
-            padding: Paddings.sm.only(left: true),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.update,
-                  size: 14,
-                  color: Colors.grey[600],
-                ),
-                Paddings.xxs.horizontal,
-                Text(
-                  t.currency.details.lastUpdateTime(time: getUpdateText()),
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: Colors.grey[600],
-                      ),
-                ),
-              ],
+          ),
+        Padding(
+          padding: Paddings.sm.only(left: true),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                Icons.update,
+                size: 14,
+                color: Colors.grey[600],
+              ),
+              Paddings.xxs.horizontal,
+              Text(
+                t.currency.details.lastUpdateTime(time: getUpdateText()),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Colors.grey[600],
+                    ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: Paddings.sm.symmetric(horizontal: true),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const ClampingScrollPhysics(),
+              itemCount: response.data.length,
+              padding: EdgeInsets.only(bottom: Paddings.sm.value),
+              itemBuilder: (context, index) {
+                final entry = response.data.entries.toList()[index];
+                final currency = entry.value;
+                //debugPrint('Rendering CurrencyCard for: ${currency.toString()}');
+                return CurrencyCard(
+                  currency: currency,
+                );
+              },
             ),
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: response.data.length,
-            itemBuilder: (context, index) {
-              final entry = response.data.entries.toList()[index];
-              final currency = entry.value;
-              //debugPrint('Rendering CurrencyCard for: ${currency.toString()}');
-              return CurrencyCard(
-                currency: currency,
-              );
-            },
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

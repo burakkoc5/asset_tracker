@@ -55,7 +55,7 @@ class _UserAssetsPieChartState extends State<UserAssetsPieChart> {
                 decoration: BoxDecoration(
                   color: Colors.black87.withOpacity(0.7),
                   borderRadius: Radiuses.sm.all,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black26,
                       blurRadius: 4,

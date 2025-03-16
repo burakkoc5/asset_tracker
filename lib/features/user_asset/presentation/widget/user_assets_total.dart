@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
 import 'package:asset_tracker/features/websocket/domain/currency_names.dart';
+import 'package:intl/intl.dart';
 
 class UserAssetsSummary extends StatelessWidget {
   final List<UserAsset> assets;
@@ -38,19 +39,24 @@ class UserAssetsSummary extends StatelessWidget {
       totalProfitLoss += profitLoss;
     }
 
+    // Format the currency values with thousands separators using the current locale
+    final currentLocale = LocaleSettings.currentLocale.languageCode;
+    final currencyFormatter = NumberFormat('#,##0.00', currentLocale);
+    final formattedTotalValue = currencyFormatter.format(totalCurrentValue);
+    final formattedProfitLoss = currencyFormatter.format(totalProfitLoss);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(t.userAsset.portfolio.totalValue.label,
-            style: TextStyle(color: Colors.grey, fontSize: 12)),
-        Text(
-            "${t.userAsset.portfolio.totalValue.currency}${totalCurrentValue.toStringAsFixed(2)}",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+            style: const TextStyle(color: Colors.grey, fontSize: 12)),
+        Text("${t.userAsset.portfolio.totalValue.currency}$formattedTotalValue",
+            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
         Paddings.xxs.vertical,
         Text(t.userAsset.portfolio.profitLoss,
-            style: TextStyle(color: Colors.grey, fontSize: 12)),
+            style: const TextStyle(color: Colors.grey, fontSize: 12)),
         Text(
-          "${t.userAsset.portfolio.totalValue.currency}${totalProfitLoss.toStringAsFixed(2)}",
+          "${t.userAsset.portfolio.totalValue.currency}$formattedProfitLoss",
           style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,

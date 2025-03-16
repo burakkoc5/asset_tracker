@@ -11,9 +11,6 @@ class AuthGuard extends AutoRouteGuard {
   void onNavigation(NavigationResolver resolver, StackRouter router) {
     final bool isSignedIn =
         _authenticationCubit.state is AuthenticationStateAuthenticated;
-
-    print('AuthGuard: User is signed in: $isSignedIn');
-
     // Check if the user is authenticated
     if (isSignedIn) {
       // If the user is authenticated, continue with navigation

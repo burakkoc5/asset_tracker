@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:asset_tracker/core/utils/currency_utils.dart';
 import 'package:asset_tracker/features/websocket/application/socket_message_type.dart';
 import 'package:asset_tracker/features/websocket/domain/currency.dart';
 import 'package:asset_tracker/features/websocket/domain/meta.dart';
@@ -198,9 +199,9 @@ class SocketCubit extends Cubit<SocketState> {
     } else {
       final filteredData = Map<String, Currency>.from(currentData.data)
         ..removeWhere((key, value) {
-          final name = Currency.currencyNames[key]?.toLowerCase() ?? '';
+          final name = CurrencyUtils.getLocalizedName(key);
           return !key.toLowerCase().contains(_searchQuery) &&
-              !name.contains(_searchQuery);
+              !name.toLowerCase().contains(_searchQuery);
         });
 
       emit(SocketDataReceived(PriceChangedDataModel(

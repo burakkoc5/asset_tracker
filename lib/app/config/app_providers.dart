@@ -2,6 +2,7 @@ import 'package:asset_tracker/core/utils/setup_locator.dart';
 import 'package:asset_tracker/features/auth/application/authentication_cubit.dart';
 import 'package:asset_tracker/features/user_asset/application/user_asset_cubit.dart';
 import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
+import 'package:asset_tracker/features/settings/application/settings_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// AppProviders is a class that provides a list of providers that can be used in the app.
@@ -18,6 +19,9 @@ class AppProviders {
 
       BlocProvider<UserAssetCubit>(
         create: (context) => getIt<UserAssetCubit>(),
+      ),
+      BlocProvider<SettingsCubit>(
+        create: (context) => getIt<SettingsCubit>(),
       ),
       // Other providers can be added here
     ];

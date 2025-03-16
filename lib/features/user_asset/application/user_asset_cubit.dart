@@ -3,6 +3,7 @@ import 'package:asset_tracker/features/auth/application/authentication_state.dar
 import 'package:asset_tracker/features/user_asset/application/user_asset_state.dart';
 import 'package:asset_tracker/features/user_asset/domain/user_asset.dart';
 import 'package:asset_tracker/features/user_asset/infrastructure/user_asset_repository.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:bloc/bloc.dart';
 
 class UserAssetCubit extends Cubit<UserAssetState> {
@@ -15,7 +16,6 @@ class UserAssetCubit extends Cubit<UserAssetState> {
     emit(UserAssetLoading());
     try {
       final assets = await _userAssetRepository.getUserAssets();
-      print('User assets loaded: ${assets.length}');
       emit(UserAssetLoaded(assets));
     } catch (e) {
       emit(UserAssetError(e.toString()));
@@ -25,17 +25,13 @@ class UserAssetCubit extends Cubit<UserAssetState> {
   void createUserAsset(UserAsset asset) async {
     emit(UserAssetLoading());
     String userId = '';
-    print('Checking user authentication state');
     final authenticationState = _authenticationCubit.state;
 
     if (authenticationState is AuthenticationStateAuthenticated) {
-      print('User is authenticated');
       userId = authenticationState.user.uid;
-      print('User ID: $userId');
     } else {
-      // Handle the case where the user is not authenticated.
-      emit(UserAssetError('User is not authenticated'));
-      return; // Exit early if user is not authenticated.
+      emit(UserAssetError(t.core.errors.invalidCredentials));
+      return;
     }
 
     // Ensure asset is updated with the userId
