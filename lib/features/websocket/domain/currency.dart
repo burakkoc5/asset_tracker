@@ -1,9 +1,6 @@
 import 'package:asset_tracker/features/websocket/domain/direction.dart';
-import 'package:asset_tracker/features/websocket/domain/currency_names.dart';
 
 class Currency {
-  static Map<String, String> get currencyNames => CurrencyNames.names;
-
   final String code;
   final String buy;
   final String sell;

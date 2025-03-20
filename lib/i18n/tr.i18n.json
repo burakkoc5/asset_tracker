@@ -18,6 +18,30 @@
       "socketDisconnected": "Bağlantı kesildi. Son alınan veriler gösteriliyor..."
     }
   },
+  "general": {
+    "settings": "Ayarlar",
+    "cancel": "İptal",
+    "confirmLogout": "Çıkış yapmak istediğinizden emin misiniz?",
+    "version": "Versiyon",
+    "developer": "Geliştirici",
+    "goBack": "Geri Dön",
+    "unit": "adet",
+    "units": "adet"
+  },
+  "settings": {
+    "appearance": "Görünüm",
+    "language": "Dil",
+    "about": "Uygulama Hakkında",
+    "account": "Hesap",
+    "systemTheme": "Sistem",
+    "systemThemeDesc": "Cihaz temasını kullan",
+    "lightTheme": "Açık Tema",
+    "lightThemeDesc": "Her zaman açık temayı kullan",
+    "darkTheme": "Koyu Tema",
+    "darkThemeDesc": "Her zaman koyu temayı kullan",
+    "settingsNotAvailable": "Ayarlar Kullanılamıyor",
+    "settingsErrorMessage": "Ayarlarınızı yüklerken bir sorun oluştu. Bu muhtemelen cihaz depolama alanına erişimle ilgili geçici bir sorundur."
+  },
   "socket": {
     "status": {
       "connecting": "Bağlanıyor...",
@@ -163,8 +187,8 @@
   "userAsset": {
     "portfolio": {
       "title": "Varlıklarım",
-      "emptyMessage": "Henüz varlık bulunmuyor",
-      "addAssetHint": "Yeni varlık eklemek için + butonuna tıklayın",
+      "emptyMessage": "Henüz varlık yok",
+      "addAssetHint": "Yeni bir varlık eklemek için + butonuna tıklayın",
       "totalValue": {
         "label": "Portföy Değeri",
         "currency": "₺"
@@ -173,9 +197,20 @@
     },
     "assetDetails": {
       "amount": "Miktar",
-      "purchasePrice": "Alış",
-      "currentPrice": "Güncel",
-      "purchaseDate": "Alış Tarihi"
+      "purchasePrice": "Alış Fiyatı",
+      "currentPrice": "Güncel Fiyat",
+      "purchaseDate": "Alış Tarihi",
+      "currentValue": "Güncel Değer",
+      "edit": "Düzenle",
+      "delete": "Sil",
+      "deleteConfirmTitle": "İşlemi Sil",
+      "deleteConfirmMessage": "Bu işlemi silmek istediğinizden emin misiniz?",
+      "editTransaction": "İşlemi Düzenle",
+      "amountRequired": "Miktar gerekli",
+      "validAmount": "Geçerli bir miktar girin",
+      "priceRequired": "Fiyat gerekli",
+      "validPrice": "Geçerli bir fiyat girin",
+      "save": "Kaydet"
     },
     "addAsset": {
       "title": "Varlık Ekle",
@@ -189,6 +224,12 @@
         "label": "Tarih Seç"
       },
       "errorMessage": "Lütfen tüm alanları doldurun"
+    },
+    "transactions": {
+      "title": "İşlem Geçmişi",
+      "empty": "İşlem bulunamadı",
+      "viewAll": "Tüm İşlemleri Görüntüle",
+      "emptyMessage": "İşlem geçmişiniz burada görüntülenecektir."
     }
   }
 }

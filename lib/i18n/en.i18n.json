@@ -2,8 +2,8 @@
   "core": {
     "appName": "AssetTracker",
     "errors": {
-      "error": "Hata",
-      "tryAgain": "Tekrar dene",
+      "error": "Error",
+      "tryAgain": "Try again",
       "accountExists": "This email address is already in use",
       "invalidCredentials": "Invalid email or password",
       "notFound": "User not found",
@@ -17,6 +17,30 @@
       "maxRetryReached": "Maximum connection attempts reached. Please try again later",
       "socketDisconnected": "Connection lost. Showing last available data..."
     }
+  },
+  "general": {
+    "settings": "Settings",
+    "cancel": "Cancel",
+    "confirmLogout": "Are you sure you want to log out?",
+    "version": "Version",
+    "developer": "Developer",
+    "goBack": "Go Back",
+    "unit": "unit",
+    "units": "units"
+  },
+  "settings": {
+    "appearance": "Appearance",
+    "language": "Language",
+    "about": "About",
+    "account": "Account",
+    "systemTheme": "System",
+    "systemThemeDesc": "Use device theme",
+    "lightTheme": "Light Theme",
+    "lightThemeDesc": "Always use light theme",
+    "darkTheme": "Dark Theme",
+    "darkThemeDesc": "Always use dark theme",
+    "settingsNotAvailable": "Settings Not Available",
+    "settingsErrorMessage": "There was a problem loading your settings. This is likely due to a temporary issue with device storage access."
   },
   "socket": {
     "status": {
@@ -174,7 +198,18 @@
       "amount": "Amount",
       "purchasePrice": "Purchase Price",
       "currentPrice": "Current Price",
-      "purchaseDate": "Purchase Date"
+      "purchaseDate": "Purchase Date",
+      "currentValue": "Current Value",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteConfirmTitle": "Delete Transaction",
+      "deleteConfirmMessage": "Are you sure you want to delete this transaction?",
+      "editTransaction": "Edit Transaction",
+      "amountRequired": "Amount is required",
+      "validAmount": "Enter a valid amount",
+      "priceRequired": "Price is required",
+      "validPrice": "Enter a valid price",
+      "save": "Save"
     },
     "addAsset": {
       "title": "Add Asset",
@@ -188,6 +223,12 @@
         "label": "Select Date"
       },
       "errorMessage": "Please fill all fields"
+    },
+    "transactions": {
+      "title": "Transaction History",
+      "empty": "No transactions found",
+      "viewAll": "View All Transactions",
+      "emptyMessage": "Your transaction history will be displayed here."
     }
   }
 }

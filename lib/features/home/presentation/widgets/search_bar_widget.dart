@@ -1,4 +1,3 @@
-import 'package:asset_tracker/core/theme/app_theme.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/theme/radiuses.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
@@ -14,30 +13,38 @@ class SearchBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
     return Container(
       padding: Paddings.xs.all,
       child: TextField(
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: t.currency.search.hint,
-          prefixIcon: const Icon(Icons.search, color: Colors.grey),
+          prefixIcon: Icon(
+            Icons.search,
+            color: colorScheme.onSurfaceVariant,
+          ),
           border: OutlineInputBorder(
             borderRadius: Radiuses.lg.all,
-            borderSide: const BorderSide(color: Colors.grey),
+            borderSide: BorderSide(color: colorScheme.outline),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: Radiuses.lg.all,
-            borderSide: const BorderSide(color: Colors.grey),
+            borderSide: BorderSide(color: colorScheme.outline),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: Radiuses.lg.all,
-            borderSide: BorderSide(color: Theme.of(context).primaryColor),
+            borderSide: BorderSide(color: colorScheme.primary),
           ),
           filled: true,
-          fillColor: Theme.of(context).extension<CustomAppColors>()?.white,
+          fillColor: colorScheme.surface,
           contentPadding:
               Paddings.xs.symmetric(horizontal: true, vertical: false),
+          hintStyle: TextStyle(color: colorScheme.onSurfaceVariant),
         ),
+        style: TextStyle(color: colorScheme.onSurface),
       ),
     );
   }

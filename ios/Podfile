@@ -4,6 +4,9 @@ platform :ios, '13.0'
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
+# Improve pod install performance
+ENV['COCOAPODS_DISABLE_DETERMINISTIC_UUIDS'] = 'true'
+
 project 'Runner', {
   'Debug' => :debug,
   'Profile' => :release,
@@ -40,5 +43,20 @@ end
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
+    
+    # Speed up build process
+    target.build_configurations.each do |config|
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
+        '$(inherited)',
+        'CLANG_ENABLE_MODULES=YES',
+        'SWIFT_COMPILATION_MODE=wholemodule',
+      ]
+      
+      # Optimize for performance over size in release builds
+      if config.name == 'Release'
+        config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-O'
+        config.build_settings['COMPILER_INDEX_STORE_ENABLE'] = 'NO'
+      end
+    end
   end
 end

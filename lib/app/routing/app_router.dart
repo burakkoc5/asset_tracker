@@ -1,8 +1,4 @@
 import 'package:asset_tracker/app/routing/route_guard.dart';
-import 'package:asset_tracker/core/utils/setup_locator.dart';
-import 'package:asset_tracker/features/auth/application/authentication_cubit.dart';
-import 'package:asset_tracker/features/auth/application/authentication_state.dart';
-import 'package:asset_tracker/features/auth/infrastructure/abstract/authentication_repository.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:asset_tracker/app/routing/app_router.gr.dart'; // Your router file
 
@@ -26,6 +22,14 @@ class AppRouter extends RootStackRouter {
               guards: [AuthGuard()], // Protect this route with the AuthGuard
             ),
           ],
+        ),
+        AutoRoute(
+          page: TransactionHistoryRoute.page,
+          guards: [AuthGuard()], // Protect this route with the AuthGuard
+        ),
+        AutoRoute(
+          page: SettingsRoute.page,
+          guards: [AuthGuard()], // Protect this route with the AuthGuard
         ),
       ];
 }

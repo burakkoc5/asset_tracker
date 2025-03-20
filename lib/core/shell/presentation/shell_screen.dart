@@ -27,7 +27,7 @@ class ShellScreen extends StatelessWidget {
               label: t.home.title,
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_balance),
+                icon: const Icon(Icons.account_balance),
                 label: t.userAsset.portfolio.title),
           ],
         );

@@ -1,12 +1,12 @@
 import 'package:asset_tracker/core/theme/app_theme.dart';
 import 'package:asset_tracker/core/theme/radiuses.dart';
+import 'package:asset_tracker/core/utils/currency_utils.dart';
 import 'package:asset_tracker/features/user_asset/presentation/widget/user_assets_total.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:asset_tracker/features/user_asset/domain/user_asset.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
-import 'package:asset_tracker/features/websocket/domain/currency_names.dart';
 
 class UserAssetsPieChart extends StatefulWidget {
   final List<UserAsset> assets;
@@ -33,10 +33,7 @@ class _UserAssetsPieChartState extends State<UserAssetsPieChart> {
 
     for (int i = 0; i < widget.assets.length; i++) {
       final asset = widget.assets[i];
-      final assetKey = CurrencyNames.names.entries
-          .firstWhere((entry) => entry.value == asset.type,
-              orElse: () => const MapEntry('', ''))
-          .key;
+      final assetKey = CurrencyUtils.getLocalizedName(asset.type);
 
       final currentPrice = livePrices.containsKey(assetKey)
           ? double.tryParse(livePrices[assetKey]!.sell) ?? asset.purchasePrice
@@ -55,7 +52,7 @@ class _UserAssetsPieChartState extends State<UserAssetsPieChart> {
                 decoration: BoxDecoration(
                   color: Colors.black87.withOpacity(0.7),
                   borderRadius: Radiuses.sm.all,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black26,
                       blurRadius: 4,

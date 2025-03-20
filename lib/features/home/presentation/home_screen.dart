@@ -1,6 +1,7 @@
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/features/home/presentation/widgets/search_bar_widget.dart';
-import 'package:asset_tracker/features/user_asset/presentation/widget/add_user_asset.dart';
+import 'package:asset_tracker/features/settings/application/settings_cubit.dart';
+import 'package:asset_tracker/features/settings/domain/app_settings.dart';
 import 'package:asset_tracker/features/websocket/application/socket_cubit.dart';
 import 'package:asset_tracker/features/websocket/presentation/socket_list.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
@@ -21,7 +22,22 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.home.title),
+        title: Builder(
+          // Tekrar kontrol et neden appbar text normalde dil değişikliklerini dinlemiyor
+          builder: (context) {
+            try {
+              return BlocBuilder<SettingsCubit, AppSettings>(
+                buildWhen: (previous, current) =>
+                    previous.locale != current.locale,
+                builder: (context, state) {
+                  return Text(t.home.title);
+                },
+              );
+            } catch (e) {
+              return Text(t.home.title);
+            }
+          },
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -39,7 +55,6 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: buildAddUserAssetButton(context),
     );
   }
 }

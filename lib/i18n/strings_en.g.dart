@@ -38,6 +38,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final TranslationsCoreEn core = TranslationsCoreEn._(_root);
+	late final TranslationsGeneralEn general = TranslationsGeneralEn._(_root);
+	late final TranslationsSettingsEn settings = TranslationsSettingsEn._(_root);
 	late final TranslationsSocketEn socket = TranslationsSocketEn._(_root);
 	late final TranslationsCurrencyEn currency = TranslationsCurrencyEn._(_root);
 	late final TranslationsRegistrationEn registration = TranslationsRegistrationEn._(_root);
@@ -55,6 +57,44 @@ class TranslationsCoreEn {
 	// Translations
 	String get appName => 'AssetTracker';
 	late final TranslationsCoreErrorsEn errors = TranslationsCoreErrorsEn._(_root);
+}
+
+// Path: general
+class TranslationsGeneralEn {
+	TranslationsGeneralEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get settings => 'Settings';
+	String get cancel => 'Cancel';
+	String get confirmLogout => 'Are you sure you want to log out?';
+	String get version => 'Version';
+	String get developer => 'Developer';
+	String get goBack => 'Go Back';
+	String get unit => 'unit';
+	String get units => 'units';
+}
+
+// Path: settings
+class TranslationsSettingsEn {
+	TranslationsSettingsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get appearance => 'Appearance';
+	String get language => 'Language';
+	String get about => 'About';
+	String get account => 'Account';
+	String get systemTheme => 'System';
+	String get systemThemeDesc => 'Use device theme';
+	String get lightTheme => 'Light Theme';
+	String get lightThemeDesc => 'Always use light theme';
+	String get darkTheme => 'Dark Theme';
+	String get darkThemeDesc => 'Always use dark theme';
+	String get settingsNotAvailable => 'Settings Not Available';
+	String get settingsErrorMessage => 'There was a problem loading your settings. This is likely due to a temporary issue with device storage access.';
 }
 
 // Path: socket
@@ -132,6 +172,7 @@ class TranslationsUserAssetEn {
 	late final TranslationsUserAssetPortfolioEn portfolio = TranslationsUserAssetPortfolioEn._(_root);
 	late final TranslationsUserAssetAssetDetailsEn assetDetails = TranslationsUserAssetAssetDetailsEn._(_root);
 	late final TranslationsUserAssetAddAssetEn addAsset = TranslationsUserAssetAddAssetEn._(_root);
+	late final TranslationsUserAssetTransactionsEn transactions = TranslationsUserAssetTransactionsEn._(_root);
 }
 
 // Path: core.errors
@@ -141,8 +182,8 @@ class TranslationsCoreErrorsEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get error => 'Hata';
-	String get tryAgain => 'Tekrar dene';
+	String get error => 'Error';
+	String get tryAgain => 'Try again';
 	String get accountExists => 'This email address is already in use';
 	String get invalidCredentials => 'Invalid email or password';
 	String get notFound => 'User not found';
@@ -396,6 +437,17 @@ class TranslationsUserAssetAssetDetailsEn {
 	String get purchasePrice => 'Purchase Price';
 	String get currentPrice => 'Current Price';
 	String get purchaseDate => 'Purchase Date';
+	String get currentValue => 'Current Value';
+	String get edit => 'Edit';
+	String get delete => 'Delete';
+	String get deleteConfirmTitle => 'Delete Transaction';
+	String get deleteConfirmMessage => 'Are you sure you want to delete this transaction?';
+	String get editTransaction => 'Edit Transaction';
+	String get amountRequired => 'Amount is required';
+	String get validAmount => 'Enter a valid amount';
+	String get priceRequired => 'Price is required';
+	String get validPrice => 'Enter a valid price';
+	String get save => 'Save';
 }
 
 // Path: userAsset.addAsset
@@ -409,6 +461,19 @@ class TranslationsUserAssetAddAssetEn {
 	late final TranslationsUserAssetAddAssetFieldsEn fields = TranslationsUserAssetAddAssetFieldsEn._(_root);
 	late final TranslationsUserAssetAddAssetDatePickerEn datePicker = TranslationsUserAssetAddAssetDatePickerEn._(_root);
 	String get errorMessage => 'Please fill all fields';
+}
+
+// Path: userAsset.transactions
+class TranslationsUserAssetTransactionsEn {
+	TranslationsUserAssetTransactionsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Transaction History';
+	String get empty => 'No transactions found';
+	String get viewAll => 'View All Transactions';
+	String get emptyMessage => 'Your transaction history will be displayed here.';
 }
 
 // Path: userAsset.portfolio.totalValue
@@ -451,8 +516,8 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'core.appName': return 'AssetTracker';
-			case 'core.errors.error': return 'Hata';
-			case 'core.errors.tryAgain': return 'Tekrar dene';
+			case 'core.errors.error': return 'Error';
+			case 'core.errors.tryAgain': return 'Try again';
 			case 'core.errors.accountExists': return 'This email address is already in use';
 			case 'core.errors.invalidCredentials': return 'Invalid email or password';
 			case 'core.errors.notFound': return 'User not found';
@@ -465,6 +530,26 @@ extension on Translations {
 			case 'core.errors.socketConnection': return ({required Object error, required Object current, required Object max}) => 'Connection error: ${error}\nRetrying ${current}/${max}';
 			case 'core.errors.maxRetryReached': return 'Maximum connection attempts reached. Please try again later';
 			case 'core.errors.socketDisconnected': return 'Connection lost. Showing last available data...';
+			case 'general.settings': return 'Settings';
+			case 'general.cancel': return 'Cancel';
+			case 'general.confirmLogout': return 'Are you sure you want to log out?';
+			case 'general.version': return 'Version';
+			case 'general.developer': return 'Developer';
+			case 'general.goBack': return 'Go Back';
+			case 'general.unit': return 'unit';
+			case 'general.units': return 'units';
+			case 'settings.appearance': return 'Appearance';
+			case 'settings.language': return 'Language';
+			case 'settings.about': return 'About';
+			case 'settings.account': return 'Account';
+			case 'settings.systemTheme': return 'System';
+			case 'settings.systemThemeDesc': return 'Use device theme';
+			case 'settings.lightTheme': return 'Light Theme';
+			case 'settings.lightThemeDesc': return 'Always use light theme';
+			case 'settings.darkTheme': return 'Dark Theme';
+			case 'settings.darkThemeDesc': return 'Always use dark theme';
+			case 'settings.settingsNotAvailable': return 'Settings Not Available';
+			case 'settings.settingsErrorMessage': return 'There was a problem loading your settings. This is likely due to a temporary issue with device storage access.';
 			case 'socket.status.connecting': return 'Connecting...';
 			case 'socket.status.connected': return 'Connected';
 			case 'socket.status.disconnected': return 'Disconnected';
@@ -579,6 +664,17 @@ extension on Translations {
 			case 'userAsset.assetDetails.purchasePrice': return 'Purchase Price';
 			case 'userAsset.assetDetails.currentPrice': return 'Current Price';
 			case 'userAsset.assetDetails.purchaseDate': return 'Purchase Date';
+			case 'userAsset.assetDetails.currentValue': return 'Current Value';
+			case 'userAsset.assetDetails.edit': return 'Edit';
+			case 'userAsset.assetDetails.delete': return 'Delete';
+			case 'userAsset.assetDetails.deleteConfirmTitle': return 'Delete Transaction';
+			case 'userAsset.assetDetails.deleteConfirmMessage': return 'Are you sure you want to delete this transaction?';
+			case 'userAsset.assetDetails.editTransaction': return 'Edit Transaction';
+			case 'userAsset.assetDetails.amountRequired': return 'Amount is required';
+			case 'userAsset.assetDetails.validAmount': return 'Enter a valid amount';
+			case 'userAsset.assetDetails.priceRequired': return 'Price is required';
+			case 'userAsset.assetDetails.validPrice': return 'Enter a valid price';
+			case 'userAsset.assetDetails.save': return 'Save';
 			case 'userAsset.addAsset.title': return 'Add Asset';
 			case 'userAsset.addAsset.fields.type': return 'Type';
 			case 'userAsset.addAsset.fields.amount': return 'Amount';
@@ -586,6 +682,10 @@ extension on Translations {
 			case 'userAsset.addAsset.fields.date': return 'Date';
 			case 'userAsset.addAsset.datePicker.label': return 'Select Date';
 			case 'userAsset.addAsset.errorMessage': return 'Please fill all fields';
+			case 'userAsset.transactions.title': return 'Transaction History';
+			case 'userAsset.transactions.empty': return 'No transactions found';
+			case 'userAsset.transactions.viewAll': return 'View All Transactions';
+			case 'userAsset.transactions.emptyMessage': return 'Your transaction history will be displayed here.';
 			default: return null;
 		}
 	}

@@ -1,9 +1,12 @@
-import 'package:asset_tracker/app/constants/app_constants.dart';
 import 'package:asset_tracker/core/theme/app_theme.dart';
 import 'package:asset_tracker/core/theme/paddings.dart';
 import 'package:asset_tracker/core/theme/radiuses.dart';
+import 'package:asset_tracker/core/utils/currency_utils.dart';
+import 'package:asset_tracker/core/utils/date_formatter.dart';
 import 'package:asset_tracker/features/websocket/domain/currency.dart';
-import 'package:asset_tracker/features/websocket/presentation/widgets/detail_row.dart';
+import 'package:asset_tracker/features/websocket/presentation/widgets/currency_icon.dart';
+import 'package:asset_tracker/features/websocket/presentation/widgets/detail_item.dart';
+import 'package:asset_tracker/features/websocket/presentation/widgets/price_item.dart';
 import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
@@ -18,215 +21,292 @@ class CurrencyCard extends StatefulWidget {
 class _CurrencyCardState extends State<CurrencyCard> {
   bool _expanded = false;
 
-  Widget _buildMainInfo(BuildContext context, bool isAlisUp, bool isSatisUp,
-      Color alisColor, Color satisColor) {
-    return Row(
-      children: [
-        Expanded(
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final customColors = Theme.of(context).extension<CustomAppColors>();
+
+    final isAlisUp = widget.currency.dir.buyDirection == 'up';
+    final isSatisUp = widget.currency.dir.sellDirection == 'up';
+    final alisColor = isAlisUp ? customColors?.success : customColors?.error;
+    final satisColor = isSatisUp ? customColors?.success : customColors?.error;
+
+    return Card(
+      margin: Paddings.xxs.symmetric(vertical: true),
+      elevation: 0,
+      color: theme.colorScheme.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: Radiuses.md.all,
+        side: BorderSide(
+          color: theme.colorScheme.outlineVariant.withOpacity(0.5),
+          width: 1,
+        ),
+      ),
+      child: InkWell(
+        borderRadius: Radiuses.md.all,
+        onTap: () {
+          setState(() {
+            _expanded = !_expanded;
+          });
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: 16, vertical: _expanded ? 16 : 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildCurrencyTitle(context),
-              Paddings.xs.vertical,
-              _buildPriceInfo(context, isSatisUp, satisColor),
+              _buildCardHeader(theme, customColors, alisColor, satisColor),
+
+              // Expanded details
+              if (_expanded) ...[
+                const Divider(height: 24),
+                _buildExpandedDetails(
+                    customColors, isAlisUp, isSatisUp, alisColor, satisColor),
+              ] else ...[
+                _buildExpandIndicator(theme),
+              ],
             ],
           ),
         ),
-        _buildBuySellInfo(context, isAlisUp, isSatisUp, alisColor, satisColor),
-        Paddings.xs.horizontal,
-        Icon(
-          _expanded ? Icons.expand_less : Icons.expand_more,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-      ],
-    );
-  }
-
-  Widget _buildCurrencyTitle(BuildContext context) {
-    return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
-      children: [
-        Text(
-          Currency.currencyNames[widget.currency.code] ?? widget.currency.code,
-          style: Theme.of(context).textTheme.titleMedium,
-          overflow: TextOverflow.ellipsis,
-        ),
-        Paddings.xs.horizontal,
-        Text(
-          '(${widget.currency.code})',
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Colors.grey[600],
-              ),
-        ),
-        if (widget.currency.dir.isDown)
-          Icon(Icons.arrow_downward,
-              color: Theme.of(context).extension<CustomAppColors>()?.error,
-              size: AppConstants.iconSizeSmall),
-        if (widget.currency.dir.isUp)
-          Icon(Icons.arrow_upward,
-              color: Theme.of(context).extension<CustomAppColors>()?.success,
-              size: AppConstants.iconSizeSmall),
-      ],
-    );
-  }
-
-  Widget _buildPriceInfo(
-      BuildContext context, bool isSatisUp, Color satisColor) {
-    return Row(
-      children: [
-        Icon(
-          isSatisUp ? Icons.arrow_upward : Icons.arrow_downward,
-          color: satisColor,
-          size: 16,
-        ),
-        Paddings.xxs.horizontal,
-        Text(
-          "₺${widget.currency.sell}",
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                color: satisColor,
-                fontWeight: FontWeight.w500,
-              ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildBuySellInfo(BuildContext context, bool isAlisUp, bool isSatisUp,
-      Color alisColor, Color satisColor) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        _buildPriceRow(context, t.currency.details.buy, widget.currency.buy,
-            isAlisUp, alisColor),
-        Paddings.xxs.vertical,
-        _buildPriceRow(context, t.currency.details.sell, widget.currency.sell,
-            isSatisUp, satisColor),
-      ],
-    );
-  }
-
-  Widget _buildPriceRow(BuildContext context, String label, String value,
-      bool isUp, Color color) {
-    return Row(
-      children: [
-        Text("$label: "),
-        Row(
-          children: [
-            Icon(
-              isUp ? Icons.arrow_upward : Icons.arrow_downward,
-              color: color,
-              size: 12,
-            ),
-            Paddings.xxs.horizontal,
-            Text(
-              "₺$value",
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: color,
-                  ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildExpandedInfo(BuildContext context) {
-    final theme = Theme.of(context);
-    return Container(
-      width: double.infinity,
-      padding: Paddings.md.all,
-      decoration: BoxDecoration(
-          color:
-              theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
-          borderRadius: Radiuses.sm.only(
-            bottomLeft: true,
-            bottomRight: true,
-          )),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          DetailRow(
-            label: t.currency.details.lowest,
-            value: "₺${widget.currency.low}",
-            icon: Icons.arrow_downward,
-            color: Theme.of(context).extension<CustomAppColors>()?.error,
-          ),
-          Paddings.xs.vertical,
-          DetailRow(
-            label: t.currency.details.highest,
-            value: "₺${widget.currency.high}",
-            icon: Icons.arrow_upward,
-            color: Theme.of(context).extension<CustomAppColors>()?.success,
-          ),
-          Paddings.xs.vertical,
-          DetailRow(
-            label: t.currency.details.closing,
-            value: "₺${widget.currency.close}",
-            icon: Icons.schedule,
-          ),
-          Paddings.xs.vertical,
-          DetailRow(
-            label: t.currency.details.lastUpdate,
-            value: widget.currency.date,
-            icon: Icons.update,
-          ),
-        ],
       ),
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final isAlisUp = widget.currency.dir.buyDirection == 'up';
-    final isSatisUp = widget.currency.dir.sellDirection == 'up';
-    final alisColor = isAlisUp
-        ? Theme.of(context).extension<CustomAppColors>()?.success
-        : Theme.of(context).extension<CustomAppColors>()?.error;
-    final satisColor = isSatisUp
-        ? Theme.of(context).extension<CustomAppColors>()?.success
-        : Theme.of(context).extension<CustomAppColors>()?.error;
+  // Kartın üst kısmı (her zaman görünür)
+  Widget _buildCardHeader(ThemeData theme, CustomAppColors? customColors,
+      Color? alisColor, Color? satisColor) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // Para birimi ikonu ve arkaplanı
+        Container(
+          width: 44,
+          height: 44,
+          decoration: BoxDecoration(
+            color: theme.colorScheme.primary.withOpacity(0.1),
+            borderRadius: Radiuses.sm.all,
+          ),
+          child: Center(
+            child: CurrencyIcon(code: widget.currency.code),
+          ),
+        ),
+        Paddings.sm.horizontal,
 
-    return Card(
-      margin: Paddings.xxs.all,
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: Radiuses.sm.all),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).extension<CustomAppColors>()?.white,
-          borderRadius: Radiuses.sm.all,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 1,
-              blurRadius: 3,
-              offset: const Offset(0, 2),
+        // Para birimi adı ve kodu
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Para birimi adı
+              Text(
+                CurrencyUtils.getLocalizedName(widget.currency.code),
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 2),
+              // Para birimi kodu ve fiyatlar
+              _buildCurrencyCodeAndPrices(theme, alisColor, satisColor),
+            ],
+          ),
+        ),
+
+        // Fiyat ve yön göstergesi
+        _buildPriceWithDirection(theme, customColors, satisColor,
+            isSatisUp: widget.currency.dir.sellDirection == 'up'),
+      ],
+    );
+  }
+
+  // Fiyat ve yön göstergesini oluşturur
+  Widget _buildPriceWithDirection(
+      ThemeData theme, CustomAppColors? customColors, Color? priceColor,
+      {required bool isSatisUp}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        // Satış Fiyatı
+        Text(
+          "₺${widget.currency.sell}",
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: priceColor,
+            fontSize: 15,
+          ),
+        ),
+        const SizedBox(height: 2),
+        // Yön rozeti
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+          decoration: BoxDecoration(
+            color: isSatisUp
+                ? customColors?.success.withOpacity(0.1)
+                : customColors?.error.withOpacity(0.1),
+            borderRadius: Radiuses.xxs.all,
+          ),
+          child: Icon(
+            isSatisUp ? Icons.arrow_upward : Icons.arrow_downward,
+            color: priceColor,
+            size: 12,
+          ),
+        ),
+      ],
+    );
+  }
+
+  // Para birimi kodu ve fiyatları gösteren kısım
+  Widget _buildCurrencyCodeAndPrices(
+      ThemeData theme, Color? alisColor, Color? satisColor) {
+    return Row(
+      children: [
+        // Kod veya alış bilgisi
+        Text(
+          _expanded
+              ? widget.currency.code
+              : "${t.currency.details.buy}: ₺${widget.currency.buy}",
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: _expanded
+                ? theme.colorScheme.onSurfaceVariant
+                : theme.colorScheme.onSurface,
+            fontWeight: _expanded ? FontWeight.normal : FontWeight.w500,
+            fontSize: 13,
+          ),
+          overflow: TextOverflow.ellipsis,
+        ),
+        if (!_expanded) ...[
+          // Ayırıcı nokta
+          Container(
+            margin: Paddings.xxs.all,
+            width: 3,
+            height: 3,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: theme.colorScheme.onSurfaceVariant.withOpacity(0.5),
+            ),
+          ),
+          // Satış fiyatı
+          Expanded(
+            child: Text(
+              "${t.currency.details.sell}: ₺${widget.currency.sell}",
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurface,
+                fontWeight: FontWeight.w500,
+                fontSize: 13,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  // Genişlemiş detay kısmı
+  Widget _buildExpandedDetails(CustomAppColors? customColors, bool isAlisUp,
+      bool isSatisUp, Color? alisColor, Color? satisColor) {
+    return Column(
+      children: [
+        // Alış ve Satış Fiyatları
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Alış/Satış Fiyatları
+            Expanded(
+              child: Row(
+                children: [
+                  // Alış Fiyatı
+                  Expanded(
+                    child: PriceItem(
+                      label: t.currency.details.buy,
+                      value: "₺${widget.currency.buy}",
+                      isUp: isAlisUp,
+                      color: alisColor,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  // Satış Fiyatı
+                  Expanded(
+                    child: PriceItem(
+                      label: t.currency.details.sell,
+                      value: "₺${widget.currency.sell}",
+                      isUp: isSatisUp,
+                      color: satisColor,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
-        child: InkWell(
-          borderRadius: Radiuses.sm.all,
-          onTap: () {
-            setState(() {
-              _expanded = !_expanded;
-            });
-          },
-          child: Column(
-            children: [
-              Padding(
-                padding: Paddings.md.all,
-                child: _buildMainInfo(
-                    context, isAlisUp, isSatisUp, alisColor!, satisColor!),
+
+        const SizedBox(height: 16),
+
+        // En Düşük/En Yüksek Fiyatlar
+        Row(
+          children: [
+            // En Düşük Fiyat
+            Expanded(
+              child: DetailItem(
+                icon: Icons.arrow_circle_down_outlined,
+                label: t.currency.details.lowest,
+                value: "₺${widget.currency.low}",
+                valueColor: customColors?.error,
               ),
-              AnimatedSize(
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.easeInOut,
-                child: _expanded
-                    ? _buildExpandedInfo(context)
-                    : const SizedBox.shrink(),
+            ),
+            const SizedBox(width: 16),
+            // En Yüksek Fiyat
+            Expanded(
+              child: DetailItem(
+                icon: Icons.arrow_circle_up_outlined,
+                label: t.currency.details.highest,
+                value: "₺${widget.currency.high}",
+                valueColor: customColors?.success,
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
+
+        const SizedBox(height: 16),
+
+        // Zaman Bilgisi
+        Row(
+          children: [
+            // Kapanış Fiyatı
+            Expanded(
+              child: DetailItem(
+                icon: Icons.schedule,
+                label: t.currency.details.closing,
+                value: "₺${widget.currency.close}",
+              ),
+            ),
+            const SizedBox(width: 16),
+            // Son Güncelleme Zamanı
+            Expanded(
+              child: DetailItem(
+                icon: Icons.update,
+                label: t.currency.details.lastUpdate,
+                value: DateFormatter.formatDateTime(widget.currency.date),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // Genişletme göstergesi
+  Widget _buildExpandIndicator(ThemeData theme) {
+    return Align(
+      alignment: Alignment.center,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: Icon(
+          Icons.keyboard_arrow_down,
+          size: 16,
+          color: theme.colorScheme.primary.withOpacity(0.5),
         ),
       ),
     );

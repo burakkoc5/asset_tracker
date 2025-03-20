@@ -50,20 +50,20 @@ class FormValidators {
 
   static String? amountValidate(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter amount';
+      return t.userAsset.assetDetails.amountRequired;
     }
-    if (double.tryParse(value) == null || double.parse(value) <= 0) {
-      return 'Please enter a valid amount';
+    if (int.tryParse(value) == null) {
+      return t.userAsset.assetDetails.validAmount;
     }
     return null;
   }
 
   static String? priceValidate(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter price';
+      return t.userAsset.assetDetails.priceRequired;
     }
-    if (double.tryParse(value) == null || double.parse(value) <= 0) {
-      return 'Please enter a valid price';
+    if (double.tryParse(value) == null) {
+      return t.userAsset.assetDetails.validPrice;
     }
     return null;
   }

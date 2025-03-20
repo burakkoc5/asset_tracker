@@ -3,11 +3,17 @@ import 'package:asset_tracker/app/config/app_providers.dart';
 import 'package:asset_tracker/app/routing/app_router.dart';
 import 'package:asset_tracker/core/theme/theme.dart';
 import 'package:asset_tracker/core/theme/util.dart';
+import 'package:asset_tracker/features/settings/application/settings_cubit.dart';
+import 'package:asset_tracker/features/settings/domain/app_settings.dart';
+import 'package:asset_tracker/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
+  // Initialize the app
   await AppInit.init();
+
   runApp(MultiBlocProvider(
     providers: AppProviders.getProviders(),
     child: const MyApp(),
@@ -19,21 +25,35 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final brightness = View.of(context).platformDispatcher.platformBrightness;
-    const brightness = Brightness.light;
-    // Retrieves the default theme for the platform
-    //TextTheme textTheme = Theme.of(context).textTheme;
-
-    // Use with Google Fonts package to use downloadable fonts
-    TextTheme textTheme = createTextTheme(context, "Inter", "Inter");
-
-    MaterialTheme theme = MaterialTheme(textTheme);
+    // Get the AppRouter
     final appRouter = AppRouter();
 
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: brightness == Brightness.light ? theme.light() : theme.dark(),
-      routerConfig: appRouter.config(),
+    // Create text theme
+    TextTheme textTheme = createTextTheme(context, "Inter", "Inter");
+
+    // Create theme
+    MaterialTheme theme = MaterialTheme(textTheme);
+
+    return BlocBuilder<SettingsCubit, AppSettings>(
+      builder: (context, settings) {
+        // Set current locale from settings
+        LocaleSettings.setLocale(settings.locale);
+
+        // Wrap with TranslationProvider for proper translation support
+        return TranslationProvider(
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            themeMode: settings.themeMode, // For dark mode
+            theme: theme.light(),
+            darkTheme: theme.dark(),
+            // Apply localization configuration
+            locale: settings.locale.flutterLocale,
+            supportedLocales: AppLocaleUtils.supportedLocales,
+            localizationsDelegates: GlobalMaterialLocalizations.delegates,
+            routerConfig: appRouter.config(),
+          ),
+        );
+      },
     );
   }
 }

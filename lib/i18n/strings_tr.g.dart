@@ -34,6 +34,8 @@ class TranslationsTr implements Translations {
 
 	// Translations
 	@override late final _TranslationsCoreTr core = _TranslationsCoreTr._(_root);
+	@override late final _TranslationsGeneralTr general = _TranslationsGeneralTr._(_root);
+	@override late final _TranslationsSettingsTr settings = _TranslationsSettingsTr._(_root);
 	@override late final _TranslationsSocketTr socket = _TranslationsSocketTr._(_root);
 	@override late final _TranslationsCurrencyTr currency = _TranslationsCurrencyTr._(_root);
 	@override late final _TranslationsRegistrationTr registration = _TranslationsRegistrationTr._(_root);
@@ -51,6 +53,44 @@ class _TranslationsCoreTr implements TranslationsCoreEn {
 	// Translations
 	@override String get appName => 'AssetTracker';
 	@override late final _TranslationsCoreErrorsTr errors = _TranslationsCoreErrorsTr._(_root);
+}
+
+// Path: general
+class _TranslationsGeneralTr implements TranslationsGeneralEn {
+	_TranslationsGeneralTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get settings => 'Ayarlar';
+	@override String get cancel => 'İptal';
+	@override String get confirmLogout => 'Çıkış yapmak istediğinizden emin misiniz?';
+	@override String get version => 'Versiyon';
+	@override String get developer => 'Geliştirici';
+	@override String get goBack => 'Geri Dön';
+	@override String get unit => 'adet';
+	@override String get units => 'adet';
+}
+
+// Path: settings
+class _TranslationsSettingsTr implements TranslationsSettingsEn {
+	_TranslationsSettingsTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get appearance => 'Görünüm';
+	@override String get language => 'Dil';
+	@override String get about => 'Uygulama Hakkında';
+	@override String get account => 'Hesap';
+	@override String get systemTheme => 'Sistem';
+	@override String get systemThemeDesc => 'Cihaz temasını kullan';
+	@override String get lightTheme => 'Açık Tema';
+	@override String get lightThemeDesc => 'Her zaman açık temayı kullan';
+	@override String get darkTheme => 'Koyu Tema';
+	@override String get darkThemeDesc => 'Her zaman koyu temayı kullan';
+	@override String get settingsNotAvailable => 'Ayarlar Kullanılamıyor';
+	@override String get settingsErrorMessage => 'Ayarlarınızı yüklerken bir sorun oluştu. Bu muhtemelen cihaz depolama alanına erişimle ilgili geçici bir sorundur.';
 }
 
 // Path: socket
@@ -128,6 +168,7 @@ class _TranslationsUserAssetTr implements TranslationsUserAssetEn {
 	@override late final _TranslationsUserAssetPortfolioTr portfolio = _TranslationsUserAssetPortfolioTr._(_root);
 	@override late final _TranslationsUserAssetAssetDetailsTr assetDetails = _TranslationsUserAssetAssetDetailsTr._(_root);
 	@override late final _TranslationsUserAssetAddAssetTr addAsset = _TranslationsUserAssetAddAssetTr._(_root);
+	@override late final _TranslationsUserAssetTransactionsTr transactions = _TranslationsUserAssetTransactionsTr._(_root);
 }
 
 // Path: core.errors
@@ -375,8 +416,8 @@ class _TranslationsUserAssetPortfolioTr implements TranslationsUserAssetPortfoli
 
 	// Translations
 	@override String get title => 'Varlıklarım';
-	@override String get emptyMessage => 'Henüz varlık bulunmuyor';
-	@override String get addAssetHint => 'Yeni varlık eklemek için + butonuna tıklayın';
+	@override String get emptyMessage => 'Henüz varlık yok';
+	@override String get addAssetHint => 'Yeni bir varlık eklemek için + butonuna tıklayın';
 	@override late final _TranslationsUserAssetPortfolioTotalValueTr totalValue = _TranslationsUserAssetPortfolioTotalValueTr._(_root);
 	@override String get profitLoss => 'Kâr/Zarar';
 }
@@ -389,9 +430,20 @@ class _TranslationsUserAssetAssetDetailsTr implements TranslationsUserAssetAsset
 
 	// Translations
 	@override String get amount => 'Miktar';
-	@override String get purchasePrice => 'Alış';
-	@override String get currentPrice => 'Güncel';
+	@override String get purchasePrice => 'Alış Fiyatı';
+	@override String get currentPrice => 'Güncel Fiyat';
 	@override String get purchaseDate => 'Alış Tarihi';
+	@override String get currentValue => 'Güncel Değer';
+	@override String get edit => 'Düzenle';
+	@override String get delete => 'Sil';
+	@override String get deleteConfirmTitle => 'İşlemi Sil';
+	@override String get deleteConfirmMessage => 'Bu işlemi silmek istediğinizden emin misiniz?';
+	@override String get editTransaction => 'İşlemi Düzenle';
+	@override String get amountRequired => 'Miktar gerekli';
+	@override String get validAmount => 'Geçerli bir miktar girin';
+	@override String get priceRequired => 'Fiyat gerekli';
+	@override String get validPrice => 'Geçerli bir fiyat girin';
+	@override String get save => 'Kaydet';
 }
 
 // Path: userAsset.addAsset
@@ -405,6 +457,19 @@ class _TranslationsUserAssetAddAssetTr implements TranslationsUserAssetAddAssetE
 	@override late final _TranslationsUserAssetAddAssetFieldsTr fields = _TranslationsUserAssetAddAssetFieldsTr._(_root);
 	@override late final _TranslationsUserAssetAddAssetDatePickerTr datePicker = _TranslationsUserAssetAddAssetDatePickerTr._(_root);
 	@override String get errorMessage => 'Lütfen tüm alanları doldurun';
+}
+
+// Path: userAsset.transactions
+class _TranslationsUserAssetTransactionsTr implements TranslationsUserAssetTransactionsEn {
+	_TranslationsUserAssetTransactionsTr._(this._root);
+
+	final TranslationsTr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'İşlem Geçmişi';
+	@override String get empty => 'İşlem bulunamadı';
+	@override String get viewAll => 'Tüm İşlemleri Görüntüle';
+	@override String get emptyMessage => 'İşlem geçmişiniz burada görüntülenecektir.';
 }
 
 // Path: userAsset.portfolio.totalValue
@@ -461,6 +526,26 @@ extension on TranslationsTr {
 			case 'core.errors.socketConnection': return ({required Object error, required Object current, required Object max}) => 'Bağlantı hatası: ${error}\nYeniden deneme ${current}/${max}';
 			case 'core.errors.maxRetryReached': return 'Maksimum bağlantı deneme sayısına ulaşıldı. Lütfen daha sonra tekrar deneyin';
 			case 'core.errors.socketDisconnected': return 'Bağlantı kesildi. Son alınan veriler gösteriliyor...';
+			case 'general.settings': return 'Ayarlar';
+			case 'general.cancel': return 'İptal';
+			case 'general.confirmLogout': return 'Çıkış yapmak istediğinizden emin misiniz?';
+			case 'general.version': return 'Versiyon';
+			case 'general.developer': return 'Geliştirici';
+			case 'general.goBack': return 'Geri Dön';
+			case 'general.unit': return 'adet';
+			case 'general.units': return 'adet';
+			case 'settings.appearance': return 'Görünüm';
+			case 'settings.language': return 'Dil';
+			case 'settings.about': return 'Uygulama Hakkında';
+			case 'settings.account': return 'Hesap';
+			case 'settings.systemTheme': return 'Sistem';
+			case 'settings.systemThemeDesc': return 'Cihaz temasını kullan';
+			case 'settings.lightTheme': return 'Açık Tema';
+			case 'settings.lightThemeDesc': return 'Her zaman açık temayı kullan';
+			case 'settings.darkTheme': return 'Koyu Tema';
+			case 'settings.darkThemeDesc': return 'Her zaman koyu temayı kullan';
+			case 'settings.settingsNotAvailable': return 'Ayarlar Kullanılamıyor';
+			case 'settings.settingsErrorMessage': return 'Ayarlarınızı yüklerken bir sorun oluştu. Bu muhtemelen cihaz depolama alanına erişimle ilgili geçici bir sorundur.';
 			case 'socket.status.connecting': return 'Bağlanıyor...';
 			case 'socket.status.connected': return 'Bağlandı';
 			case 'socket.status.disconnected': return 'Bağlantı Kesildi';
@@ -566,15 +651,26 @@ extension on TranslationsTr {
 			case 'home.connected': return 'Bağlantı Kuruldu';
 			case 'profile.title': return 'Profil';
 			case 'userAsset.portfolio.title': return 'Varlıklarım';
-			case 'userAsset.portfolio.emptyMessage': return 'Henüz varlık bulunmuyor';
-			case 'userAsset.portfolio.addAssetHint': return 'Yeni varlık eklemek için + butonuna tıklayın';
+			case 'userAsset.portfolio.emptyMessage': return 'Henüz varlık yok';
+			case 'userAsset.portfolio.addAssetHint': return 'Yeni bir varlık eklemek için + butonuna tıklayın';
 			case 'userAsset.portfolio.totalValue.label': return 'Portföy Değeri';
 			case 'userAsset.portfolio.totalValue.currency': return '₺';
 			case 'userAsset.portfolio.profitLoss': return 'Kâr/Zarar';
 			case 'userAsset.assetDetails.amount': return 'Miktar';
-			case 'userAsset.assetDetails.purchasePrice': return 'Alış';
-			case 'userAsset.assetDetails.currentPrice': return 'Güncel';
+			case 'userAsset.assetDetails.purchasePrice': return 'Alış Fiyatı';
+			case 'userAsset.assetDetails.currentPrice': return 'Güncel Fiyat';
 			case 'userAsset.assetDetails.purchaseDate': return 'Alış Tarihi';
+			case 'userAsset.assetDetails.currentValue': return 'Güncel Değer';
+			case 'userAsset.assetDetails.edit': return 'Düzenle';
+			case 'userAsset.assetDetails.delete': return 'Sil';
+			case 'userAsset.assetDetails.deleteConfirmTitle': return 'İşlemi Sil';
+			case 'userAsset.assetDetails.deleteConfirmMessage': return 'Bu işlemi silmek istediğinizden emin misiniz?';
+			case 'userAsset.assetDetails.editTransaction': return 'İşlemi Düzenle';
+			case 'userAsset.assetDetails.amountRequired': return 'Miktar gerekli';
+			case 'userAsset.assetDetails.validAmount': return 'Geçerli bir miktar girin';
+			case 'userAsset.assetDetails.priceRequired': return 'Fiyat gerekli';
+			case 'userAsset.assetDetails.validPrice': return 'Geçerli bir fiyat girin';
+			case 'userAsset.assetDetails.save': return 'Kaydet';
 			case 'userAsset.addAsset.title': return 'Varlık Ekle';
 			case 'userAsset.addAsset.fields.type': return 'Tür';
 			case 'userAsset.addAsset.fields.amount': return 'Miktar';
@@ -582,6 +678,10 @@ extension on TranslationsTr {
 			case 'userAsset.addAsset.fields.date': return 'Tarih';
 			case 'userAsset.addAsset.datePicker.label': return 'Tarih Seç';
 			case 'userAsset.addAsset.errorMessage': return 'Lütfen tüm alanları doldurun';
+			case 'userAsset.transactions.title': return 'İşlem Geçmişi';
+			case 'userAsset.transactions.empty': return 'İşlem bulunamadı';
+			case 'userAsset.transactions.viewAll': return 'Tüm İşlemleri Görüntüle';
+			case 'userAsset.transactions.emptyMessage': return 'İşlem geçmişiniz burada görüntülenecektir.';
 			default: return null;
 		}
 	}
